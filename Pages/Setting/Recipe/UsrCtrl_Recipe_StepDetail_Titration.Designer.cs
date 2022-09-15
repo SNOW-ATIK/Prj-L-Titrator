@@ -668,8 +668,8 @@ namespace L_Titrator_Alpha.Pages
             this.CmpVal_Offset.Size = new System.Drawing.Size(158, 56);
             this.CmpVal_Offset.SplitterDistance = 27;
             this.CmpVal_Offset.TabIndex = 3;
-            this.CmpVal_Offset.UseKeyPadUI = false;
-            this.CmpVal_Offset.UseUserKeyPad = false;
+            this.CmpVal_Offset.UseKeyPadUI = true;
+            this.CmpVal_Offset.UseUserKeyPad = true;
             // 
             // CmpCol_Syringe
             // 
