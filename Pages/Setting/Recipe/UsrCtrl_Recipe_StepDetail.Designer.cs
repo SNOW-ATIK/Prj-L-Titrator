@@ -123,7 +123,7 @@ namespace L_Titrator_Alpha.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 228F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.CmpVal_StepName, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 1, 0);
@@ -153,7 +153,7 @@ namespace L_Titrator_Alpha.Pages
             this.CmpVal_StepName.Prm_Name = "Name";
             this.CmpVal_StepName.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
             this.CmpVal_StepName.Prm_Value = "";
-            this.CmpVal_StepName.Size = new System.Drawing.Size(226, 54);
+            this.CmpVal_StepName.Size = new System.Drawing.Size(298, 54);
             this.CmpVal_StepName.SplitterDistance = 25;
             this.CmpVal_StepName.TabIndex = 2;
             this.CmpVal_StepName.UseKeyPadUI = true;
@@ -169,12 +169,12 @@ namespace L_Titrator_Alpha.Pages
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.Controls.Add(this.CmpCol_IsTitration, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.CmpCol_StepEnabled, 0, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(228, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(300, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(316, 56);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(244, 56);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // CmpCol_IsTitration
@@ -187,7 +187,7 @@ namespace L_Titrator_Alpha.Pages
             this.CmpCol_IsTitration.Color_Value = System.Drawing.SystemColors.Window;
             this.CmpCol_IsTitration.Enabled = false;
             this.CmpCol_IsTitration.GenParam = null;
-            this.CmpCol_IsTitration.Location = new System.Drawing.Point(159, 1);
+            this.CmpCol_IsTitration.Location = new System.Drawing.Point(123, 1);
             this.CmpCol_IsTitration.Margin = new System.Windows.Forms.Padding(1);
             this.CmpCol_IsTitration.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpCol_IsTitration.MinimumSize = new System.Drawing.Size(30, 49);
@@ -196,7 +196,7 @@ namespace L_Titrator_Alpha.Pages
             this.CmpCol_IsTitration.Prm_Name = "Titration";
             this.CmpCol_IsTitration.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
             this.CmpCol_IsTitration.Prm_Value = null;
-            this.CmpCol_IsTitration.Size = new System.Drawing.Size(156, 54);
+            this.CmpCol_IsTitration.Size = new System.Drawing.Size(120, 54);
             this.CmpCol_IsTitration.SplitterDistance = 24;
             this.CmpCol_IsTitration.TabIndex = 1;
             // 
@@ -218,7 +218,7 @@ namespace L_Titrator_Alpha.Pages
             this.CmpCol_StepEnabled.Prm_Name = "Enabled";
             this.CmpCol_StepEnabled.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
             this.CmpCol_StepEnabled.Prm_Value = null;
-            this.CmpCol_StepEnabled.Size = new System.Drawing.Size(156, 54);
+            this.CmpCol_StepEnabled.Size = new System.Drawing.Size(120, 54);
             this.CmpCol_StepEnabled.SplitterDistance = 24;
             this.CmpCol_StepEnabled.TabIndex = 1;
             // 

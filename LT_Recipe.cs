@@ -197,6 +197,13 @@ namespace L_Titrator_Alpha
                 Sequence loaded = (Sequence)xmlSerializer.Deserialize(sr);
                 if (loaded != null)
                 {
+                    if (loaded.Steps?.Count > 0)
+                    {
+                        if (loaded.Steps[0].IsTitration == true)
+                        {
+                            loaded.Steps[0].TitrationRef = new TitrationRef();
+                        }
+                    }
                     PreDefinedSeqDic.Add(loaded.Name, loaded);
                 }
                 sr.Close();

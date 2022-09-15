@@ -360,7 +360,7 @@ namespace L_Titrator_Alpha
         [XmlElement("StepEndCheck")]
         public StepEndCheck StepEndCheck;
 
-        public TitrationRef TitrationRef;
+        public TitrationRef TitrationRef = new TitrationRef();
 
         public bool Control_Valve
         {

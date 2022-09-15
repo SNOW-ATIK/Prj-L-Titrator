@@ -139,6 +139,7 @@ namespace L_Titrator_Alpha.Pages
                 switch (cmpVal.Prm_Name)
                 {
                     case "Reference File":
+                        RefStep.TitrationRefFileName = sKeyPad.NewValue;
                         break;
 
                     case "Sample":
