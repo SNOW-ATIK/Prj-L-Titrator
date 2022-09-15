@@ -93,6 +93,16 @@ namespace L_Titrator_Alpha.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap L_TItrator_Fluidics {
+            get {
+                object obj = ResourceManager.GetObject("L_TItrator_Fluidics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Run32 {
             get {
                 object obj = ResourceManager.GetObject("Run32", resourceCulture);

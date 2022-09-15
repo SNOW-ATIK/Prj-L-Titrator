@@ -26,21 +26,8 @@ namespace L_Titrator_Alpha.Controls
             tmr_CheckFluidics.Tick += Tmr_CheckFluidics_Tick;
         }
 
-        public void Init()
-        {
-            if (this.BackgroundImage == null)
-            {
-                this.BackgroundImage = Image.FromFile(@"Resource\Image\Fluidics\L-Titrator\L_TItrator_Fluidics.bmp");
-            }
-        }
-
         public void EnableFluidicsUpdate(bool enb)
         {
-            if (this.BackgroundImage == null)
-            {
-                this.BackgroundImage = Image.FromFile(@"Resource\Image\Fluidics\L-Titrator\L_TItrator_Fluidics.bmp");
-            }
-
             if (ATIK_MainBoard.IsInitialized(DefinedMainBoards.L_Titrator) == false)
             {
                 tmr_CheckFluidics.Enabled = false;

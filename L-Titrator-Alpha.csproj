@@ -283,6 +283,9 @@
     <Compile Include="UserControl\UsrCtrl_TitrationGraph.Designer.cs">
       <DependentUpon>UsrCtrl_TitrationGraph.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Pages\Main\Page_Main.resx">
+      <DependentUpon>Page_Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Setting\Recipe\SubPage_Recipe_Process.resx">
       <DependentUpon>SubPage_Recipe_Process.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,9 +365,6 @@
     <EmbeddedResource Include="Pages\LifeTime\Page_LifeTime.resx">
       <DependentUpon>Page_LifeTime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Main\Page_Main.resx">
-      <DependentUpon>Page_Main.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Setting\Page_Setting.resx">
       <DependentUpon>Page_Setting.cs</DependentUpon>
     </EmbeddedResource>
@@ -443,6 +443,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cancel_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\L_TItrator_Fluidics.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
