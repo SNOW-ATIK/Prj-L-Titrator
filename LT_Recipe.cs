@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 using ATIK.Device.ATIK_MainBoard;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     public class LT_Recipe
     {

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 using ATIK;
 using ATIK.Device.ATIK_MainBoard;
-using L_Titrator_Alpha.Controls;
+using L_Titrator.Controls;
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     public partial class UsrCtrl_Recipe_StepDetail_Control : UserControl
     {
@@ -561,78 +561,6 @@ namespace L_Titrator_Alpha.Pages
             cmpVal.Width = width;
             cmpVal.UseKeyPadUI = true;
             return cmpVal;
-        }
-
-        private void StepEndCheckInThisStep_SelectedUserItemChangedEvent(object sender, object changedValue)
-        {
-            RefStep.EndCheckInThisStep = (bool)changedValue;
-        }
-
-        private void StepEnd_EnabledChangedEvent(object sender, object changedValue)
-        {
-            PrmCmp_Collection cmpCol = (PrmCmp_Collection)sender;
-            bool bEnb = (bool)changedValue;
-            if (cmpCol == CmpCol_StepEndEnabled_TimeDelay)
-            {
-                int time_sec = 0;
-                if (bEnb == true)
-                {
-                    if (RefStep.StepEndCheck.TimeDelay.Time == 0)
-                    {
-                        time_sec = 1;
-                    }
-                }
-
-                CmpVal_StepEndValue_TimeDelay.Prm_Value = time_sec;
-
-                RefStep.StepEndCheck.TimeDelay.Enabled = bEnb;
-                RefStep.StepEndCheck.TimeDelay.Time = time_sec;
-            }
-            else if (cmpCol == CmpCol_StepEndEnabled_Sensor)
-            {
-                if (bEnb == true)
-                {
-                    if (CmpCol_StepEndValues_Sensor.Prm_Value == null)
-                    {
-                        if (string.IsNullOrEmpty(RefStep.StepEndCheck.SensorDetect.SensorNames) == false)
-                        {
-                            CmpCol_StepEndValues_Sensor.Prm_Value = RefStep.StepEndCheck.SensorDetect.SensorNames;
-                        }
-                        else
-                        {
-                            CmpCol_StepEndValues_Sensor.Prm_Value = CmpCol_StepEndValues_Sensor.Get_Collection()?[0];
-                        }
-                    }
-                }
-                else
-                {
-                    CmpCol_StepEndValues_Sensor.Prm_Value = null;
-                }
-
-                RefStep.StepEndCheck.SensorDetect.Enabled = bEnb;
-                RefStep.StepEndCheck.SensorDetect.SensorNames = (string)CmpCol_StepEndValues_Sensor.Prm_Value;
-            }
-            else if (cmpCol == CmpCol_StepEndEnabled_Syringe)
-            {
-                RefStep.StepEndCheck.PositionSync.Enabled = bEnb;
-            }
-        }
-
-        private void StepEnd_TimeDelay_ValueChangedEvent(object sender, object oldValue, object newValue)
-        {
-            RefStep.StepEndCheck.TimeDelay.Time = Convert.ToInt32(newValue);
-        }
-
-        private void StepEnd_Sensor_SelectedUserItemChangedEvent(object sender, object changedValue)
-        {
-            RefStep.StepEndCheck.SensorDetect.SensorNames = (string)changedValue;
-        }
-
-        private void UsrCtrl_Recipe_StepDetail_Control_Resize(object sender, EventArgs e)
-        {
-            pnl_Solenoids.Controls.OfType<UserControl>().ToList().ForEach(ctrl => ctrl.Width = pnl_Solenoids.Width - 2);
-            pnl_Mixer.Controls.OfType<UserControl>().ToList().ForEach(ctrl => ctrl.Width = pnl_Mixer.Width - 2);
-            pnl_StepEndInfo.Controls.OfType<UserControl>().ToList().ForEach(ctrl => ctrl.Width = pnl_StepEndInfo.Width - 2);
         }
     }
 }

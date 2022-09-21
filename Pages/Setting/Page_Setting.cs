@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     public partial class Page_Setting : UserControl, IPage
     {

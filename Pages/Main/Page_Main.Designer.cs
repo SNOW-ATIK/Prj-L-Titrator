@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     partial class Page_Main
     {
@@ -34,13 +34,13 @@ namespace L_Titrator_Alpha.Pages
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_MeasureResults = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_MeasResult4 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult4 = new L_Titrator_Alpha.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult4 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult3 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult3 = new L_Titrator_Alpha.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult3 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult2 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult2 = new L_Titrator_Alpha.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult2 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult1 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult1 = new L_Titrator_Alpha.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult1 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.tbl_CenterView = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_SelectCenterSubject = new System.Windows.Forms.TableLayoutPanel();
             this.chk_ShowBoth = new System.Windows.Forms.CheckBox();
@@ -48,15 +48,15 @@ namespace L_Titrator_Alpha.Pages
             this.chk_ShowFluidics = new System.Windows.Forms.CheckBox();
             this.tbl_CenterSubjectView = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_TitrateGraph = new System.Windows.Forms.Panel();
-            this.usrCtrl_TitrationGraph1 = new L_Titrator_Alpha.Controls.UsrCtrl_TitrationGraph();
+            this.usrCtrl_TitrationGraph1 = new L_Titrator.Controls.UsrCtrl_TitrationGraph();
             this.pnl_Fluidics = new System.Windows.Forms.Panel();
-            this.usrCtrl_Fluidics_Small1 = new L_Titrator_Alpha.Controls.UsrCtrl_Fluidics_Small();
+            this.usrCtrl_Fluidics_Small1 = new L_Titrator.Controls.UsrCtrl_Fluidics_Small();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.usrCtrl_MeasureStatus1 = new L_Titrator_Alpha.Controls.UsrCtrl_MeasureStatus();
+            this.usrCtrl_MeasureStatus1 = new L_Titrator.Controls.UsrCtrl_MeasureStatus();
             this.chk_ExpandMeasureStatus = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.usrCtrl_Status1 = new L_Titrator_Alpha.Controls.UsrCtrl_Status();
+            this.usrCtrl_Status1 = new L_Titrator.Controls.UsrCtrl_Status();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Measure = new System.Windows.Forms.Button();
             this.lbl_MeasureTarget = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@ namespace L_Titrator_Alpha.Pages
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.chk_OnlineMode = new System.Windows.Forms.CheckBox();
-            this.usrCtrl_SeqStepInfo = new L_Titrator_Alpha.Controls.UsrCtrl_SeqStepInfo();
+            this.usrCtrl_SeqStepInfo = new L_Titrator.Controls.UsrCtrl_SeqStepInfo();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbl_MeasureResults.SuspendLayout();

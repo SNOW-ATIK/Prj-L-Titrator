@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     partial class Frm_Main
     {
@@ -44,9 +44,9 @@ namespace L_Titrator_Alpha
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Minimize = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.usrCtrl_Login1 = new L_Titrator_Alpha.Controls.UsrCtrl_Login();
-            this.usrCtrl_Status1 = new L_Titrator_Alpha.Controls.UsrCtrl_State();
-            this.usrCtrl_Light1 = new L_Titrator_Alpha.Controls.UsrCtrl_Light();
+            this.usrCtrl_Login1 = new L_Titrator.Controls.UsrCtrl_Login();
+            this.usrCtrl_Status1 = new L_Titrator.Controls.UsrCtrl_State();
+            this.usrCtrl_Light1 = new L_Titrator.Controls.UsrCtrl_Light();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8561802B-FB33-47C0-869E-C91FDC3F274B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>L_Titrator_Alpha</RootNamespace>
-    <AssemblyName>L-Titrator-Alpha</AssemblyName>
+    <RootNamespace>L_Titrator</RootNamespace>
+    <AssemblyName>L-Titrator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

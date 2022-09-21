@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     partial class Page_Data
     {
@@ -128,7 +128,7 @@ namespace L_Titrator_Alpha.Pages
             this.col_EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_RecipeInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usrCtrl_TitrationGraph1 = new L_Titrator_Alpha.Controls.UsrCtrl_TitrationGraph();
+            this.usrCtrl_TitrationGraph1 = new L_Titrator.Controls.UsrCtrl_TitrationGraph();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.cmb_TitrationList = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();

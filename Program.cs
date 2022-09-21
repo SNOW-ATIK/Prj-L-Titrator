@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     static class Program
     {

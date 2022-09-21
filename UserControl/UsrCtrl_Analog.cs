@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 
-namespace L_Titrator_Alpha.Controls
+namespace L_Titrator.Controls
 {
     public partial class UsrCtrl_Analog : UserControl
     {

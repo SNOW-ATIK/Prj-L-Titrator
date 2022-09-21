@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     interface IPage
     {

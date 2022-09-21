@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L-Titrator-Alpha", "L-Titrator-Alpha.csproj", "{8561802B-FB33-47C0-869E-C91FDC3F274B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L-Titrator", "L-Titrator.csproj", "{8561802B-FB33-47C0-869E-C91FDC3F274B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATIK.Common", "..\ATIKLibrary\ATIK.Common\ATIK.Common.csproj", "{E85E5E75-E8C6-4621-9D1D-EE34D24E285F}"
 EndProject

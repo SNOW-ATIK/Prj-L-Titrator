@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Controls
+namespace L_Titrator.Controls
 {
     partial class UsrCtrl_Fluidics_Small
     {
@@ -221,7 +221,7 @@ namespace L_Titrator_Alpha.Controls
             // UsrCtrl_Fluidics_Small
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = global::L_Titrator_Alpha.Properties.Resources.L_TItrator_Fluidics;
+            this.BackgroundImage = global::L_Titrator.Properties.Resources.L_TItrator_Fluidics;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.CmpVessel);
             this.Controls.Add(this.CmpSyringe1_Head);

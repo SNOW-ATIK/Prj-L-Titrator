@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     public class FluidicsControl
     {
@@ -70,6 +70,9 @@ namespace L_Titrator_Alpha
             private static Stopwatch TimeCheck = new Stopwatch();
             public static bool IsTimerRunning { get { return TimeCheck.IsRunning; } }
             public static int TimeElapsed_ms { get { return (int)TimeCheck.ElapsedMilliseconds; } }
+
+            public const int PEndCheckMax = 3;
+            public static int PEndCheckCnt = 0;
 
             public static void Init(int rcpNo)
             {
@@ -461,9 +464,31 @@ namespace L_Titrator_Alpha
                     //Log.WriteLog("Result", $"> Check Volume Validity (IsValid={syringeRtn.IsValid}, Volume={syringeRtn.Volume_mL}mL)");
                     if (syringeRtn.IsValid == true)
                     {
+                        bool bPEnd = false;
                         int nRtn = syringeRtn.Volume_Raw;
                         int nTgt = TtrAssist.TargetSyringePos_Digit;
-                        if (nRtn == nTgt)
+                        bool bCompare = Util.PEnd_Raw(nRtn, nTgt, SyringeElem.PositionEndBandwidth, SyringeElem.ScaleFactor);
+                        if (bCompare == true)
+                        {
+                            if (SeqAssist.PEndCheckCnt == SeqAssist.PEndCheckMax)
+                            {
+                                SeqAssist.PEndCheckCnt = 0;
+                                bPEnd = true;
+                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Complete.");
+                            }
+                            else
+                            {
+                                if (nRtn != nTgt)
+                                {
+                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: {SyringeElem.LogicalName}> Current={nRtn}, Target={nTgt}");
+                                }
+                                ++SeqAssist.PEndCheckCnt;
+
+                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Wait {SeqAssist.PEndCheckCnt}/{SeqAssist.PEndCheckMax} to check position again.");
+                            }
+                        }
+
+                        if (bPEnd == true)
                         {
                             if (TtrAssist.Flag_RefillSyringe == true)
                             {
@@ -625,6 +650,18 @@ namespace L_Titrator_Alpha
                 var rtn = elem.Get_Volume_Raw();
                 if (rtn.IsValid == true)
                 {
+                    //double tgt_Vol_mL = syringe.Get_Volume_mL();
+                    //int tgt_Vol_Raw = (int)(tgt_Vol_mL * elem.ScaleFactor);
+                    //bool bCompare = Util.PEnd_Raw(rtn.Volume_Raw, tgt_Vol_Raw, elem.PositionEndBandwidth, elem.ScaleFactor);
+                    //if (bCompare == true)
+                    //{
+                    //    syringe.Set_TargetVolume_Raw(tgt_Vol_Raw);
+                    //    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, No need to run. (Cur={rtn.Volume_Raw}, Tgt={tgt_Vol_Raw})");
+                    //}
+                    //else
+                    //{
+                    //}
+
                     int maxVol = elem.MaxVolume_Raw;
                     int curVol_Abs = rtn.Volume_Raw;
                     int tgtVol_Abs = 0;
@@ -654,9 +691,16 @@ namespace L_Titrator_Alpha
                     }
                     syringe.Set_TargetVolume_Raw(tgtVol_Abs);
 
-                    elem.Run_Raw(syringe.Get_Flow(), syringe.Get_Direction(), injVol, syringe.Get_Speed(), false);
-
-                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, SetCondition={syringe.Get_Direction()},{syringe.Get_Speed()},{injVol}(CurAbs={curVol_Abs / elem.ScaleFactor},Inj={injVol / elem.ScaleFactor},TgtAbs={tgtVol_Abs / elem.ScaleFactor},Condition={syringe.Get_Volume_mL()})");
+                    bool bCompare = Util.PEnd_Raw(rtn.Volume_Raw, tgtVol_Abs, elem.PositionEndBandwidth, elem.ScaleFactor);
+                    if (bCompare == true)
+                    {
+                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, No need to run. (Cur={rtn.Volume_Raw}, Tgt={tgtVol_Abs})");
+                    }
+                    else
+                    {
+                        elem.Run_Raw(syringe.Get_Flow(), syringe.Get_Direction(), injVol, syringe.Get_Speed(), false);
+                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, SetCondition={syringe.Get_Direction()},{syringe.Get_Speed()},{injVol}(CurAbs={curVol_Abs / elem.ScaleFactor},Inj={injVol / elem.ScaleFactor},TgtAbs={tgtVol_Abs / elem.ScaleFactor},Condition={syringe.Get_Volume_mL()})");
+                    }
                 }
                 else
                 { 
@@ -733,11 +777,20 @@ namespace L_Titrator_Alpha
                                     var rtn = elem.Get_Volume_Raw();
                                     if (rtn.IsValid == true)
                                     {
-                                        // Compare Volume
-                                        if (rtn.Volume_Raw == syringe.Get_TargetVolume_Raw())
+                                        // Compare Volume with PEndBandwidth
+                                        bool PEnd = Util.PEnd_Raw(rtn.Volume_Raw, syringe.Get_TargetVolume_Raw(), elem.PositionEndBandwidth, elem.ScaleFactor);
+                                        if (PEnd == true)
                                         {
                                             ++PosDone;
                                         }
+                                        else
+                                        {
+                                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Maybe moving (CmdVolume={syringe.Get_TargetVolume_Raw() / elem.ScaleFactor}, TgtVolume={syringe.Get_TargetVolume_mL()}, CurVolume={elem.Get_Volume_mL()}");
+                                        }
+                                        //if (rtn.Volume_Raw == syringe.Get_TargetVolume_Raw())
+                                        //{
+                                        //    ++PosDone;
+                                        //}
                                     }
                                     else
                                     {
@@ -747,9 +800,28 @@ namespace L_Titrator_Alpha
                             });
                             if (PosDone == step.Syringes.Count)
                             {
-                                Done_PositionSync = true;
+                                if (SeqAssist.PEndCheckCnt == SeqAssist.PEndCheckMax)
+                                {
+                                    SeqAssist.PEndCheckCnt = 0;
+                                    Done_PositionSync = true;
 
-                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done");
+                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Complete.");
+                                }
+                                else
+                                {
+                                    step.Syringes.ForEach(syringe =>
+                                    {
+                                        var elem = MB_Elem_Syringe.GetElem(syringe.Name);
+                                        var rtn = elem.Get_Volume_Raw();
+                                        if (rtn.Volume_Raw != syringe.Get_TargetVolume_Raw())
+                                        {
+                                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: {elem.LogicalName}> Current={rtn.Volume_Raw}, Target={syringe.Get_TargetVolume_Raw()}");
+                                        }
+                                    });
+                                    ++SeqAssist.PEndCheckCnt;
+
+                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Wait {SeqAssist.PEndCheckCnt}/{SeqAssist.PEndCheckMax} to check position again.");
+                                }
                             }
                         }
                         else
@@ -773,7 +845,7 @@ namespace L_Titrator_Alpha
                             sensors.ForEach(sensor =>
                             {
                                 var elem = MB_Elem_Bit.GetElem(sensor);
-                                if (elem.Get_State() == true)   // TBD. Activity 확인
+                                if (elem.Get_State() == false)   // Activity 확인> 감지 시 OFF. 즉 감지되면 다음 동작 수행
                                 {
                                     ++SensDone;
                                 }

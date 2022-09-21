@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     partial class UsrCtrl_Recipe_StepDetail
     {
@@ -50,8 +50,8 @@ namespace L_Titrator_Alpha.Pages
             this.tbl_StepContainer = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Add = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.usrCtrl_Control = new L_Titrator_Alpha.Pages.UsrCtrl_Recipe_StepDetail_Control();
-            this.usrCtrl_Titration = new L_Titrator_Alpha.Pages.UsrCtrl_Recipe_StepDetail_Titration();
+            this.usrCtrl_Control = new L_Titrator.Pages.UsrCtrl_Recipe_StepDetail_Control();
+            this.usrCtrl_Titration = new L_Titrator.Pages.UsrCtrl_Recipe_StepDetail_Titration();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();

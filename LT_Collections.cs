@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     // Log
     public enum LogSection

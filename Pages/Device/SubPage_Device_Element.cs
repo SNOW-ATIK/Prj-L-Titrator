@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using ATIK.Device.ATIK_MainBoard;
-using L_Titrator_Alpha.Controls;
+using L_Titrator.Controls;
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     public partial class SubPage_Device_Element : UserControl, IPage
     {

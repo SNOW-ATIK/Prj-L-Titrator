@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 using ATIK.Device.ATIK_MainBoard;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     [Serializable]
     [XmlRoot("Recipe")]

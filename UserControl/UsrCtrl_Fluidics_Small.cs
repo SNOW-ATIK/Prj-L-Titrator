@@ -12,7 +12,7 @@ using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 using ATIK.Common.ComponentEtc.Fluidics;
 
-namespace L_Titrator_Alpha.Controls
+namespace L_Titrator.Controls
 {
     public partial class UsrCtrl_Fluidics_Small : UserControl
     {
@@ -153,7 +153,7 @@ namespace L_Titrator_Alpha.Controls
             }
 
             // Vessel
-            bool vesselFull = MB_Elem_Bit.GetElem("Level_1").Get_State();
+            bool vesselFull = MB_Elem_Bit.GetElem("Level_1").Get_State() == false;
             CmpVessel.Remains = vesselFull == true ? 100 : 0;
         }
 

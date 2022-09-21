@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace L_Titrator_Alpha.Controls
+namespace L_Titrator.Controls
 {
     public partial class Frm_PopUpMenu : Form
     {

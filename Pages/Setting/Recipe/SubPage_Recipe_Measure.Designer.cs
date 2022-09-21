@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     partial class SubPage_Recipe_Measure
     {

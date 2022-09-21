@@ -12,10 +12,10 @@ using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 using ATIK.Communication.SerialPort;
 
-using L_Titrator_Alpha.Pages;
-using L_Titrator_Alpha.Controls;
+using L_Titrator.Pages;
+using L_Titrator.Controls;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     public partial class Frm_Main : Form
     {

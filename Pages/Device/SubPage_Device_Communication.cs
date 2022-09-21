@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using ATIK.Device.ATIK_MainBoard;
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     public partial class SubPage_Device_Communication : UserControl, IPage
     {

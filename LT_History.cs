@@ -9,7 +9,7 @@ using System.Threading;
 
 using ATIK;
 
-namespace L_Titrator_Alpha
+namespace L_Titrator
 {
     public class HistoryObj
     {

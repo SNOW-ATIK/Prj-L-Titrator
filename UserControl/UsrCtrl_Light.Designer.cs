@@ -1,5 +1,5 @@
 ﻿
-namespace L_Titrator_Alpha.Controls
+namespace L_Titrator.Controls
 {
     partial class UsrCtrl_Light
     {

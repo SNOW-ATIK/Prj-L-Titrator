@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using ATIK;
 
-namespace L_Titrator_Alpha.Pages
+namespace L_Titrator.Pages
 {
     public partial class Page_Recipe : UserControl, IPage
     {
