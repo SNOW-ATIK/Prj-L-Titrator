@@ -108,7 +108,7 @@ namespace L_Titrator
                             stepSame[j] = Sequences[i].Steps[j] == other.Sequences[i].Steps[j];
                             if (stepSame[j] == false)
                             {
-                                ATIK.Log.WriteLog("Debug", $"#. Step Obj. is not same. (detail) (Seq={i}, Step={j})");
+                                ATIK.Log.WriteLog("Debug", $"#. Recipe={this.No}, Step Obj. is not same. (detail) (Seq={i}, Step={j})");
                                 //return false;
                             }
 
@@ -122,13 +122,13 @@ namespace L_Titrator
                                 }
                                 if (mixerSame.Contains(false) == true)
                                 {
-                                    ATIK.Log.WriteLog("Debug", $"#. Mixer is not same. (detail) (Seq={i}, Step={j})");
+                                    ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Mixer is not same. (detail)");
                                     //return false;
                                 }
                             }
                             else
                             {
-                                ATIK.Log.WriteLog("Debug", $"#. Mixer is not same. (count) (Seq={i}, Step={j})");
+                                ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Mixer is not same. (count)");
                                 //return false;
                             }
 
@@ -142,13 +142,13 @@ namespace L_Titrator
                                     string rightName = other.Sequences[i].Steps[j].Syringes[k].Name;
                                     if (leftName != rightName)
                                     {
-                                        ATIK.Log.WriteLog("Debug", $"#. (Seq={i}, Step={j}) Syringe is not same. Name={leftName}, Other={rightName}");
+                                        ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Syringe is not same. Name={leftName}, Other={rightName}");
                                     }
                                     string leftCondition = Sequences[i].Steps[j].Syringes[k].Condition;
                                     string rightCondition = other.Sequences[i].Steps[j].Syringes[k].Condition;
                                     if (leftCondition != rightCondition)
                                     {
-                                        ATIK.Log.WriteLog("Debug", $"#. (Seq={i}, Step={j}) Syringe is not same. Condition={leftCondition}, Other={rightCondition}");
+                                        ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Syringe is not same. Condition={leftCondition}, Other={rightCondition}");
                                     }
                                 }
                             }
@@ -160,7 +160,7 @@ namespace L_Titrator
                             }
                             if (valveSame.Contains(false) == true)
                             {
-                                ATIK.Log.WriteLog("Debug", $"#. Valve is not same. (Seq={i}, Step={j})");
+                                ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Valve is not same.");
                                 //return false;
                             }
 
@@ -212,21 +212,21 @@ namespace L_Titrator
                             {
                                 var diffs = varSame.Where(pair => pair.Value == false).ToDictionary(x => x.Key, y => y.Value);
                                 string diffName = string.Join(",", diffs.Keys);
-                                ATIK.Log.WriteLog("Debug", $"#. Syringe is not same. (Seq={i}, Step={j})");
+                                ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}, Step={j}] Variable is not same. (var={diffName})");
                                 //return false;
                             }
                         }
                     }
                     else
                     {
-                        ATIK.Log.WriteLog("Debug", $"#. Step Obj. is not same. (count) (Seq={i})");
+                        ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}, Seq={i}] Step Obj. is not same. (count)");
                         //return false;
                     }
                 }
             }
             else
             {
-                ATIK.Log.WriteLog("Debug", $"#. Seq. Obj. is not same. (count)");
+                ATIK.Log.WriteLog("Debug", $"#. [Recipe={this.No}] Seq. Obj. is not same. (count)");
                 //return false;
             }
 
@@ -823,14 +823,12 @@ namespace L_Titrator
 
         public bool Equals(Syringe other)
         {
-            if (other == null)
+            if (other is null)
             {
                 return false;
             }
             return Name == other.Name &&
-                   Condition == other.Condition &&
-                   TargetVolume_Raw == other.TargetVolume_Raw &&
-                   TargetVolume_mL == other.TargetVolume_mL;
+                   Condition == other.Condition;
         }
 
         public override int GetHashCode()
