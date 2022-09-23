@@ -76,6 +76,22 @@ namespace L_Titrator
                 sw.Close();
                 sw.Dispose();
 
+                rcpObj.Sequences.ForEach(seq =>
+                {
+                    seq.Steps.ForEach(step =>
+                    {
+                        if (step.IsTitration == true)
+                        {
+                            string ttrRefFileName = $@"{PreDef.Path_Recipe_TitrationRef}\{step.TitrationRefFileName}";
+                            XmlSerializer xmlTtr = new XmlSerializer(typeof(TitrationRef));
+                            StreamWriter swTtr = new StreamWriter(ttrRefFileName);
+                            xmlTtr.Serialize(swTtr, step.TitrationRef);
+                            swTtr.Close();
+                            swTtr.Dispose();
+                        }
+                    });
+                });
+
                 if (RecipeDic.ContainsKey(rcpObj.No) == true)
                 {
                     // TBD
@@ -174,6 +190,10 @@ namespace L_Titrator
             {
                 if (step.IsTitration == true && step.Enabled == true)
                 {
+                    //if (step.TitrationRef != null)
+                    //{
+                    //    lst.Add(step.TitrationRef);
+                    //}
                     TitrationRef titrationRef = Load_TitrationRef(step);
                     if (titrationRef != null)
                     {

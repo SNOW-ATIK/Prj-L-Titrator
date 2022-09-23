@@ -137,7 +137,7 @@ namespace L_Titrator.Pages
         public void SetWorkReference(RecipeObj refRcpObj)
         {
             // ★ RecipeObj는 복사(Clone)된 걸 받고, Seq와 Step은 복사된 RecipeObj 내의 것을 Ref로 넘겨서 작업한다.
-            // (Seq, Step 작업 시 LT_Recipe 객체에 접근하지 않음. 단, PreDefinedSeq를 받을땐 복사(Clone)해서 받아온다.
+            // (Seq, Step 작업 시 LT_Recipe 객체에 접근하지 않음. 단, PreDefinedSeq를 받을땐 LT_Recipe 객체에서 불러와서 복사(Clone)해서 받아온다.
             RefRecipeObj = refRcpObj;
 
             SeqOrderCmps.Clear();

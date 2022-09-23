@@ -50,7 +50,21 @@ namespace L_Titrator.Pages
 
             clicked.BackColor = Color.MediumSeaGreen;
             var except = tbl_StepEndMenu.Controls.OfType<Button>().ToList().Where(btn => btn != clicked).ToList();
-            except.ForEach(btn => btn.BackColor = Color.White);
+            except.ForEach(btn =>
+            {
+                if (btn == btn_StepEnd_Time)
+                {
+                    btn.BackColor = RefStep.StepEndCheck.TimeDelay.Enabled == true ? PreDef.Light_Green : Color.White;
+                }
+                else if (btn == btn_StepEnd_Sensor)
+                {
+                    btn.BackColor = RefStep.StepEndCheck.SensorDetect.Enabled == true ? PreDef.Light_Green : Color.White;
+                }
+                else if (btn == btn_StepEnd_SyringeEnd)
+                {
+                    btn.BackColor = RefStep.StepEndCheck.PositionSync.Enabled == true ? PreDef.Light_Green : Color.White;
+                }
+            });
         }
 
         public void Parse(Step stepRef)
@@ -145,6 +159,7 @@ namespace L_Titrator.Pages
 
                 // StepEnd - TimeDelay
                 CmpCol_StepEndEnabled_TimeDelay.Prm_Value = stepRef.StepEndCheck.TimeDelay.Enabled;
+                btn_StepEnd_Time.BackColor = stepRef.StepEndCheck.TimeDelay.Enabled == true ? PreDef.Light_Green : Color.White;
                 if (stepRef.StepEndCheck.TimeDelay.Enabled == true)
                 {
                     CmpVal_StepEndValue_TimeDelay.Prm_Value = stepRef.StepEndCheck.TimeDelay.Time;
@@ -155,6 +170,7 @@ namespace L_Titrator.Pages
                 }
                 // StepEnd - Sensor
                 CmpCol_StepEndEnabled_Sensor.Prm_Value = stepRef.StepEndCheck.SensorDetect.Enabled;
+                btn_StepEnd_Sensor.BackColor = stepRef.StepEndCheck.SensorDetect.Enabled == true ? PreDef.Light_Green : Color.White;
                 if (stepRef.StepEndCheck.SensorDetect.Enabled == true)
                 {
                     CmpCol_StepEndValues_Sensor.Prm_Value = stepRef.StepEndCheck.SensorDetect.SensorNames;
@@ -165,6 +181,7 @@ namespace L_Titrator.Pages
                 }
                 // StepEnd - Syringe (Position Sync)
                 CmpCol_StepEndEnabled_Syringe.Prm_Value = stepRef.StepEndCheck.PositionSync.Enabled;
+                btn_StepEnd_SyringeEnd.BackColor = stepRef.StepEndCheck.PositionSync.Enabled == true ? PreDef.Light_Green : Color.White;
 
                 if (stepRef.StepEndCheck.TimeDelay.Enabled == true)
                 {

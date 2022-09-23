@@ -70,13 +70,13 @@ namespace L_Titrator
             return $"{sp.Hours:00}:{sp.Minutes:00}:{sp.Seconds:00}";
         }
 
-        public static bool PEnd_Raw(int cur_raw, int dst_raw, double band_mL, double scaleFactor)
+        public static bool PEnd_Raw(string syringeName, int cur_raw, int dst_raw, double band_mL, double scaleFactor)
         {
             int nDiff = Math.Abs(cur_raw - dst_raw);
             double dBand_raw = band_mL * scaleFactor;
             bool bPEnd = nDiff < dBand_raw;
 
-            ATIK.Log.WriteLog("Seq", $"SyringePEND> Cur_Raw={cur_raw}, Dst_Raw={dst_raw}, Bandwidth_Raw={dBand_raw}, Diff_Raw={nDiff}, PEND={bPEnd}");
+            ATIK.Log.WriteLog("Seq", $"{syringeName}:PEND > Cur_Raw={cur_raw}, Dst_Raw={dst_raw}, Bandwidth_Raw={dBand_raw}, Diff_Raw={nDiff}, PEND={bPEnd}");
 
             return bPEnd;
         }

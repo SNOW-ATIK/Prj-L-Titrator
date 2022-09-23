@@ -191,7 +191,8 @@ namespace L_Titrator.Pages
         {
             if (LT_Recipe.Get_RecipeObj(SelectedRecipeNo, out RecipeObj org) == true)
             {
-                return ClonedRcpObj == org;
+                bool rtn = ClonedRcpObj == org;
+                return rtn;
             }
             throw new ArgumentNullException($"Original Recipe is not found. (RecipeNo={SelectedRecipeNo})");
         }

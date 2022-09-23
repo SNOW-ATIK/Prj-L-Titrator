@@ -86,12 +86,11 @@ namespace L_Titrator
 
         public bool Equals(RecipeObj other)
         {
-            if (other == null)
+            if (other is null)
             {
                 return false;
             }
-
-            /*
+            
             //Equality Test            
             bool bSeqSame = false;
             if (Sequences.Count == other.Sequences.Count)
@@ -106,7 +105,12 @@ namespace L_Titrator
                         bool[] stepSame = new bool[Sequences[i].Steps.Count];
                         for (int j = 0; j < Sequences[i].Steps.Count; j++)
                         {
-                            stepSame[j] = Sequences[i].Steps[j] == other.Sequences[i].Steps[j];                            
+                            stepSame[j] = Sequences[i].Steps[j] == other.Sequences[i].Steps[j];
+                            if (stepSame[j] == false)
+                            {
+                                ATIK.Log.WriteLog("Debug", $"#. Step Obj. is not same. (detail) (Seq={i}, Step={j})");
+                                //return false;
+                            }
 
                             // Mixer
                             if (Sequences[i].Steps[j].Mixers.Count == other.Sequences[i].Steps[j].Mixers.Count)
@@ -117,91 +121,114 @@ namespace L_Titrator
                                     mixerSame[k] = Sequences[i].Steps[j].Mixers[k] == other.Sequences[i].Steps[j].Mixers[k];
                                 }
                                 if (mixerSame.Contains(false) == true)
-                                { 
-                                }
-
-                                bool stependSame = Sequences[i].Steps[j].StepEndCheck == other.Sequences[i].Steps[j].StepEndCheck;
-
-                                bool[] syringeSame = new bool[Sequences[i].Steps[j].Syringes.Count];
-                                for (int k = 0; k < Sequences[i].Steps[j].Syringes.Count; k++)
                                 {
-                                    syringeSame[k] = Sequences[i].Steps[j].Syringes[k] == other.Sequences[i].Steps[j].Syringes[k];
-                                }
-                                if (syringeSame.Contains(false) == true)
-                                {
-                                }
-
-                                bool[] valveSame = new bool[Sequences[i].Steps[j].Valves.Count];
-                                for (int k = 0; k < Sequences[i].Steps[j].Valves.Count; k++)
-                                {
-                                    valveSame[k] = Sequences[i].Steps[j].Valves[k] == other.Sequences[i].Steps[j].Valves[k];
-                                }
-                                if (valveSame.Contains(false) == true)
-                                {
-                                }
-
-                                Dictionary<string, bool> varSame = new Dictionary<string, bool>();
-                                bool bControl_Mixer = Sequences[i].Steps[j].Control_Mixer == other.Sequences[i].Steps[j].Control_Mixer;
-                                varSame.Add("Control_Mixer", bControl_Mixer);
-                                bool bControl_Syringe = Sequences[i].Steps[j].Control_Syringe == other.Sequences[i].Steps[j].Control_Syringe;
-                                varSame.Add("Control_Syringe", bControl_Syringe);
-                                bool bControl_Valve = Sequences[i].Steps[j].Control_Valve == other.Sequences[i].Steps[j].Control_Valve;
-                                varSame.Add("Control_Valve", bControl_Valve);
-                                bool bEnabled = Sequences[i].Steps[j].Enabled == other.Sequences[i].Steps[j].Enabled;
-                                varSame.Add("Enabled", bEnabled);
-                                bool bEndCheckInThisStep = Sequences[i].Steps[j].EndCheckInThisStep == other.Sequences[i].Steps[j].EndCheckInThisStep;
-                                varSame.Add("EndCheckInThisStep", bEndCheckInThisStep);
-                                bool bStepEndCheck_TimeDelay_Enabled = Sequences[i].Steps[j].StepEndCheck.TimeDelay.Enabled == other.Sequences[i].Steps[j].StepEndCheck.TimeDelay.Enabled;
-                                varSame.Add("bStepEndCheck_TimeDelay_Enabled", bStepEndCheck_TimeDelay_Enabled);
-                                bool bStepEndCheck_TimeDelay_Time = Sequences[i].Steps[j].StepEndCheck.TimeDelay.Time == other.Sequences[i].Steps[j].StepEndCheck.TimeDelay.Time;
-                                varSame.Add("bStepEndCheck_TimeDelay_Time", bStepEndCheck_TimeDelay_Time);
-                                bool bStepEndCheck_Sensor_Enabled = Sequences[i].Steps[j].StepEndCheck.SensorDetect.Enabled == other.Sequences[i].Steps[j].StepEndCheck.SensorDetect.Enabled;
-                                varSame.Add("bStepEndCheck_Sensor_Enabled", bStepEndCheck_Sensor_Enabled);
-                                string A_Sensor = Sequences[i].Steps[j].StepEndCheck.SensorDetect.SensorNames;
-                                string B_Sensor = other.Sequences[i].Steps[j].StepEndCheck.SensorDetect.SensorNames;
-                                bool bStepEndCheck_Sensor_Names = ((A_Sensor == null || A_Sensor == "") && (B_Sensor == null || B_Sensor == "")) || (A_Sensor == B_Sensor);
-                                varSame.Add("bStepEndCheck_Sensor_Names", bStepEndCheck_Sensor_Names);
-                                bool bStepEndCheck_Syringe_Enabled = Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled == other.Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled;
-                                varSame.Add("bStepEndCheck_Syringe_Enabled", bStepEndCheck_Syringe_Enabled);
-                                bool bIsTitration = Sequences[i].Steps[j].IsTitration == other.Sequences[i].Steps[j].IsTitration;
-                                varSame.Add("IsTitration", bIsTitration);
-                                bool bName = Sequences[i].Steps[j].Name == other.Sequences[i].Steps[j].Name;
-                                varSame.Add("Name", bName);
-                                bool bNo = Sequences[i].Steps[j].No == other.Sequences[i].Steps[j].No;
-                                varSame.Add("No", bNo);
-                                bool bTitrationRef = Sequences[i].Steps[j].TitrationRef == other.Sequences[i].Steps[j].TitrationRef;
-                                varSame.Add("TitrationRef", bTitrationRef);
-
-                                if (varSame.ContainsValue(false) == true)
-                                { 
+                                    ATIK.Log.WriteLog("Debug", $"#. Mixer is not same. (detail) (Seq={i}, Step={j})");
+                                    //return false;
                                 }
                             }
                             else
                             {
-                                return false;
+                                ATIK.Log.WriteLog("Debug", $"#. Mixer is not same. (count) (Seq={i}, Step={j})");
+                                //return false;
                             }
-                        }
 
-                        if (stepSame.Contains(false) == true)
-                        {
+                            bool[] syringeSame = new bool[Sequences[i].Steps[j].Syringes.Count];
+                            for (int k = 0; k < Sequences[i].Steps[j].Syringes.Count; k++)
+                            {
+                                syringeSame[k] = Sequences[i].Steps[j].Syringes[k] == other.Sequences[i].Steps[j].Syringes[k];
+                                if (syringeSame[k] == false)
+                                {
+                                    string leftName = Sequences[i].Steps[j].Syringes[k].Name;
+                                    string rightName = other.Sequences[i].Steps[j].Syringes[k].Name;
+                                    if (leftName != rightName)
+                                    {
+                                        ATIK.Log.WriteLog("Debug", $"#. (Seq={i}, Step={j}) Syringe is not same. Name={leftName}, Other={rightName}");
+                                    }
+                                    string leftCondition = Sequences[i].Steps[j].Syringes[k].Condition;
+                                    string rightCondition = other.Sequences[i].Steps[j].Syringes[k].Condition;
+                                    if (leftCondition != rightCondition)
+                                    {
+                                        ATIK.Log.WriteLog("Debug", $"#. (Seq={i}, Step={j}) Syringe is not same. Condition={leftCondition}, Other={rightCondition}");
+                                    }
+                                }
+                            }
+
+                            bool[] valveSame = new bool[Sequences[i].Steps[j].Valves.Count];
+                            for (int k = 0; k < Sequences[i].Steps[j].Valves.Count; k++)
+                            {
+                                valveSame[k] = Sequences[i].Steps[j].Valves[k] == other.Sequences[i].Steps[j].Valves[k];
+                            }
+                            if (valveSame.Contains(false) == true)
+                            {
+                                ATIK.Log.WriteLog("Debug", $"#. Valve is not same. (Seq={i}, Step={j})");
+                                //return false;
+                            }
+
+                            Dictionary<string, bool> varSame = new Dictionary<string, bool>();
+                            bool bControl_Mixer = Sequences[i].Steps[j].Control_Mixer == other.Sequences[i].Steps[j].Control_Mixer;
+                            varSame.Add("Control_Mixer", bControl_Mixer);
+                            bool bControl_Syringe = Sequences[i].Steps[j].Control_Syringe == other.Sequences[i].Steps[j].Control_Syringe;
+                            varSame.Add("Control_Syringe", bControl_Syringe);
+                            bool bControl_Valve = Sequences[i].Steps[j].Control_Valve == other.Sequences[i].Steps[j].Control_Valve;
+                            varSame.Add("Control_Valve", bControl_Valve);
+                            bool bEnabled = Sequences[i].Steps[j].Enabled == other.Sequences[i].Steps[j].Enabled;
+                            varSame.Add("Enabled", bEnabled);
+
+                            bool stependSame = Sequences[i].Steps[j].StepEndCheck == other.Sequences[i].Steps[j].StepEndCheck;
+                            varSame.Add("StepEndCheck", stependSame);
+
+                            bool bEndCheckInThisStep = Sequences[i].Steps[j].EndCheckInThisStep == other.Sequences[i].Steps[j].EndCheckInThisStep;
+                            varSame.Add("EndCheckInThisStep", bEndCheckInThisStep);
+                            bool bStepEndCheck_TimeDelay_Enabled = false;
+                            bool bStepEndCheck_TimeDelay_Time = false;
+                            bool bStepEndCheck_Sensor_Enabled = false;
+                            bool bStepEndCheck_Sensor_Names = false;
+                            bool bStepEndCheck_Syringe_Enabled = false;
+                            if (Sequences[i].Steps[j].StepEndCheck != null && other.Sequences[i].Steps[j].StepEndCheck != null)
+                            {
+                                bStepEndCheck_TimeDelay_Enabled = Sequences[i].Steps[j].StepEndCheck.TimeDelay.Enabled == other.Sequences[i].Steps[j].StepEndCheck.TimeDelay.Enabled;
+                                varSame.Add("bStepEndCheck_TimeDelay_Enabled", bStepEndCheck_TimeDelay_Enabled);
+                                bStepEndCheck_TimeDelay_Time = Sequences[i].Steps[j].StepEndCheck.TimeDelay.Time == other.Sequences[i].Steps[j].StepEndCheck.TimeDelay.Time;
+                                varSame.Add("bStepEndCheck_TimeDelay_Time", bStepEndCheck_TimeDelay_Time);
+                                bStepEndCheck_Sensor_Enabled = Sequences[i].Steps[j].StepEndCheck.SensorDetect.Enabled == other.Sequences[i].Steps[j].StepEndCheck.SensorDetect.Enabled;
+                                varSame.Add("bStepEndCheck_Sensor_Enabled", bStepEndCheck_Sensor_Enabled);
+                                string A_Sensor = Sequences[i].Steps[j].StepEndCheck.SensorDetect.SensorNames;
+                                string B_Sensor = other.Sequences[i].Steps[j].StepEndCheck.SensorDetect.SensorNames;
+                                bStepEndCheck_Sensor_Names = ((A_Sensor == null || A_Sensor == "") && (B_Sensor == null || B_Sensor == "")) || (A_Sensor == B_Sensor);
+                                varSame.Add("bStepEndCheck_Sensor_Names", bStepEndCheck_Sensor_Names);
+                                bStepEndCheck_Syringe_Enabled = Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled == other.Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled;
+                                varSame.Add("bStepEndCheck_Syringe_Enabled", bStepEndCheck_Syringe_Enabled);
+                            }
+                            bool bIsTitration = Sequences[i].Steps[j].IsTitration == other.Sequences[i].Steps[j].IsTitration;
+                            varSame.Add("IsTitration", bIsTitration);
+                            bool bName = Sequences[i].Steps[j].Name == other.Sequences[i].Steps[j].Name;
+                            varSame.Add("Name", bName);
+                            bool bNo = Sequences[i].Steps[j].No == other.Sequences[i].Steps[j].No;
+                            varSame.Add("No", bNo);
+                            bool bTitrationRef = Sequences[i].Steps[j].TitrationRef == other.Sequences[i].Steps[j].TitrationRef;
+                            varSame.Add("TitrationRef", bTitrationRef);
+
+                            if (varSame.ContainsValue(false) == true)
+                            {
+                                var diffs = varSame.Where(pair => pair.Value == false).ToDictionary(x => x.Key, y => y.Value);
+                                string diffName = string.Join(",", diffs.Keys);
+                                ATIK.Log.WriteLog("Debug", $"#. Syringe is not same. (Seq={i}, Step={j})");
+                                //return false;
+                            }
                         }
                     }
                     else
                     {
-                        return false;
+                        ATIK.Log.WriteLog("Debug", $"#. Step Obj. is not same. (count) (Seq={i})");
+                        //return false;
                     }
                 }
             }
             else
             {
-                return false;
+                ATIK.Log.WriteLog("Debug", $"#. Seq. Obj. is not same. (count)");
+                //return false;
             }
-
-            bool bOtherNull = other != null;
-            bool bNo1 = No == other.No;
-            bool bName1 = Name == other.Name;
-            bool bSeq = Sequences.SequenceEqual(other.Sequences);            
-            */
 
             return No == other.No &&
                    Name == other.Name &&
@@ -229,7 +256,8 @@ namespace L_Titrator
                 // Only the left side is null.
                 return false;
             }
-            return left.Equals(right);
+            bool rtn = left.Equals(right);
+            return rtn;
         }
 
         public static bool operator !=(RecipeObj left, RecipeObj right)
@@ -523,20 +551,21 @@ namespace L_Titrator
             {
                 return false;
             }
-            return No == other.No &&
-                   Name == other.Name &&
-                   Enabled == other.Enabled &&
-                   EndCheckInThisStep == other.EndCheckInThisStep &&
-                   TitrationRefFileName == other.TitrationRefFileName &&
-                   Valves.SequenceEqual(other.Valves) &&
-                   Syringes.SequenceEqual(other.Syringes) &&
-                   Mixers.SequenceEqual(other.Mixers) &&
-                   ((StepEndCheck == null && other.StepEndCheck == null) || (StepEndCheck != null && other.StepEndCheck != null && StepEndCheck.Equals(other.StepEndCheck))) &&
-                   Control_Valve == other.Control_Valve &&
-                   Control_Syringe == other.Control_Syringe &&
-                   Control_Mixer == other.Control_Mixer &&
-                   IsTitration == other.IsTitration &&
-                    TitrationRef == other.TitrationRef;
+            bool rtn = (No == other.No &&
+                       Name == other.Name &&
+                       Enabled == other.Enabled &&
+                       EndCheckInThisStep == other.EndCheckInThisStep &&
+                       TitrationRefFileName == other.TitrationRefFileName &&
+                       Valves.SequenceEqual(other.Valves) &&
+                       Syringes.SequenceEqual(other.Syringes) &&
+                       Mixers.SequenceEqual(other.Mixers) &&
+                       ((StepEndCheck == null && other.StepEndCheck == null) || (StepEndCheck != null && other.StepEndCheck != null && StepEndCheck.Equals(other.StepEndCheck))) &&
+                       Control_Valve == other.Control_Valve &&
+                       Control_Syringe == other.Control_Syringe &&
+                       Control_Mixer == other.Control_Mixer &&
+                       IsTitration == other.IsTitration &&
+                       TitrationRef == other.TitrationRef);
+            return rtn;
         }
 
         public override int GetHashCode()
@@ -987,9 +1016,10 @@ namespace L_Titrator
             {
                 return false;
             }
-            return TimeDelay.Equals(other.TimeDelay) &&
-                   SensorDetect.Equals(other.SensorDetect) &&
-                   PositionSync.Equals(other.PositionSync);
+            bool rtn = (TimeDelay.Equals(other.TimeDelay) &&
+                       SensorDetect.Equals(other.SensorDetect) &&
+                       PositionSync.Equals(other.PositionSync));
+            return rtn;
         }
 
         public override int GetHashCode()
@@ -1108,7 +1138,15 @@ namespace L_Titrator
             {
                 return false;
             }
-            return ((SensorNames == null || SensorNames == "") && (other.SensorNames == null || other.SensorNames == "")) || (SensorNames == other.SensorNames);
+
+            if (SensorNames != null && other.SensorNames != null)
+            {
+                return SensorNames == other.SensorNames;
+            }
+            else
+            {
+                return ((SensorNames == null || SensorNames == "") && (other.SensorNames == null || other.SensorNames == ""));
+            }
         }
 
         public override int GetHashCode()

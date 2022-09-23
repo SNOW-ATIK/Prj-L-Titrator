@@ -35,6 +35,13 @@ namespace L_Titrator
             Ing,
         }
 
+        public enum StepEndCheck
+        { 
+            TimeDelay,
+            SensorDetect,
+            SyringeEnd
+        }
+
         public delegate void RunEndDelegate();
         public static RunEndDelegate RunEnd;
 
@@ -60,6 +67,8 @@ namespace L_Titrator
 
         private static StepProgress StepState = StepProgress.None;
         private static HistoryObj HistoryObjCurrent;
+
+        private static Dictionary<StepEndCheck, bool> DicStepEndCheck = new Dictionary<StepEndCheck, bool>();
 
         private class SeqAssist
         {
@@ -96,6 +105,29 @@ namespace L_Titrator
             public static void Stop_Timer()
             {
                 TimeCheck.Stop();
+            }
+
+            public static void Init_StepEndCheck()
+            {
+                DicStepEndCheck.Clear();
+                DicStepEndCheck.Add(StepEndCheck.TimeDelay, false);
+                DicStepEndCheck.Add(StepEndCheck.SensorDetect, false);
+                DicStepEndCheck.Add(StepEndCheck.SyringeEnd, false);
+            }
+
+            public static void Set_StepEndCheck(StepEndCheck stepEnd, bool done)
+            {
+                DicStepEndCheck[stepEnd] = done;
+            }
+
+            public static bool IsDone_StepEndCheck(StepEndCheck stepEnd)
+            {
+                return DicStepEndCheck[stepEnd];
+            }
+
+            public static bool AllDone_StepEndCheck()
+            {
+                return DicStepEndCheck.ContainsValue(false) == false;
             }
         }
 
@@ -289,7 +321,7 @@ namespace L_Titrator
             Sequence Cur_Seq = Cur_Recipe.Get_Sequence(SeqAssist.SeqNo);
             Step Cur_Step = Cur_Seq.Get_Step(SeqAssist.StepNo);
 
-            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Seq={Cur_Seq.No}:{Cur_Seq.Name}, Step={Cur_Step.No}:{Cur_Step.Name}:{Cur_Step.Enabled}");
+            Log.WriteLog("Seq", $"[{MainState}/{RunState}/{StepState}] Run. Seq={Cur_Seq.No}:{Cur_Seq.Name}, Step={Cur_Step.No}:{Cur_Step.Name}:{Cur_Step.Enabled}");
 
             switch (StepState)
             {
@@ -317,6 +349,8 @@ namespace L_Titrator
                             {
                                 Run_Mixer(Cur_Step);
                             }
+
+                            SeqAssist.Init_StepEndCheck();
                         }
                         StepState = StepProgress.Ing;
                     }
@@ -400,6 +434,12 @@ namespace L_Titrator
                         // Write Analog value before Starting (1st mV)
                         TtrAssist.TtrObj.End_Inject(DateTime.Now, 0, dReadAnalogVal);
 
+                        // TBD. Already exceed threshold
+                        //if (dReadAnalogVal > TtrAssist.TtrObj.AnalogValue_Target)
+                        //{
+                        //    return true;
+                        //}
+
                         NotifyProcessInfo?.Invoke(NotifyProcess.AddPoint, new object[] { TtrAssist.TtrObj.SampleName, TtrAssist.TtrObj.TotalInjectionVolume_mL, dReadAnalogVal });
 
                         Log.WriteLog("Result", $"> Read analog value after injecting Sample. (1st mV={dReadAnalogVal})");
@@ -467,9 +507,10 @@ namespace L_Titrator
                         bool bPEnd = false;
                         int nRtn = syringeRtn.Volume_Raw;
                         int nTgt = TtrAssist.TargetSyringePos_Digit;
-                        bool bCompare = Util.PEnd_Raw(nRtn, nTgt, SyringeElem.PositionEndBandwidth, SyringeElem.ScaleFactor);
+                        bool bCompare = Util.PEnd_Raw(SyringeElem.LogicalName, nRtn, nTgt, SyringeElem.PositionEndBandwidth, SyringeElem.ScaleFactor);
                         if (bCompare == true)
                         {
+                            ++SeqAssist.PEndCheckCnt;
                             if (SeqAssist.PEndCheckCnt == SeqAssist.PEndCheckMax)
                             {
                                 SeqAssist.PEndCheckCnt = 0;
@@ -482,7 +523,6 @@ namespace L_Titrator
                                 {
                                     Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: {SyringeElem.LogicalName}> Current={nRtn}, Target={nTgt}");
                                 }
-                                ++SeqAssist.PEndCheckCnt;
 
                                 Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Wait {SeqAssist.PEndCheckCnt}/{SeqAssist.PEndCheckMax} to check position again.");
                             }
@@ -666,40 +706,46 @@ namespace L_Titrator
                     int curVol_Abs = rtn.Volume_Raw;
                     int tgtVol_Abs = 0;
                     MB_SyringeFlow flow = syringe.Get_Flow();
-                    int injVol = (int)(syringe.Get_Volume_mL() * elem.ScaleFactor);
-                    switch (flow)
+                    if (flow == MB_SyringeFlow.None)
                     {
-                        case MB_SyringeFlow.Pick:
-                            tgtVol_Abs = curVol_Abs + injVol;
-                            // 채우려는 양이 Max를 넘으면, Max까지 채울 양으로 치환
-                            if (tgtVol_Abs > maxVol)
-                            {
-                                injVol = maxVol - curVol_Abs;
-                                tgtVol_Abs = maxVol;
-                            }
-                            break;
-
-                        case MB_SyringeFlow.Dispense:
-                            tgtVol_Abs = curVol_Abs - injVol;
-                            // 뱉는 양이 0보다 작으면, 0을 뱉을 양(현재 채워져 있는 양)으로 치환 
-                            if (tgtVol_Abs < 0)
-                            {
-                                injVol = curVol_Abs;
-                                tgtVol_Abs = 0;
-                            }
-                            break;
-                    }
-                    syringe.Set_TargetVolume_Raw(tgtVol_Abs);
-
-                    bool bCompare = Util.PEnd_Raw(rtn.Volume_Raw, tgtVol_Abs, elem.PositionEndBandwidth, elem.ScaleFactor);
-                    if (bCompare == true)
-                    {
-                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, No need to run. (Cur={rtn.Volume_Raw}, Tgt={tgtVol_Abs})");
                     }
                     else
                     {
-                        elem.Run_Raw(syringe.Get_Flow(), syringe.Get_Direction(), injVol, syringe.Get_Speed(), false);
-                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, SetCondition={syringe.Get_Direction()},{syringe.Get_Speed()},{injVol}(CurAbs={curVol_Abs / elem.ScaleFactor},Inj={injVol / elem.ScaleFactor},TgtAbs={tgtVol_Abs / elem.ScaleFactor},Condition={syringe.Get_Volume_mL()})");
+                        int injVol = (int)(syringe.Get_Volume_mL() * elem.ScaleFactor);
+                        switch (flow)
+                        {
+                            case MB_SyringeFlow.Pick:
+                                tgtVol_Abs = curVol_Abs + injVol;
+                                // 채우려는 양이 Max를 넘으면, Max까지 채울 양으로 치환
+                                if (tgtVol_Abs > maxVol)
+                                {
+                                    injVol = maxVol - curVol_Abs;
+                                    tgtVol_Abs = maxVol;
+                                }
+                                break;
+
+                            case MB_SyringeFlow.Dispense:
+                                tgtVol_Abs = curVol_Abs - injVol;
+                                // 뱉는 양이 0보다 작으면, 0을 뱉을 양(현재 채워져 있는 양)으로 치환 
+                                if (tgtVol_Abs < 0)
+                                {
+                                    injVol = curVol_Abs;
+                                    tgtVol_Abs = 0;
+                                }
+                                break;
+                        }
+                        syringe.Set_TargetVolume_Raw(tgtVol_Abs);
+
+                        bool bCompare = Util.PEnd_Raw(elem.LogicalName, rtn.Volume_Raw, tgtVol_Abs, elem.PositionEndBandwidth, elem.ScaleFactor);
+                        if (bCompare == true)
+                        {
+                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, No need to run. (Cur={rtn.Volume_Raw}, Tgt={tgtVol_Abs})");
+                        }
+                        else
+                        {
+                            elem.Run_Raw(syringe.Get_Flow(), syringe.Get_Direction(), injVol, syringe.Get_Speed(), false);
+                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, SetCondition={syringe.Get_Direction()},{syringe.Get_Speed()},{injVol}(CurAbs={curVol_Abs / elem.ScaleFactor},Inj={injVol / elem.ScaleFactor},TgtAbs={tgtVol_Abs / elem.ScaleFactor},Condition={syringe.Get_Volume_mL()})");
+                        }
                     }
                 }
                 else
@@ -727,169 +773,191 @@ namespace L_Titrator
             }
             else
             {
-                bool Done_TimeDelay = false;
-                bool Done_PositionSync = false;
-                bool Done_SensorDetect = false;
-
                 if (step.StepEndCheck != null)
                 {
                     // Check Time Delay
-                    if (step.StepEndCheck.TimeDelay.Time > 0 && Done_TimeDelay == false)
+                    if (SeqAssist.IsDone_StepEndCheck(StepEndCheck.TimeDelay) == false)
                     {
-                        //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: TimeDelay Check");
-
-                        if (SeqAssist.IsTimerRunning == false)
+                        if (step.StepEndCheck.TimeDelay.Time > 0)
                         {
-                            SeqAssist.Start_Timer();
+                            //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: TimeDelay Check");
 
-                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Start TimeDelay (Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
+                            if (SeqAssist.IsTimerRunning == false)
+                            {
+                                SeqAssist.Start_Timer();
+
+                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Start TimeDelay (Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
+                            }
+                            else
+                            {
+                                int elapsedTime = SeqAssist.TimeElapsed_ms;
+                                if (elapsedTime >= step.StepEndCheck.TimeDelay.Time * 1000)
+                                {
+                                    SeqAssist.Stop_Timer();
+                                    SeqAssist.Set_StepEndCheck(StepEndCheck.TimeDelay, true);
+
+                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: End TimeDelay (Current={elapsedTime}ms, Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
+                                }
+                            }
                         }
                         else
                         {
-                            int elapsedTime = SeqAssist.TimeElapsed_ms;
-                            if (elapsedTime >= step.StepEndCheck.TimeDelay.Time * 1000)
-                            {
-                                SeqAssist.Stop_Timer();
-                                Done_TimeDelay = true;
-
-                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: End TimeDelay (Current={elapsedTime}ms, Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
-                            }
+                            SeqAssist.Set_StepEndCheck(StepEndCheck.TimeDelay, true);
                         }
-                    }
-                    else
-                    {
-                        Done_TimeDelay = true;
                     }
 
                     // Check Position End (Syringe)
-                    if (step.StepEndCheck.Get_PositionSync(out bool posSync) == true)
+                    if (SeqAssist.IsDone_StepEndCheck(StepEndCheck.SyringeEnd) == false)
                     {
-                        if (posSync == true)
+                        if (step.StepEndCheck.Get_PositionSync(out bool posSync) == true)
                         {
-                            //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Check");
-
-                            int PosDone = 0;
-                            step.Syringes.ForEach(syringe =>
+                            if (posSync == true)
                             {
-                                var elem = MB_Elem_Syringe.GetElem(syringe.Name);
-                                if (elem.RunCmdDone == MB_Elem_Syringe.RunCmdStatus.Done)
+                                //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Check");
+
+                                int PosDone = 0;
+                                step.Syringes.ForEach(syringe =>
                                 {
-                                    var rtn = elem.Get_Volume_Raw();
-                                    if (rtn.IsValid == true)
+                                    if (syringe.Get_Flow() == MB_SyringeFlow.None)
                                     {
-                                        // Compare Volume with PEndBandwidth
-                                        bool PEnd = Util.PEnd_Raw(rtn.Volume_Raw, syringe.Get_TargetVolume_Raw(), elem.PositionEndBandwidth, elem.ScaleFactor);
-                                        if (PEnd == true)
-                                        {
-                                            ++PosDone;
-                                        }
-                                        else
-                                        {
-                                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Maybe moving (CmdVolume={syringe.Get_TargetVolume_Raw() / elem.ScaleFactor}, TgtVolume={syringe.Get_TargetVolume_mL()}, CurVolume={elem.Get_Volume_mL()}");
-                                        }
-                                        //if (rtn.Volume_Raw == syringe.Get_TargetVolume_Raw())
-                                        //{
-                                        //    ++PosDone;
-                                        //}
+                                        PosDone++;
                                     }
                                     else
                                     {
-                                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: #. Check Syringe (CmdVolume={syringe.Get_TargetVolume_Raw() / elem.ScaleFactor}, TgtVolume={syringe.Get_TargetVolume_mL()}, CurVolume={elem.Get_Volume_mL()}");
+                                        var elem = MB_Elem_Syringe.GetElem(syringe.Name);
+                                        if (elem.RunCmdDone == MB_Elem_Syringe.RunCmdStatus.Done)
+                                        {
+                                            var rtn = elem.Get_Volume_Raw();
+                                            if (rtn.IsValid == true)
+                                            {
+                                                // Compare Volume with PEndBandwidth
+                                                bool PEnd = Util.PEnd_Raw(elem.LogicalName, rtn.Volume_Raw, syringe.Get_TargetVolume_Raw(), elem.PositionEndBandwidth, elem.ScaleFactor);
+                                                if (PEnd == true)
+                                                {
+                                                    ++PosDone;
+                                                }
+                                                else
+                                                {
+                                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Maybe moving (CmdVolume={syringe.Get_TargetVolume_Raw() / elem.ScaleFactor}, TgtVolume={syringe.Get_TargetVolume_mL()}, CurVolume={elem.Get_Volume_mL()}");
+                                                }
+                                                //if (rtn.Volume_Raw == syringe.Get_TargetVolume_Raw())
+                                                //{
+                                                //    ++PosDone;
+                                                //}
+                                            }
+                                            else
+                                            {
+                                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: #. Check Syringe (CmdVolume={syringe.Get_TargetVolume_Raw() / elem.ScaleFactor}, TgtVolume={syringe.Get_TargetVolume_mL()}, CurVolume={elem.Get_Volume_mL()}");
+                                            }
+                                        }
+                                    }
+                                });
+                                if (PosDone == step.Syringes.Count)
+                                {
+                                    ++SeqAssist.PEndCheckCnt;
+                                    if (SeqAssist.PEndCheckCnt == SeqAssist.PEndCheckMax)
+                                    {
+                                        SeqAssist.PEndCheckCnt = 0;
+                                        SeqAssist.Set_StepEndCheck(StepEndCheck.SyringeEnd, true);
+
+                                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Complete.");
+                                    }
+                                    else
+                                    {
+                                        step.Syringes.ForEach(syringe =>
+                                        {
+                                            if (syringe.Get_Flow() != MB_SyringeFlow.None)
+                                            {
+                                                var elem = MB_Elem_Syringe.GetElem(syringe.Name);
+                                                var rtn = elem.Get_Volume_Raw();
+                                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: {elem.LogicalName}> Current={rtn.Volume_Raw}, Target={syringe.Get_TargetVolume_Raw()}");
+                                                if (rtn.Volume_Raw != syringe.Get_TargetVolume_Raw())
+                                                {
+                                                }
+                                                else
+                                                {
+                                                }
+                                            }
+                                            else
+                                            {
+                                            }
+                                        });
+
+                                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Wait {SeqAssist.PEndCheckCnt}/{SeqAssist.PEndCheckMax} to check position again.");
                                     }
                                 }
-                            });
-                            if (PosDone == step.Syringes.Count)
+                            }
+                            else
                             {
-                                if (SeqAssist.PEndCheckCnt == SeqAssist.PEndCheckMax)
-                                {
-                                    SeqAssist.PEndCheckCnt = 0;
-                                    Done_PositionSync = true;
-
-                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Complete.");
-                                }
-                                else
-                                {
-                                    step.Syringes.ForEach(syringe =>
-                                    {
-                                        var elem = MB_Elem_Syringe.GetElem(syringe.Name);
-                                        var rtn = elem.Get_Volume_Raw();
-                                        if (rtn.Volume_Raw != syringe.Get_TargetVolume_Raw())
-                                        {
-                                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: {elem.LogicalName}> Current={rtn.Volume_Raw}, Target={syringe.Get_TargetVolume_Raw()}");
-                                        }
-                                    });
-                                    ++SeqAssist.PEndCheckCnt;
-
-                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Syringe Done, Wait {SeqAssist.PEndCheckCnt}/{SeqAssist.PEndCheckMax} to check position again.");
-                                }
+                                SeqAssist.Set_StepEndCheck(StepEndCheck.SyringeEnd, true);
                             }
                         }
                         else
                         {
-                            Done_PositionSync = true;
+                            SeqAssist.Set_StepEndCheck(StepEndCheck.SyringeEnd, true);
                         }
-                    }
-                    else
-                    {
-                        Done_PositionSync = true;
                     }
 
                     // Check Sensor Detect
-                    if (step.StepEndCheck.Get_Sensors(out List<string> sensors) == true)
+                    if (SeqAssist.IsDone_StepEndCheck(StepEndCheck.SensorDetect) == false)
                     {
-                        if (sensors.Count > 0)
+                        if (step.StepEndCheck.Get_Sensors(out List<string> sensors) == true)
                         {
-                            //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Sensor Check");
-
-                            int SensDone = 0;
-                            sensors.ForEach(sensor =>
+                            if (sensors.Count > 0)
                             {
-                                var elem = MB_Elem_Bit.GetElem(sensor);
-                                if (elem.Get_State() == false)   // Activity 확인> 감지 시 OFF. 즉 감지되면 다음 동작 수행
+                                //Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Sensor Check");
+
+                                int SensDone = 0;
+                                sensors.ForEach(sensor =>
                                 {
-                                    ++SensDone;
-                                }
-                                else
-                                {
-                                    // Sensor를 감지하는 경우는 항상 TimeOut을 활성화 한다.
-                                    int elapsedTime = SeqAssist.TimeElapsed_ms;
-                                    if (elapsedTime >= step.StepEndCheck.TimeDelay.Time * 1000)
+                                    var elem = MB_Elem_Bit.GetElem(sensor);
+                                    if (elem.Get_State() == false)   // Activity 확인> 감지 시 OFF. 즉 감지되면 다음 동작 수행
                                     {
-                                        SeqAssist.Stop_Timer();
-
-                                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: #. Check Sensor (SensorName={sensor}, Current={elapsedTime}ms, Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
+                                        ++SensDone;
                                     }
+                                    else
+                                    {
+                                        // Sensor를 감지하는 경우는 항상 TimeOut을 활성화 한다.
+                                        int elapsedTime = SeqAssist.TimeElapsed_ms;
+                                        if (elapsedTime >= step.StepEndCheck.TimeDelay.Time * 1000)
+                                        {
+                                            SeqAssist.Stop_Timer();
+
+                                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: #. Check Sensor (SensorName={sensor}, Current={elapsedTime}ms, Target={step.StepEndCheck.TimeDelay.Time * 1000}ms)");
+                                        }
+                                    }
+                                });
+                                if (SensDone == sensors.Count)
+                                {
+                                    // TimeOut (정상 종료)
+                                    SeqAssist.Stop_Timer();
+
+                                    SeqAssist.Set_StepEndCheck(StepEndCheck.TimeDelay, true);
+                                    SeqAssist.Set_StepEndCheck(StepEndCheck.SensorDetect, true);
+
+                                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Sensor Done (DetectTime={SeqAssist.TimeElapsed_ms}ms)");
                                 }
-                            });
-                            if (SensDone == sensors.Count)
+                            }
+                            else
                             {
-                                // TimeOut (정상 종료)
-                                SeqAssist.Stop_Timer();
-
-                                Done_TimeDelay = true;
-                                Done_SensorDetect = true;
-
-                                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: Sensor Done (DetectTime={SeqAssist.TimeElapsed_ms}ms)");
+                                SeqAssist.Set_StepEndCheck(StepEndCheck.SensorDetect, true);
                             }
                         }
                         else
                         {
-                            Done_SensorDetect = true;
+                            SeqAssist.Set_StepEndCheck(StepEndCheck.SensorDetect, true);
                         }
-                    }
-                    else
-                    {
-                        Done_SensorDetect = true;
                     }
                 }
                 else
                 {
-                    Done_TimeDelay = true;
-                    Done_PositionSync = true;
-                    Done_SensorDetect = true;
+                    SeqAssist.Set_StepEndCheck(StepEndCheck.TimeDelay, true);
+                    SeqAssist.Set_StepEndCheck(StepEndCheck.SyringeEnd, true);
+                    SeqAssist.Set_StepEndCheck(StepEndCheck.SensorDetect, true);
                 }
 
-                if (Done_TimeDelay == true && Done_PositionSync == true && Done_SensorDetect == true)
+                Log.WriteLog("Seq", $"[{MainState}/{RunState}] Check All: TimeDelay={SeqAssist.IsDone_StepEndCheck(StepEndCheck.TimeDelay)}, SensorDetect={SeqAssist.IsDone_StepEndCheck(StepEndCheck.SensorDetect)}, SyringeEnd={SeqAssist.IsDone_StepEndCheck(StepEndCheck.SyringeEnd)}");
+                if (SeqAssist.AllDone_StepEndCheck() == true)
                 {
                     Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. StepEndCheck: All Done");
 

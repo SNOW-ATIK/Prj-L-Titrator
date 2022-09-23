@@ -199,6 +199,8 @@ namespace L_Titrator.Pages
                             if (CurDateInfo != (hitInfo.Cell.Date.Year, hitInfo.Cell.Date.Month))
                             {
                                 LoadMonthHistory();
+                                ClearBottom();
+                                SelectedDataListIdx = -1;
                             }
 
                             SelectedTopViewItem = TopViewList.None;
@@ -211,7 +213,7 @@ namespace L_Titrator.Pages
                             }
                             else
                             {
-                                Clear();
+                                ClearAll();
                                 btn_DataList.Enabled = false;
                                 btn_Trend.Enabled = false;
                             }
@@ -344,9 +346,20 @@ namespace L_Titrator.Pages
             }
         }
 
-        private void Clear()
+        private void ClearAll()
         {
             dgv_OneDayList.Rows.Clear();
+            cmb_TitrationList.Items.Clear();
+            for (int i = 0; i < lsv_SelectedInfoSummary.Items.Count; i++)
+            {
+                lsv_SelectedInfoSummary.Items[i].SubItems[1].Text = "";
+            }
+            dgv_InjectionInfo.Rows.Clear();
+            usrCtrl_TitrationGraph1.ClearAll();
+        }
+
+        private void ClearBottom()
+        {
             cmb_TitrationList.Items.Clear();
             for (int i = 0; i < lsv_SelectedInfoSummary.Items.Count; i++)
             {
@@ -371,7 +384,7 @@ namespace L_Titrator.Pages
             this.Visible = visible;
             if (visible == true)
             {
-                Clear();
+                ClearAll();
                 Calendar.Refresh();
                 LoadMonthHistory();
             }
