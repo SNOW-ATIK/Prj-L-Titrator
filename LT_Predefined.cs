@@ -25,6 +25,70 @@ namespace L_Titrator
         public static Color Light_Red = Color.Pink;
     }
 
+    public class GlbVar
+    {
+        private static object objLock_Authority = new object();
+        private static UserAuthority _Authority = UserAuthority.User;
+        public static UserAuthority Authority
+        {
+            get
+            {
+                lock (objLock_Authority)
+                {
+                    return _Authority;
+                }
+            }
+        }
+
+        public static void SetAuthority(UserAuthority authority)
+        {
+            lock (objLock_Authority)
+            {
+                _Authority = authority;
+            }
+        }
+
+        private static object objLock_OnlineMode = new object();
+        private static OnlineMode _OnlineMode = OnlineMode.Local;
+        public static OnlineMode OnlineMode
+        {
+            get
+            {
+                lock (objLock_OnlineMode)
+                {
+                    return _OnlineMode;
+                }
+            }
+            set
+            {
+                lock (objLock_OnlineMode)
+                {
+                    _OnlineMode = value;
+                }
+            }
+        }
+
+        private static object objLock_StartSignalReceived = new object();
+        private static bool _StartSignalReceived = false;
+        public static bool StartSignalReceived
+        {
+            get
+            {
+                lock (objLock_StartSignalReceived)
+                {
+                    return _StartSignalReceived;
+                }
+            }
+            set
+            {
+                lock (objLock_StartSignalReceived)
+                {
+                    _StartSignalReceived = value;
+                }
+            }
+        }
+    }
+
     public enum FluidicsMsg
     { 
         None,
@@ -39,7 +103,8 @@ namespace L_Titrator
     { 
         None,
         Idle,
-        Run
+        Run,
+        Error,
     }
 
     public enum FluidicsRunState

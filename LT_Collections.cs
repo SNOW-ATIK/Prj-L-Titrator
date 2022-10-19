@@ -6,6 +6,25 @@ using System.Threading.Tasks;
 
 namespace L_Titrator
 {
+    public enum Language
+    {
+        ENG,
+        KOR,
+    }
+
+    public enum UserAuthority
+    {
+        User,
+        Engineer,
+        Admin,
+    }
+
+    public enum OnlineMode
+    { 
+        Local,
+        Remote,
+    }
+
     // Log
     public enum LogSection
     {
@@ -13,6 +32,22 @@ namespace L_Titrator
         Error,
         Main,
         Com_Board,
+    }
+
+    public enum MainState
+    { 
+        Unknown,
+        Idle,
+        Run,
+        Warning,
+        Error
+    }
+
+    public enum CommonStatus
+    { 
+        NA,
+        OK,
+        Error
     }
 
     public enum IOType

@@ -73,6 +73,12 @@
     <Compile Include="LT_Config.cs" />
     <Compile Include="LT_Predefined.cs" />
     <Compile Include="LT_Recipe_XML.cs" />
+    <Compile Include="Pages\Device\SubPage_Device_Overview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Device\SubPage_Device_Overview.Designer.cs">
+      <DependentUpon>SubPage_Device_Overview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Setting\Recipe\SubPage_Recipe_Process.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +118,12 @@
     <Compile Include="UserControl\UsrCtrl_Bit.Designer.cs">
       <DependentUpon>UsrCtrl_Bit.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UsrCtrl_Fluidics_Large.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UsrCtrl_Fluidics_Large.Designer.cs">
+      <DependentUpon>UsrCtrl_Fluidics_Large.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UsrCtrl_Fluidics_Small.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -130,41 +142,17 @@
     <Compile Include="Form\Frm_PopUpMenu.Designer.cs">
       <DependentUpon>Frm_PopUpMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_SeqStepInfo.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_SeqStepInfo.Designer.cs">
-      <DependentUpon>UsrCtrl_SeqStepInfo.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControl\UsrCtrl_MeasureStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControl\UsrCtrl_MeasureStatus.Designer.cs">
       <DependentUpon>UsrCtrl_MeasureStatus.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Status.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_Status.Designer.cs">
-      <DependentUpon>UsrCtrl_Status.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_MainControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_MainControl.Designer.cs">
-      <DependentUpon>UsrCtrl_MainControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControl\UsrCtrl_OnlineMode.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControl\UsrCtrl_OnlineMode.Designer.cs">
       <DependentUpon>UsrCtrl_OnlineMode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_TimeNow.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl\UsrCtrl_TimeNow.Designer.cs">
-      <DependentUpon>UsrCtrl_TimeNow.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControl\UsrCtrl_State.cs">
       <SubType>UserControl</SubType>
@@ -283,6 +271,9 @@
     <Compile Include="UserControl\UsrCtrl_TitrationGraph.Designer.cs">
       <DependentUpon>UsrCtrl_TitrationGraph.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Pages\Device\SubPage_Device_Overview.resx">
+      <DependentUpon>SubPage_Device_Overview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Main\Page_Main.resx">
       <DependentUpon>Page_Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,6 +296,9 @@
     <EmbeddedResource Include="UserControl\UsrCtrl_Bit.resx">
       <DependentUpon>UsrCtrl_Bit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UsrCtrl_Fluidics_Large.resx">
+      <DependentUpon>UsrCtrl_Fluidics_Large.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UsrCtrl_Fluidics_Small.resx">
       <DependentUpon>UsrCtrl_Fluidics_Small.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,23 +308,11 @@
     <EmbeddedResource Include="Form\Frm_PopUpMenu.resx">
       <DependentUpon>Frm_PopUpMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_SeqStepInfo.resx">
-      <DependentUpon>UsrCtrl_SeqStepInfo.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UsrCtrl_MeasureStatus.resx">
       <DependentUpon>UsrCtrl_MeasureStatus.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Status.resx">
-      <DependentUpon>UsrCtrl_Status.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_MainControl.resx">
-      <DependentUpon>UsrCtrl_MainControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UsrCtrl_OnlineMode.resx">
       <DependentUpon>UsrCtrl_OnlineMode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_TimeNow.resx">
-      <DependentUpon>UsrCtrl_TimeNow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UsrCtrl_State.resx">
       <DependentUpon>UsrCtrl_State.cs</DependentUpon>

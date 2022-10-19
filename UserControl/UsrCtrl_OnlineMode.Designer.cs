@@ -31,7 +31,7 @@ namespace L_Titrator.Controls
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_MeasureTarget = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btn_OnlineMode = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,8 +39,8 @@ namespace L_Titrator.Controls
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.btn_OnlineMode, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbl_MeasureTarget, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -65,22 +65,20 @@ namespace L_Titrator.Controls
             this.lbl_MeasureTarget.Text = "Online Mode";
             this.lbl_MeasureTarget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox1
+            // btn_OnlineMode
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
-            this.checkBox1.Location = new System.Drawing.Point(1, 28);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(196, 47);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "REMOTE";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.btn_OnlineMode.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btn_OnlineMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_OnlineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_OnlineMode.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.btn_OnlineMode.Location = new System.Drawing.Point(1, 28);
+            this.btn_OnlineMode.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_OnlineMode.Name = "btn_OnlineMode";
+            this.btn_OnlineMode.Size = new System.Drawing.Size(196, 47);
+            this.btn_OnlineMode.TabIndex = 3;
+            this.btn_OnlineMode.Text = "REMOTE";
+            this.btn_OnlineMode.UseVisualStyleBackColor = false;
+            this.btn_OnlineMode.Click += new System.EventHandler(this.btn_OnlineMode_Click);
             // 
             // UsrCtrl_OnlineMode
             // 
@@ -98,6 +96,6 @@ namespace L_Titrator.Controls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbl_MeasureTarget;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btn_OnlineMode;
     }
 }

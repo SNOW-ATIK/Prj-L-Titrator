@@ -40,7 +40,7 @@ namespace L_Titrator.Pages
 
         public void SetVisible(bool visible)
         {
-            this.Visible = visible;
+            this.Visible = visible;            
             tmr_UpdateFrame.Enabled = visible;
         }
 

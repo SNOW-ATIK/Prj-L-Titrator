@@ -29,6 +29,7 @@ namespace L_Titrator
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Main));
             this.tbl_BG = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_MainMenu = new System.Windows.Forms.TableLayoutPanel();
@@ -47,11 +48,12 @@ namespace L_Titrator
             this.usrCtrl_Login1 = new L_Titrator.Controls.UsrCtrl_Login();
             this.usrCtrl_Status1 = new L_Titrator.Controls.UsrCtrl_State();
             this.usrCtrl_Light1 = new L_Titrator.Controls.UsrCtrl_Light();
+            this.usrCtrl_TimeNow1 = new ATIK.UsrCtrl_TimeNow();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnl_BG = new System.Windows.Forms.Panel();
-            this.usrCtrl_TimeNow1 = new ATIK.UsrCtrl_TimeNow();
+            this.tmr_StateCheck = new System.Windows.Forms.Timer(this.components);
             this.tbl_BG.SuspendLayout();
             this.tbl_MainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -343,6 +345,18 @@ namespace L_Titrator
             this.usrCtrl_Light1.Size = new System.Drawing.Size(98, 62);
             this.usrCtrl_Light1.TabIndex = 5;
             // 
+            // usrCtrl_TimeNow1
+            // 
+            this.usrCtrl_TimeNow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_TimeNow1.Font = new System.Drawing.Font("Consolas", 9F);
+            this.usrCtrl_TimeNow1.Location = new System.Drawing.Point(1, 1);
+            this.usrCtrl_TimeNow1.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_TimeNow1.Name = "usrCtrl_TimeNow1";
+            this.usrCtrl_TimeNow1.Size = new System.Drawing.Size(108, 62);
+            this.usrCtrl_TimeNow1.TabIndex = 6;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -401,17 +415,10 @@ namespace L_Titrator
             this.pnl_BG.Size = new System.Drawing.Size(1024, 768);
             this.pnl_BG.TabIndex = 1;
             // 
-            // usrCtrl_TimeNow1
+            // tmr_StateCheck
             // 
-            this.usrCtrl_TimeNow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_TimeNow1.Font = new System.Drawing.Font("Consolas", 9F);
-            this.usrCtrl_TimeNow1.Location = new System.Drawing.Point(1, 1);
-            this.usrCtrl_TimeNow1.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_TimeNow1.Name = "usrCtrl_TimeNow1";
-            this.usrCtrl_TimeNow1.Size = new System.Drawing.Size(108, 62);
-            this.usrCtrl_TimeNow1.TabIndex = 6;
+            this.tmr_StateCheck.Interval = 500;
+            this.tmr_StateCheck.Tick += new System.EventHandler(this.tmr_StateCheck_Tick);
             // 
             // Frm_Main
             // 
@@ -457,6 +464,7 @@ namespace L_Titrator
         private System.Windows.Forms.Button btn_History;
         private Controls.UsrCtrl_Light usrCtrl_Light1;
         private ATIK.UsrCtrl_TimeNow usrCtrl_TimeNow1;
+        private System.Windows.Forms.Timer tmr_StateCheck;
     }
 }
 

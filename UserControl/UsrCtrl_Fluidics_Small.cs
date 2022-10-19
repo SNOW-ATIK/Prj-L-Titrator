@@ -29,7 +29,7 @@ namespace L_Titrator.Controls
         public void EnableFluidicsUpdate(bool enb)
         {
             if (ATIK_MainBoard.IsInitialized(DefinedMainBoards.L_Titrator) == false)
-            {
+            {                
                 tmr_CheckFluidics.Enabled = false;
                 return;
             }

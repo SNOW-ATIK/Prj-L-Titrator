@@ -25,6 +25,7 @@ namespace L_Titrator.Pages
 
         private SubPage_Device_Communication SubPage_Communication = new SubPage_Device_Communication();
         private SubPage_Device_Element SubPage_Element = new SubPage_Device_Element();
+        private SubPage_Device_Overview SubPage_Overview = new SubPage_Device_Overview();
 
         public Page_Device()
         {
@@ -34,20 +35,26 @@ namespace L_Titrator.Pages
 
         private void Init_SubPages()
         {
-            SubPage_Communication = new SubPage_Device_Communication();
+            //SubPage_Communication = new SubPage_Device_Communication();
             SubPage_Communication.SetMargin(new Padding(0, 0, 0, 0));
             SubPage_Communication.SetDock(DockStyle.Fill);
 
-            SubPage_Element = new SubPage_Device_Element();
+            //SubPage_Element = new SubPage_Device_Element();
             SubPage_Element.SetMargin(new Padding(0, 0, 0, 0));
             SubPage_Element.SetDock(DockStyle.Fill);
+
+            //SubPage_Element = new SubPage_Device_Element();
+            SubPage_Overview.SetMargin(new Padding(0, 0, 0, 0));
+            SubPage_Overview.SetDock(DockStyle.Fill);
 
             DicSubPages = new Dictionary<SubPage, IPage>();
             DicSubPages.Add(SubPage.COMMUNICATION, SubPage_Communication);
             DicSubPages.Add(SubPage.IO, SubPage_Element);
+            DicSubPages.Add(SubPage.OVERVIEW, SubPage_Overview);
 
             pnl_View.Controls.Add(SubPage_Communication);
             pnl_View.Controls.Add(SubPage_Element);
+            pnl_View.Controls.Add(SubPage_Overview);
 
             DicSubPageChangeBtn.Add(SubPage.COMMUNICATION, btn_Communication);
             DicSubPageChangeBtn.Add(SubPage.IO, btn_IO);
@@ -101,6 +108,7 @@ namespace L_Titrator.Pages
         {
             SubPage_Communication.Set_Page();
             SubPage_Element.Set_Page();
+            SubPage_Overview.Set_Page();
         }
     }
 }

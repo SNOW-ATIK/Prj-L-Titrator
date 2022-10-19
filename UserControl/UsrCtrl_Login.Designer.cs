@@ -31,7 +31,7 @@ namespace L_Titrator.Controls
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_MeasureTarget = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_Login = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +40,7 @@ namespace L_Titrator.Controls
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.lbl_MeasureTarget, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btn_Login, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -65,18 +65,20 @@ namespace L_Titrator.Controls
             this.lbl_MeasureTarget.Text = "Authority";
             this.lbl_MeasureTarget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // btn_Login
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(1, 21);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 40);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "ENGINEER";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_Login.BackColor = System.Drawing.Color.White;
+            this.btn_Login.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Login.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.btn_Login.Location = new System.Drawing.Point(1, 21);
+            this.btn_Login.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_Login.Name = "btn_Login";
+            this.btn_Login.Size = new System.Drawing.Size(118, 40);
+            this.btn_Login.TabIndex = 2;
+            this.btn_Login.Text = "USER";
+            this.btn_Login.UseVisualStyleBackColor = false;
+            this.btn_Login.Click += new System.EventHandler(this.btn_Login_Click);
             // 
             // UsrCtrl_Login
             // 
@@ -94,6 +96,6 @@ namespace L_Titrator.Controls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbl_MeasureTarget;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Login;
     }
 }

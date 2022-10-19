@@ -26,6 +26,7 @@ namespace L_Titrator
             Result,
             TitrationEnd,
             SequenceEnd,
+            Error,
         }
 
         public enum StepProgress
@@ -42,7 +43,7 @@ namespace L_Titrator
             SyringeEnd
         }
 
-        public delegate void RunEndDelegate();
+        public delegate void RunEndDelegate(bool successfullyEnd);
         public static RunEndDelegate RunEnd;
 
         public delegate void NotifyProcessInfoDelegate(NotifyProcess notifyProcess, object data);
@@ -203,26 +204,51 @@ namespace L_Titrator
 
             while (true)
             {
-                st_Loop.Reset();
-                st_Loop.Start();
+                // Check Leak and Overflow
+                bool Flag_Alarm = false;
+                if (IsLeak() == true || IsOverflow() == true)
+                {
+                    // Open Drain
+                    var vlv_Drain_Close = MB_Elem_Bit.GetElem("DrainPair_Close");
+                    var vlv_Drain_Open = MB_Elem_Bit.GetElem("DrainPair_Open");
+                    vlv_Drain_Close.Set_State(false);
+                    vlv_Drain_Open.Set_State(true);
 
+                    // Stop Supplying every liquid
+                    var vlv_DIW_6way = MB_Elem_Bit.GetElem("DIW_To_6Way");
+                    var vlv_DIW_Vessel = MB_Elem_Bit.GetElem("DIW_To_Vessel");
+                    vlv_DIW_6way.Set_State(false);
+                    vlv_DIW_Vessel.Set_State(false);
+
+                    // Stop Mixing                    
+
+                    Flag_Alarm = true;
+                }
+
+                // Reset Msg.
                 Msg = FluidicsMsg.None;
 
-                if (qSeq.TryDequeue(out object input) == true)
+                if (Flag_Alarm == false)
                 {
-                    object[] inputData = (object[])input;
-                    Msg = (FluidicsMsg)inputData[0];
-                    if (Msg == FluidicsMsg.Measure)
-                    {
-                        RcpNo = (int)inputData[1];
+                    st_Loop.Reset();
+                    st_Loop.Start();
 
-                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] MsgRecv={Msg}, RcpNo={RcpNo}");
-                    }
-                    else
+                    if (qSeq.TryDequeue(out object input) == true)
                     {
-                        Log.WriteLog("Seq", $"[{MainState}/{RunState}] MsgRecv={Msg}");
-                    }
+                        object[] inputData = (object[])input;
+                        Msg = (FluidicsMsg)inputData[0];
+                        if (Msg == FluidicsMsg.Measure)
+                        {
+                            RcpNo = (int)inputData[1];
 
+                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] MsgRecv={Msg}, RcpNo={RcpNo}");
+                        }
+                        else
+                        {
+                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] MsgRecv={Msg}");
+                        }
+
+                    }
                 }
 
                 switch (MainState)
@@ -258,23 +284,38 @@ namespace L_Titrator
                         break;
 
                     case FluidicsState.Run:
-                        switch (RunState)
+                        if (Flag_Alarm == false)
                         {
-                            case FluidicsRunState.Initializing:
-                                InitProc();
-                                break;
+                            switch (RunState)
+                            {
+                                case FluidicsRunState.Initializing:
+                                    InitProc();
+                                    break;
 
-                            case FluidicsRunState.Measuring:
-                                if (LT_Recipe.Get_RecipeObj(RcpNo, out RecipeObj Cur_Recipe) == true)
-                                {
-                                    RunSequence(Cur_Recipe);
-                                }
-                                else
-                                {
-                                    // #. TBD. Invalid
-                                }
-                                break;
+                                case FluidicsRunState.Measuring:
+                                    if (LT_Recipe.Get_RecipeObj(RcpNo, out RecipeObj Cur_Recipe) == true)
+                                    {
+                                        RunSequence(Cur_Recipe);
+                                    }
+                                    else
+                                    {
+                                        // #. TBD. Invalid
+                                    }
+                                    break;
+                            }
                         }
+                        else
+                        {
+                            Run_End(false);
+
+                            Thread.Sleep(LOOP_PERIOD);
+
+                            continue;
+                        }
+                        break;
+
+                    case FluidicsState.Error:
+                        // TBD. Only Init. Msg. is valid after handling error
                         break;
                 }
 
@@ -314,6 +355,22 @@ namespace L_Titrator
 
         private static void InitProc()
         { 
+        }
+
+        private static bool IsLeak()
+        {
+            return false;
+        }
+
+        private static bool IsOverflow()
+        {
+            var elem = MB_Elem_Bit.GetElem("Level_2");
+            if (elem.Get_State() == false)
+            {
+                // Overflow
+                return true;
+            }
+            return false;
         }
 
         private static void RunSequence(RecipeObj Cur_Recipe)
@@ -362,7 +419,7 @@ namespace L_Titrator
                         }
                         else
                         {
-                            Run_End();
+                            Run_End(true);
                             StepState = StepProgress.None;
                         }
                     }
@@ -377,7 +434,7 @@ namespace L_Titrator
                         }
                         else
                         {
-                            Run_End();
+                            Run_End(true);
                             StepState = StepProgress.None;
                         }
                     }
@@ -1009,9 +1066,9 @@ namespace L_Titrator
             return false;
         }
 
-        private static void Run_End()
+        private static void Run_End(bool successfullyEnd)
         {
-            MainState = FluidicsState.Idle;
+            MainState = successfullyEnd == true ? FluidicsState.Idle : FluidicsState.Error;
             RunState = FluidicsRunState.None;
 
             DateTime seqEndTime = DateTime.Now;
@@ -1022,17 +1079,26 @@ namespace L_Titrator
 
             HistoryObjCurrent.End_Sequence(seqEndTime);
 
-            ++Temp_IterationCount;
-
-            Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunEnd. (Iteration {Temp_IterationCount}/{Temp_IterationMax})");
-
-            if (Temp_IterationCount < Temp_IterationMax)
+            if (successfullyEnd == true)
             {
-                qSeq.Enqueue(new object[] { FluidicsMsg.Measure, Temp_RcpNo });
+                ++Temp_IterationCount;
+
+                Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunEnd. (Iteration {Temp_IterationCount}/{Temp_IterationMax})");
+
+                if (Temp_IterationCount < Temp_IterationMax)
+                {
+                    qSeq.Enqueue(new object[] { FluidicsMsg.Measure, Temp_RcpNo });
+                }
+                else
+                {
+                    RunEnd?.Invoke(true);
+                }
             }
             else
             {
-                RunEnd?.Invoke();
+                RunEnd?.Invoke(false);
+
+                Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunCancel. (Iteration {Temp_IterationCount}/{Temp_IterationMax})");
             }
         }
     }

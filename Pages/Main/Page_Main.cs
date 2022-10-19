@@ -34,10 +34,7 @@ namespace L_Titrator.Pages
 
         public void Set_SeqStepInfo(string seqName, string stepName)
         {
-            usrCtrl_SeqStepInfo.Set_Sequence(seqName);
-            usrCtrl_SeqStepInfo.Set_Step(stepName);
-
-            Log.WriteLog("Debug", $"Print SeqStep Info: {seqName}, {stepName}");
+            Log.WriteLog("Debug", $"SeqStep Info: {seqName}, {stepName}");
         }
 
         public void MeasureStatus_SetContent(UsrCtrl_MeasureStatus.Contents content, object info)
@@ -117,6 +114,18 @@ namespace L_Titrator.Pages
             }
         }
 
+        public void SetVisible(bool visible)
+        {
+            this.Visible = visible;
+            usrCtrl_Fluidics_Small1.EnableFluidicsUpdate(visible);
+            
+            tmr_StatusCheck.Enabled = visible;
+            if (visible == true)
+            {
+                btn_Measure.Enabled = LT_Config.GenPrm_Manual_Enabled.Value;
+            }
+        }
+
         public void SetDock(DockStyle dockStyle)
         {
             this.Dock = dockStyle;
@@ -125,12 +134,6 @@ namespace L_Titrator.Pages
         public void SetMargin(Padding margin)
         {
             this.Margin = margin;
-        }
-
-        public void SetVisible(bool visible)
-        {
-            this.Visible = visible;
-            usrCtrl_Fluidics_Small1.EnableFluidicsUpdate(visible);
         }
 
         public void ShowSubPage(string subPageName)
@@ -150,6 +153,8 @@ namespace L_Titrator.Pages
 
         private void btn_Measure_Click(object sender, EventArgs e)
         {
+            // Check Alarm
+
             Frm_NumPad numPad = new Frm_NumPad("Recipe No", (int)0);
             if (numPad.ShowDialog() == DialogResult.OK)
             {
@@ -172,6 +177,75 @@ namespace L_Titrator.Pages
         private void chk_OnlineMode_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        // 측정 중인 상태에서는 표시만 한다.
+        private void tmr_StatusCheck_Tick(object sender, EventArgs e)
+        {
+            // Com.Mainboard
+            var mbDrv = ATIK_MainBoard.Get_Driver(DefinedMainBoards.L_Titrator);
+            DrvMB_L_Titrator drvLT = (DrvMB_L_Titrator)mbDrv;
+            if (drvLT.IsInitialized == true)
+            {
+                if (drvLT.ComStatus == true)
+                {
+                    lbl_Sts_Mainboard.Text = "OK";
+                    lbl_Sts_Mainboard.BackColor = Color.MediumSeaGreen;
+                }
+                else
+                {
+                    lbl_Sts_Mainboard.Text = "Error";
+                    lbl_Sts_Mainboard.BackColor = Color.Crimson;
+                }
+            }
+            else
+            {
+                lbl_Sts_Mainboard.Text = "None";
+                lbl_Sts_Mainboard.BackColor = Color.DarkGray;
+            }
+
+            // TBD. Com.External
+            lbl_Sts_External.Text = "None";
+            lbl_Sts_External.BackColor = Color.DarkGray;
+
+            // Leak1
+            var elem_Leak1 = MB_Elem_Bit.GetElem("Leak_1");
+            if (elem_Leak1.Get_State() == true)
+            {
+                lbl_Sts_Leak1.Text = "OK";
+                lbl_Sts_Leak1.BackColor = Color.MediumSeaGreen;
+            }
+            else
+            {
+                lbl_Sts_Leak1.Text = "Error";
+                lbl_Sts_Leak1.BackColor = Color.Crimson;
+            }
+
+            // Leak2
+            var elem_Leak2 = MB_Elem_Bit.GetElem("Leak_2");
+            if (elem_Leak2.Get_State() == true)
+            {
+                lbl_Sts_Leak2.Text = "OK";
+                lbl_Sts_Leak2.BackColor = Color.MediumSeaGreen;
+            }
+            else
+            {
+                lbl_Sts_Leak2.Text = "Error";
+                lbl_Sts_Leak2.BackColor = Color.Crimson;
+            }
+
+            // Overflow
+            var elem_Overflow = MB_Elem_Bit.GetElem("Level_2");
+            if (elem_Overflow.Get_State() == true)
+            {
+                lbl_Sts_Overflow.Text = "OK";
+                lbl_Sts_Overflow.BackColor = Color.MediumSeaGreen;
+            }
+            else
+            {
+                lbl_Sts_Overflow.Text = "Error";
+                lbl_Sts_Overflow.BackColor = Color.Crimson;
+            }
         }
     }
 }

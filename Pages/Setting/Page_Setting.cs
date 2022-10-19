@@ -36,6 +36,12 @@ namespace L_Titrator.Pages
             });
         }
 
+        public void Init()
+        {
+            //PageConfig.Init();
+            PageOption.Init();            
+        }
+
         public void Show_BottomMenu(bool show)
         {
             if (show == true)

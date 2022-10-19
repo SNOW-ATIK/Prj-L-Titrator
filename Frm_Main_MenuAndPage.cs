@@ -63,15 +63,23 @@ namespace L_Titrator
                 page.SetVisible(false);
                 pnl_MainView.Controls.Add((UserControl)page);
             });
-                        
+
+            PageSetting.Init();
             PageDevice.Set_SubPages();
 
             // Set Main as Start
             MenuCurrent = MenuAndPage.MAIN;
             Dic_Menu[MenuCurrent].BackColor = PreDef.MenuBG_Select;
             Dic_Page[MenuCurrent].SetVisible(true);
+
+            // Register UserControl's Events
+            usrCtrl_Login1.UserAuthorityChangedEvent += UsrCtrl_Login1_UserAuthorityChangedEvent;
         }
-        
+
+        private void UsrCtrl_Login1_UserAuthorityChangedEvent(UserAuthority authority)
+        {
+            btn_Main.PerformClick();
+        }
 
         private void CreateSubMenus()
         {
@@ -99,7 +107,6 @@ namespace L_Titrator
 
                 case MenuAndPage.SETTING:
                 case MenuAndPage.HISTORY:
-
                     Point menuLoc = PointToScreen(tbl_MainMenu.Location);
                     Point subMenuLoc = new Point();
                     if (clickedMenu == MenuAndPage.SETTING)

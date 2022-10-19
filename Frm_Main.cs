@@ -23,15 +23,19 @@ namespace L_Titrator
         {
             Init_Logs();
 
-            Load_Recipe();
-
             InitializeComponent();
+
+            bool loadCfg = LT_Config.Load_Config();
+
+            bool loadRcp = LT_Recipe.Load_Recipes();
 
             Init_Devices();
 
             InitMenuAndPage();
 
             Init_Sequence();
+                        
+            tmr_StateCheck.Enabled = false;
 
             /*********************************************************************************************************************/
             //Frm_StrKeyPad frm = new Frm_StrKeyPad("Test", "Test");
@@ -92,17 +96,6 @@ namespace L_Titrator
             }
         }
 
-        private bool Load_Config()
-        {
-            return true;
-        }
-
-        private bool Load_Recipe()
-        {
-            bool rtn = LT_Recipe.Load_Recipes();
-            return rtn;
-        }
-
         private bool Init_Devices()
         {
             if (Element_SerialPort.Load_Config($@"Config\Device\", "Element_SerialPort.xml", "L_Titrator", "Log") == true)
@@ -128,15 +121,24 @@ namespace L_Titrator
             return bInit;
         }
 
-        private void Fluidics_RunEnd()
+        private void Fluidics_RunEnd(bool successfullyEnd)
         {
             if (this.InvokeRequired == true)
             {
-                this.BeginInvoke(new Action(Fluidics_RunEnd));
+                this.BeginInvoke(new Action(() => Fluidics_RunEnd(successfullyEnd)));
                 return;
             }
-            MsgFrm_NotifyOnly notify = new MsgFrm_NotifyOnly("Run End");
-            notify.ShowDialog();
+
+            if (successfullyEnd == true)
+            {
+                MsgFrm_NotifyOnly notify = new MsgFrm_NotifyOnly("Run End");
+                notify.ShowDialog();
+            }
+            else
+            {
+                MsgFrm_NotifyOnly notify = new MsgFrm_NotifyOnly("Run Cancel");
+                notify.ShowDialog();
+            }
         }
 
         private void Fluidics_ProcessChanged(FluidicsControl.NotifyProcess notifyProcess, object info)
@@ -183,7 +185,17 @@ namespace L_Titrator
                 case FluidicsControl.NotifyProcess.SequenceEnd:
                     PageMain.MeasureStatus_SetContent(UsrCtrl_MeasureStatus.Contents.SequenceEndTime, info);
                     break;
+
+                case FluidicsControl.NotifyProcess.Error:
+                    break;
             }
+        }
+
+        private void tmr_StateCheck_Tick(object sender, EventArgs e)
+        {
+            // Is Alarm
+
+            // Is Running
         }
     }
 }

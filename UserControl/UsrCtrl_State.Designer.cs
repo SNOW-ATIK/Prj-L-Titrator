@@ -30,8 +30,8 @@ namespace L_Titrator.Controls
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbl_State = new System.Windows.Forms.Label();
             this.lbl_MeasureTarget = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +39,7 @@ namespace L_Titrator.Controls
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_State, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbl_MeasureTarget, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -50,6 +50,20 @@ namespace L_Titrator.Controls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(108, 62);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lbl_State
+            // 
+            this.lbl_State.BackColor = System.Drawing.Color.White;
+            this.lbl_State.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_State.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_State.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.lbl_State.Location = new System.Drawing.Point(1, 21);
+            this.lbl_State.Margin = new System.Windows.Forms.Padding(1);
+            this.lbl_State.Name = "lbl_State";
+            this.lbl_State.Size = new System.Drawing.Size(106, 40);
+            this.lbl_State.TabIndex = 2;
+            this.lbl_State.Text = "Idle";
+            this.lbl_State.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_MeasureTarget
             // 
@@ -65,26 +79,12 @@ namespace L_Titrator.Controls
             this.lbl_MeasureTarget.Text = "Status";
             this.lbl_MeasureTarget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(1, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 40);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Warning";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // UsrCtrl_Status
+            // UsrCtrl_State
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Consolas", 9F);
-            this.Name = "UsrCtrl_Status";
+            this.Name = "UsrCtrl_State";
             this.Size = new System.Drawing.Size(108, 62);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -95,6 +95,6 @@ namespace L_Titrator.Controls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbl_MeasureTarget;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_State;
     }
 }

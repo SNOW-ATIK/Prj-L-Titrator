@@ -67,7 +67,9 @@ namespace L_Titrator.Controls
             // 
             // btn_Light
             // 
+            this.btn_Light.BackColor = System.Drawing.Color.DarkGray;
             this.btn_Light.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Light.Enabled = false;
             this.btn_Light.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Light.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
             this.btn_Light.Location = new System.Drawing.Point(1, 21);
@@ -75,8 +77,8 @@ namespace L_Titrator.Controls
             this.btn_Light.Name = "btn_Light";
             this.btn_Light.Size = new System.Drawing.Size(98, 40);
             this.btn_Light.TabIndex = 2;
-            this.btn_Light.Text = "ON";
-            this.btn_Light.UseVisualStyleBackColor = true;
+            this.btn_Light.Text = "N/A";
+            this.btn_Light.UseVisualStyleBackColor = false;
             // 
             // UsrCtrl_Light
             // 
