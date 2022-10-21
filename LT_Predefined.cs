@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ATIK;
+
 namespace L_Titrator
 {
     public class PreDef
@@ -29,7 +31,7 @@ namespace L_Titrator
     {
         private static object objLock_Authority = new object();
         private static UserAuthority _Authority = UserAuthority.User;
-        public static UserAuthority Authority
+        public static UserAuthority CurrentAuthority
         {
             get
             {
@@ -38,13 +40,12 @@ namespace L_Titrator
                     return _Authority;
                 }
             }
-        }
-
-        public static void SetAuthority(UserAuthority authority)
-        {
-            lock (objLock_Authority)
+            set
             {
-                _Authority = authority;
+                lock (objLock_Authority)
+                {
+                    _Authority = value;
+                }
             }
         }
 
@@ -84,6 +85,26 @@ namespace L_Titrator
                 lock (objLock_StartSignalReceived)
                 {
                     _StartSignalReceived = value;
+                }
+            }
+        }
+
+        private static object objLock_Language = new object();
+        private static Language _CurrentLanguage = Language.ENG;
+        public static Language CurrentLanguage
+        {
+            get
+            {
+                lock (objLock_Language)
+                {
+                    return _CurrentLanguage;
+                }
+            }
+            set
+            {
+                lock (objLock_Language)
+                {
+                    _CurrentLanguage = value;
                 }
             }
         }

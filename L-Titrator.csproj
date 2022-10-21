@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="FluidicsControl\FluidicsControl.cs" />
     <Compile Include="LT_History.cs" />
+    <Compile Include="LT_LifeTime.cs" />
     <Compile Include="LT_Recipe.cs" />
     <Compile Include="LT_Collections.cs" />
     <Compile Include="LT_Config.cs" />

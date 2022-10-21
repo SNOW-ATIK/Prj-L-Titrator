@@ -37,7 +37,7 @@ namespace L_Titrator.Controls
 
         private void btn_OnlineMode_Click(object sender, EventArgs e)
         {
-            if (GlbVar.Authority == UserAuthority.User)
+            if (GlbVar.CurrentAuthority == UserAuthority.User)
             {
                 MsgFrm_NotifyOnly msgNtf = new MsgFrm_NotifyOnly("Log In First.");
                 msgNtf.ShowDialog();

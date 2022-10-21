@@ -58,6 +58,8 @@ namespace L_Titrator
             GenPrm_Periodic_Period = new GenericParam<int>(Cfg_LT, "Periodic", "Period");
             GenPrm_Periodic_NextMeasureTime = new GenericParam<string>(Cfg_LT, "Periodic", "NextMeasureTime");
 
+            GlbVar.OnlineMode = GenPrm_BootupOnlineMode.Value;
+
             return bLoadSuccess;
         }
     }

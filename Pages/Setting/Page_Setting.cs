@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
+using ATIK;
 
 namespace L_Titrator.Pages
 {
@@ -18,6 +18,7 @@ namespace L_Titrator.Pages
         private Page_Option PageOption = new Page_Option();
         private Page_Recipe PageRecipe = new Page_Recipe();
         private Dictionary<string, IPage> Dic_SettingSubPages = new Dictionary<string, IPage>();
+        private string ShownSubPage = string.Empty;
 
         public Page_Setting()
         {
@@ -92,6 +93,7 @@ namespace L_Titrator.Pages
                 if (key == subPageName)
                 {
                     Dic_SettingSubPages[key].SetVisible(true);
+                    ShownSubPage = key;
                     //if (key == "RECIPE")
                     //{
                     //    tbl_View_PageUpDown.ColumnStyles[1].Width = 0;
@@ -124,6 +126,40 @@ namespace L_Titrator.Pages
         private void btn_PagingPrev_Click(object sender, EventArgs e)
         {
             PagingPrev();
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            IParamSetting iPrmSetting = (IParamSetting)Dic_SettingSubPages[ShownSubPage];
+            if (iPrmSetting.CheckParamChanged() == true)
+            {
+                // Ask Save
+                MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo("Do you want to save all changes?");
+                if (msgAsk.ShowDialog() == DialogResult.Yes)
+                {
+                    iPrmSetting.SaveAllParams(true);
+                }
+            }
+            else
+            {
+                // Ask Restore
+                MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo("Do you want to restore all changes?");
+                if (msgAsk.ShowDialog() == DialogResult.Yes)
+                {
+                    iPrmSetting.Restore();
+                }
+            }
+        }
+
+        private void btn_Restore_Click(object sender, EventArgs e)
+        {
+            IParamSetting iPrmSetting = (IParamSetting)Dic_SettingSubPages[ShownSubPage];
+            // Ask Restore
+            MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo("Do you want to restore all changes?");
+            if (msgAsk.ShowDialog() == DialogResult.Yes)
+            {
+                iPrmSetting.Restore();
+            }
         }
     }
 }

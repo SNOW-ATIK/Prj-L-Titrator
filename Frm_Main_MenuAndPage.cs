@@ -8,6 +8,7 @@ using System.Drawing;
 
 using L_Titrator.Pages;
 using L_Titrator.Controls;
+using ATIK;
 
 namespace L_Titrator
 {
@@ -64,8 +65,10 @@ namespace L_Titrator
                 pnl_MainView.Controls.Add((UserControl)page);
             });
 
+            PageMain.Init();
             PageSetting.Init();
-            PageDevice.Set_SubPages();
+            PageDevice.Init();
+            PageLifeTime.Init();
 
             // Set Main as Start
             MenuCurrent = MenuAndPage.MAIN;
@@ -196,11 +199,17 @@ namespace L_Titrator
             {
                 Dic_Page[MenuCurrent].SetVisible(true);
             }
+
+            var rcpPage = (Page_Setting)Dic_Page[MenuCurrent];
             if (subMenu == "RECIPE")
             {
-                var rcpPage = (Page_Setting)Dic_Page[MenuCurrent];
                 rcpPage.Show_RightMenu(false);
                 rcpPage.Show_BottomMenu(false);
+            }
+            else
+            {
+                rcpPage.Show_RightMenu(true);
+                rcpPage.Show_BottomMenu(true);
             }
         }
     }

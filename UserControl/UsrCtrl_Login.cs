@@ -27,31 +27,31 @@ namespace L_Titrator.Controls
 
         private void btn_Login_Click(object sender, EventArgs e)
         {
-            if (GlbVar.Authority == UserAuthority.User)
+            if (GlbVar.CurrentAuthority == UserAuthority.User)
             {
                 MsgFrm_PasswordIn msgFrm = new MsgFrm_PasswordIn("Password", true);
                 if (msgFrm.ShowDialog() == DialogResult.OK)
                 {
                     if (msgFrm.Password_KeyIn == PW_ADMIN)
                     {
-                        GlbVar.SetAuthority(UserAuthority.Admin);
+                        GlbVar.CurrentAuthority = UserAuthority.Admin;
 
                         Log.WriteLog(LogSection.Main, "Log-In: Admin.", true);
                     }
                     else if (msgFrm.Password_KeyIn == PW_ENGINEER)
                     {
-                        GlbVar.SetAuthority(UserAuthority.Engineer);
+                        GlbVar.CurrentAuthority = UserAuthority.Engineer;
 
                         Log.WriteLog(LogSection.Main, "Log-In: Engineer.", true);
                     }
                     else
                     {
-                        GlbVar.SetAuthority(UserAuthority.User);
+                        GlbVar.CurrentAuthority = UserAuthority.User;
 
                         Log.WriteLog(LogSection.Main, "Log-In: User.", true);
                     }
 
-                    MsgFrm_NotifyOnly msg = new MsgFrm_NotifyOnly($"Log-In: {GlbVar.Authority}");
+                    MsgFrm_NotifyOnly msg = new MsgFrm_NotifyOnly($"Log-In: {GlbVar.CurrentAuthority}");
                     msg.Show(1000);
                 }
             }
@@ -60,7 +60,7 @@ namespace L_Titrator.Controls
                 MsgFrm_AskYesNo askLogOut = new MsgFrm_AskYesNo("Do you want to Log-Out?");
                 if (askLogOut.ShowDialog() == DialogResult.Yes)
                 {
-                    GlbVar.SetAuthority(UserAuthority.User);
+                    GlbVar.CurrentAuthority = UserAuthority.User;
 
                     Log.WriteLog(LogSection.Main, "Log-Out: User.", true);
                 }
@@ -68,12 +68,12 @@ namespace L_Titrator.Controls
 
             SetAuthorityText();
 
-            UserAuthorityChangedEvent?.Invoke(GlbVar.Authority);
+            UserAuthorityChangedEvent?.Invoke(GlbVar.CurrentAuthority);
         }
 
         private void SetAuthorityText()
         {
-            btn_Login.Text = GlbVar.Authority.ToString().ToUpper();
+            btn_Login.Text = GlbVar.CurrentAuthority.ToString().ToUpper();
             // TBD
             //switch (GlbVar.Authority)
             //{

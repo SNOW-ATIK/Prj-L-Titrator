@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ATIK;
+
 namespace L_Titrator.Pages
 {
-    public partial class Page_Config : UserControl, IPage
+    public partial class Page_Config : UserControl, IPage, IParamSetting
     {
         public Page_Config()
         {
@@ -45,6 +47,35 @@ namespace L_Titrator.Pages
         public void PagingPrev()
         {
             throw new NotImplementedException();
+        }
+
+        public void Restore()
+        {
+            ParamPageUtil.GetAll_IComps(this).ForEach(cmp => cmp.Restore());
+        }
+
+        public void UpdateChangedStatus()
+        {
+            ParamPageUtil.GetAll_IComps(this).ForEach(cmp => cmp.UpdateNamePlate());
+        }
+
+        public void SaveAllParams(bool askSave)
+        {
+            ParamPageUtil.GetAll_IParams(this).ForEach(prm => prm?.Save(true));
+            UpdateChangedStatus();
+        }
+
+        public bool CheckParamChanged()
+        {
+            int changedCounts = 0;
+            ParamPageUtil.GetAll_IParams(this).ForEach(prm =>
+            {
+                if (prm != null && prm.ValueObject.Equals(prm.ValueObject_Original) == false)
+                {
+                    ++changedCounts;
+                }
+            });
+            return (changedCounts != 0);
         }
     }
 }

@@ -33,6 +33,13 @@ namespace L_Titrator.Pages
             Init_SubPages();
         }
 
+        public void Init()
+        {
+            SubPage_Communication.Set_Page();
+            SubPage_Element.Set_Page();
+            SubPage_Overview.Set_Page();
+        }
+
         private void Init_SubPages()
         {
             //SubPage_Communication = new SubPage_Device_Communication();
@@ -102,13 +109,6 @@ namespace L_Titrator.Pages
         {
             Button btn = (Button)sender;
             ShowSubPage((string)btn.Tag);
-        }
-
-        public void Set_SubPages()
-        {
-            SubPage_Communication.Set_Page();
-            SubPage_Element.Set_Page();
-            SubPage_Overview.Set_Page();
         }
     }
 }

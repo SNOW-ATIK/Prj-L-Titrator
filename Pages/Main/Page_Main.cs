@@ -16,12 +16,22 @@ namespace L_Titrator.Pages
 {
     public partial class Page_Main : UserControl, IPage
     {
+        public delegate void OnlineModeChanged(OnlineMode onlineMode);
+        public event OnlineModeChanged OnlineModeChangedEvent;
+
         private Dictionary<DrvMB_L_Titrator.LineOrder, UsrCtrl_MeasureResult> MeasResultDic = new Dictionary<DrvMB_L_Titrator.LineOrder, UsrCtrl_MeasureResult>();
+
         public Page_Main()
         {
             InitializeComponent();
 
             Init_ResultControls();
+        }
+
+        public void Init()
+        {
+            btn_OnlineMode.Text = GlbVar.OnlineMode.ToString().ToUpper();
+            btn_OnlineMode.BackColor = GlbVar.OnlineMode == OnlineMode.Remote ? Color.MediumSeaGreen : Color.Crimson;
         }
 
         public void Init_ResultControls()
@@ -120,10 +130,6 @@ namespace L_Titrator.Pages
             usrCtrl_Fluidics_Small1.EnableFluidicsUpdate(visible);
             
             tmr_StatusCheck.Enabled = visible;
-            if (visible == true)
-            {
-                btn_Measure.Enabled = LT_Config.GenPrm_Manual_Enabled.Value;
-            }
         }
 
         public void SetDock(DockStyle dockStyle)
@@ -153,8 +159,29 @@ namespace L_Titrator.Pages
 
         private void btn_Measure_Click(object sender, EventArgs e)
         {
-            // Check Alarm
+            if (GlbVar.CurrentAuthority == UserAuthority.User)
+            {
+                MsgFrm_NotifyOnly msgNtf = new MsgFrm_NotifyOnly("Log-In First.");
+                msgNtf.ShowDialog();
 
+                return;
+            }
+            if (GlbVar.OnlineMode == OnlineMode.Remote && LT_Config.GenPrm_Manual_AvailableOnRemote.Value == false)
+            {
+                MsgFrm_NotifyOnly msgNtf = new MsgFrm_NotifyOnly("Manual operation is disabled on Remote Mode.");
+                msgNtf.ShowDialog();
+
+                return;
+            }
+            if (LT_Config.GenPrm_Manual_Enabled.Value == false)
+            {
+                MsgFrm_NotifyOnly msgNtf = new MsgFrm_NotifyOnly("Manual operation is disabled.");
+                msgNtf.ShowDialog();
+
+                return;
+            }
+
+            // Check Alarm
             Frm_NumPad numPad = new Frm_NumPad("Recipe No", (int)0);
             if (numPad.ShowDialog() == DialogResult.OK)
             {
@@ -174,9 +201,40 @@ namespace L_Titrator.Pages
             }
         }
 
-        private void chk_OnlineMode_CheckedChanged(object sender, EventArgs e)
+        public void EnableOnlineModeChangeButton(bool enb)
         {
+            btn_OnlineMode.Enabled = enb;
+            if (enb == true)
+            {
+                btn_OnlineMode.BackColor = GlbVar.OnlineMode == OnlineMode.Remote ? Color.MediumSeaGreen : Color.Crimson;
+            }
+            else
+            {
+                btn_OnlineMode.BackColor = Color.DarkGray;
+            }
+        }
 
+        private void btn_OnlineMode_Click(object sender, EventArgs e)
+        {
+            if (GlbVar.CurrentAuthority == UserAuthority.User)
+            {
+                MsgFrm_NotifyOnly msgNtf = new MsgFrm_NotifyOnly("Log In First.");
+                msgNtf.ShowDialog();
+
+                return;
+            }
+
+            OnlineMode tgtMode = GlbVar.OnlineMode == OnlineMode.Remote ? OnlineMode.Local : OnlineMode.Remote;
+            MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo($"Do you want to change OnlineMode to {tgtMode.ToString().ToUpper()}?");
+            if (msgAsk.ShowDialog() == DialogResult.Yes)
+            {
+                GlbVar.OnlineMode = tgtMode;
+
+                btn_OnlineMode.Text = GlbVar.OnlineMode.ToString().ToUpper();
+                btn_OnlineMode.BackColor = GlbVar.OnlineMode == OnlineMode.Remote ? Color.MediumSeaGreen : Color.Crimson;
+
+                OnlineModeChangedEvent?.Invoke(GlbVar.OnlineMode);
+            }
         }
 
         // 측정 중인 상태에서는 표시만 한다.

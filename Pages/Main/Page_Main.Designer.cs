@@ -78,7 +78,9 @@ namespace L_Titrator.Pages
             this.label10 = new System.Windows.Forms.Label();
             this.lbl_Sts_Overflow = new System.Windows.Forms.Label();
             this.tmr_StatusCheck = new System.Windows.Forms.Timer(this.components);
-            this.usrCtrl_OnlineMode1 = new L_Titrator.Controls.UsrCtrl_OnlineMode();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_OnlineMode = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbl_MeasureResults.SuspendLayout();
@@ -99,6 +101,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -470,10 +473,10 @@ namespace L_Titrator.Pages
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel5, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 6);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel8, 0, 8);
-            this.tableLayoutPanel6.Controls.Add(this.usrCtrl_OnlineMode1, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -487,6 +490,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(202, 634);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
@@ -825,17 +829,52 @@ namespace L_Titrator.Pages
             this.tmr_StatusCheck.Interval = 500;
             this.tmr_StatusCheck.Tick += new System.EventHandler(this.tmr_StatusCheck_Tick);
             // 
-            // usrCtrl_OnlineMode1
+            // tableLayoutPanel5
             // 
-            this.usrCtrl_OnlineMode1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_OnlineMode1.Font = new System.Drawing.Font("Consolas", 9F);
-            this.usrCtrl_OnlineMode1.Location = new System.Drawing.Point(1, 1);
-            this.usrCtrl_OnlineMode1.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_OnlineMode1.Name = "usrCtrl_OnlineMode1";
-            this.usrCtrl_OnlineMode1.Size = new System.Drawing.Size(200, 76);
-            this.usrCtrl_OnlineMode1.TabIndex = 7;
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.btn_OnlineMode, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(202, 78);
+            this.tableLayoutPanel5.TabIndex = 9;
+            // 
+            // btn_OnlineMode
+            // 
+            this.btn_OnlineMode.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btn_OnlineMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_OnlineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_OnlineMode.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.btn_OnlineMode.Location = new System.Drawing.Point(1, 28);
+            this.btn_OnlineMode.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_OnlineMode.Name = "btn_OnlineMode";
+            this.btn_OnlineMode.Size = new System.Drawing.Size(200, 49);
+            this.btn_OnlineMode.TabIndex = 3;
+            this.btn_OnlineMode.Text = "REMOTE";
+            this.btn_OnlineMode.UseVisualStyleBackColor = false;
+            this.btn_OnlineMode.Click += new System.EventHandler(this.btn_OnlineMode_Click);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(1, 1);
+            this.label3.Margin = new System.Windows.Forms.Padding(1);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(200, 25);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Online Mode";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Page_Main
             // 
@@ -864,6 +903,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -917,6 +957,8 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_Sts_Overflow;
         private System.Windows.Forms.Timer tmr_StatusCheck;
-        private Controls.UsrCtrl_OnlineMode usrCtrl_OnlineMode1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Button btn_OnlineMode;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -29,6 +29,8 @@ namespace L_Titrator
 
             bool loadRcp = LT_Recipe.Load_Recipes();
 
+            bool loadLiftTime = PartsLifeTimeManager.Load("Config", "LifeTime.xml", "LifeTime");
+
             Init_Devices();
 
             InitMenuAndPage();

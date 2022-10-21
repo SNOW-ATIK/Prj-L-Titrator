@@ -95,6 +95,7 @@ namespace L_Titrator.Pages
             this.btn_Save.Tag = "SAVE";
             this.btn_Save.Text = "SAVE";
             this.btn_Save.UseVisualStyleBackColor = false;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // btn_Restore
             // 
@@ -113,6 +114,7 @@ namespace L_Titrator.Pages
             this.btn_Restore.Tag = "RESTORE";
             this.btn_Restore.Text = "RESTORE";
             this.btn_Restore.UseVisualStyleBackColor = false;
+            this.btn_Restore.Click += new System.EventHandler(this.btn_Restore_Click);
             // 
             // tbl_View_PageUpDown
             // 
