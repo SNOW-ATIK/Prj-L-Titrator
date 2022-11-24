@@ -90,7 +90,7 @@ namespace L_Titrator
             {
                 return false;
             }
-            
+
             //Equality Test            
             bool bSeqSame = false;
             if (Sequences.Count == other.Sequences.Count)
@@ -1251,11 +1251,17 @@ namespace L_Titrator
         [XmlElement("MixingTime_General")]
         public int MixingTime_General { get; set; }
 
+        [XmlElement("EnableInterpolation")]
+        public bool EnableInterpolation { get; set; }
+
         [XmlElement("AnalogInfo")]
         public AnalogInfo AnalogInfo;
 
         [XmlElement("InjectionInfo")]
         public InjectionInfo InjectionInfo;
+
+        [XmlElement("ValidationInfo")]
+        public ValidationInfo ValidationInfo;
 
         private int IterationCount = 0;
         private double TotalInjectionVolume_mL = 0;
@@ -1277,6 +1283,7 @@ namespace L_Titrator
         {
             AnalogInfo = new AnalogInfo();
             InjectionInfo = new InjectionInfo();
+            ValidationInfo = new ValidationInfo();
         }
 
         public void IncrementInterationCount()
@@ -1391,11 +1398,13 @@ namespace L_Titrator
 
             clone.MixingTime_AfterOffset = MixingTime_AfterOffset;
             clone.MixingTime_General = MixingTime_General;
+            clone.EnableInterpolation = EnableInterpolation;
 
             clone.MaxIterationCount = MaxIterationCount;
 
             clone.AnalogInfo = (AnalogInfo)AnalogInfo.Clone();
             clone.InjectionInfo = (InjectionInfo)InjectionInfo.Clone();
+            clone.ValidationInfo = (ValidationInfo)ValidationInfo.Clone();
 
             return clone;
         }
@@ -1417,11 +1426,12 @@ namespace L_Titrator
                    ResultUnit == other.ResultUnit &&
                    MixingTime_AfterOffset == other.MixingTime_AfterOffset &&
                    MixingTime_General == other.MixingTime_General &&
+                   EnableInterpolation == other.EnableInterpolation &&
                    AnalogInfo.Equals(other.AnalogInfo) &&
                    InjectionInfo.Equals(other.InjectionInfo) &&
+                   ValidationInfo.Equals(other.ValidationInfo) &&
                    IterationCount == other.IterationCount &&
                    TotalInjectionVolume_mL == other.TotalInjectionVolume_mL &&
-                   //MixingStopWatch.Equals(other.MixingStopWatch) &&
                    IsMixing == other.IsMixing &&
                    MixingTimeElapsed == other.MixingTimeElapsed &&
                    IsInjecting == other.IsInjecting &&
@@ -1441,8 +1451,10 @@ namespace L_Titrator
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ResultUnit);
             hashCode = hashCode * -1521134295 + MixingTime_AfterOffset.GetHashCode();
             hashCode = hashCode * -1521134295 + MixingTime_General.GetHashCode();
+            hashCode = hashCode * -1521134295 + EnableInterpolation.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<AnalogInfo>.Default.GetHashCode(AnalogInfo);
             hashCode = hashCode * -1521134295 + EqualityComparer<InjectionInfo>.Default.GetHashCode(InjectionInfo);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ValidationInfo>.Default.GetHashCode(ValidationInfo);
             hashCode = hashCode * -1521134295 + IterationCount.GetHashCode();
             hashCode = hashCode * -1521134295 + TotalInjectionVolume_mL.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<Stopwatch>.Default.GetHashCode(MixingStopWatch);
@@ -1645,6 +1657,79 @@ namespace L_Titrator
         }
 
         public static bool operator !=(InjectionInfo left, InjectionInfo right)
+        {
+            return !(left == right);
+        }
+    }
+
+    [Serializable]
+    public class ValidationInfo : ICloneable, IEquatable<ValidationInfo>
+    {
+        [XmlElement("Enabled")]
+        public bool Enabled { get; set; }
+
+        [XmlElement("ReferenceValue")]
+        public double ReferenceValue { get; set; }
+
+        [XmlElement("Limit_Low")]
+        public double Limit_Low { get; set; }
+
+        [XmlElement("Limit_High")]
+        public double Limit_High { get; set; }
+
+        public object Clone()
+        {
+            ValidationInfo iInfo = new ValidationInfo();
+            iInfo.Enabled = Enabled;
+            iInfo.ReferenceValue = ReferenceValue;
+            iInfo.Limit_Low = Limit_Low;
+            iInfo.Limit_High = Limit_High;
+
+            return iInfo;
+        }
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as ValidationInfo);
+        }
+
+        public bool Equals(ValidationInfo other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return Enabled == other.Enabled &&
+                   ReferenceValue == other.ReferenceValue &&
+                   Limit_Low == other.Limit_Low &&
+                   Limit_High == other.Limit_High;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -290603305;
+            hashCode = hashCode * -1521134295 + Enabled.GetHashCode();
+            hashCode = hashCode * -1521134295 + ReferenceValue.GetHashCode();
+            hashCode = hashCode * -1521134295 + Limit_Low.GetHashCode();
+            hashCode = hashCode * -1521134295 + Limit_High.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(ValidationInfo left, ValidationInfo right)
+        {
+            if (left is null)
+            {
+                if (right is null)
+                {
+                    return true;
+                }
+
+                // Only the left side is null.
+                return false;
+            }
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(ValidationInfo left, ValidationInfo right)
         {
             return !(left == right);
         }

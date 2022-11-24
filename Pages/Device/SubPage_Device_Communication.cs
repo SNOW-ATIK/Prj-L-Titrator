@@ -40,8 +40,7 @@ namespace L_Titrator.Pages
 
         public void SetVisible(bool visible)
         {
-            this.Visible = visible;            
-            tmr_UpdateFrame.Enabled = visible;
+            this.Visible = visible;
         }
 
         public void SetDock(DockStyle dockStyle)
@@ -97,6 +96,11 @@ namespace L_Titrator.Pages
                     dgv_InternalLog.Rows[i].Cells[3].Value = RxFrame[i];
                 }
             }
+        }
+
+        private void SubPage_Device_Communication_VisibleChanged(object sender, EventArgs e)
+        {
+            tmr_UpdateFrame.Enabled = this.Visible;
         }
     }
 }

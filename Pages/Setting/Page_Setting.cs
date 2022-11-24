@@ -17,6 +17,7 @@ namespace L_Titrator.Pages
         private Page_Config PageConfig = new Page_Config();
         private Page_Option PageOption = new Page_Option();
         private Page_Recipe PageRecipe = new Page_Recipe();
+        private Page_Alarm PageAlarm = new Page_Alarm();
         private Dictionary<string, IPage> Dic_SettingSubPages = new Dictionary<string, IPage>();
         private string ShownSubPage = string.Empty;
 
@@ -27,6 +28,7 @@ namespace L_Titrator.Pages
             Dic_SettingSubPages.Add("CONFIG", PageConfig);
             Dic_SettingSubPages.Add("OPTION", PageOption);
             Dic_SettingSubPages.Add("RECIPE", PageRecipe);
+            Dic_SettingSubPages.Add("ALARM", PageAlarm);
 
             Dic_SettingSubPages.Values.ToList().ForEach(subPage =>
             {
@@ -35,20 +37,49 @@ namespace L_Titrator.Pages
                 subPage.SetVisible(false);
                 pnl_View.Controls.Add((UserControl)subPage);
             });
+
+            PageAlarm.RequestAlarmTestModeDisable += PageAlarm_RequestAlarmTestModeDisable;
+        }
+
+        private void PageAlarm_RequestAlarmTestModeDisable()
+        {
+            chk_AlarmTestMode.Checked = false;
         }
 
         public void Init()
         {
-            //PageConfig.Init();
-            PageOption.Init();            
+            PageConfig.Init();
+            PageOption.Init();
+            PageAlarm.Init();
+            PageAlarm.ShowPagingButtonsEvent += PageAlarm_ShowPagingButtonsEvent;
         }
 
-        public void Show_BottomMenu(bool show)
+        private void PageAlarm_ShowPagingButtonsEvent(bool show)
+        {
+            Show_RightMenu(show);
+        }
+
+        public void Show_BottomMenu(bool show, bool alarmTestMode)
         {
             if (show == true)
             {
                 tableLayoutPanel1.RowStyles[0].Height = 100;
                 tableLayoutPanel1.RowStyles[1].Height = 50;
+
+                if (alarmTestMode == true)
+                {
+                    tableLayoutPanel2.ColumnStyles[0].Width = 33;
+                    tableLayoutPanel2.ColumnStyles[1].Width = 33;
+                    tableLayoutPanel2.ColumnStyles[2].Width = 1;
+                    tableLayoutPanel2.ColumnStyles[3].Width = 33;
+                }
+                else
+                {
+                    tableLayoutPanel2.ColumnStyles[0].Width = 50;
+                    tableLayoutPanel2.ColumnStyles[1].Width = 50;
+                    tableLayoutPanel2.ColumnStyles[2].Width = 0;
+                    tableLayoutPanel2.ColumnStyles[3].Width = 0;
+                }
             }
             else
             {
@@ -94,18 +125,10 @@ namespace L_Titrator.Pages
                 {
                     Dic_SettingSubPages[key].SetVisible(true);
                     ShownSubPage = key;
-                    //if (key == "RECIPE")
-                    //{
-                    //    tbl_View_PageUpDown.ColumnStyles[1].Width = 0;
-                    //}
                 }
                 else
                 {
                     Dic_SettingSubPages[key].SetVisible(false);
-                    //if (key == "RECIPE")
-                    //{
-                    //    tbl_View_PageUpDown.ColumnStyles[1].Width = 50;
-                    //}
                 } 
             });
         }
@@ -120,18 +143,18 @@ namespace L_Titrator.Pages
 
         private void btn_PagingNext_Click(object sender, EventArgs e)
         {
-            PagingNext();
+            Dic_SettingSubPages[ShownSubPage].PagingNext();
         }
 
         private void btn_PagingPrev_Click(object sender, EventArgs e)
         {
-            PagingPrev();
+            Dic_SettingSubPages[ShownSubPage].PagingPrev();
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
             IParamSetting iPrmSetting = (IParamSetting)Dic_SettingSubPages[ShownSubPage];
-            if (iPrmSetting.CheckParamChanged() == true)
+            if (iPrmSetting.IsParamChanged() == true)
             {
                 // Ask Save
                 MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo("Do you want to save all changes?");
@@ -139,14 +162,14 @@ namespace L_Titrator.Pages
                 {
                     iPrmSetting.SaveAllParams(true);
                 }
-            }
-            else
-            {
-                // Ask Restore
-                MsgFrm_AskYesNo msgAsk = new MsgFrm_AskYesNo("Do you want to restore all changes?");
-                if (msgAsk.ShowDialog() == DialogResult.Yes)
+                else
                 {
-                    iPrmSetting.Restore();
+                    // Ask Restore
+                    msgAsk = new MsgFrm_AskYesNo("Do you want to restore all changes?");
+                    if (msgAsk.ShowDialog() == DialogResult.Yes)
+                    {
+                        iPrmSetting.Restore();
+                    }
                 }
             }
         }
@@ -160,6 +183,12 @@ namespace L_Titrator.Pages
             {
                 iPrmSetting.Restore();
             }
+        }
+
+        private void chk_AlarmTestMode_CheckedChanged(object sender, EventArgs e)
+        {
+            LT_Alarm.EnableTestMode(chk_AlarmTestMode.Checked);
+            PageAlarm.EnableTestMode(chk_AlarmTestMode.Checked);
         }
     }
 }

@@ -39,6 +39,7 @@ namespace L_Titrator
             Offset_mL,
             MixingTime_AfterOffset_ms,
             MixingTime_General_ms,
+            InterpolationEnabled,
             ScaleFactor_VolumeToConcentration,
             TitrationTarget_mV,
             TitrationEnd_mV,
@@ -77,7 +78,7 @@ namespace L_Titrator
         {
             get
             {
-                return $@"{PreDef.Path_History}\{StartTime_Sequence.Year:0000}\{StartTime_Sequence.Month:00}\{StartTime_Sequence.Day:00}";
+                return $@"{PreDef.Path_History_Data}\{StartTime_Sequence.Year:0000}\{StartTime_Sequence.Month:00}\{StartTime_Sequence.Day:00}";
             }
         }
         public string MyFileName
@@ -210,6 +211,7 @@ namespace L_Titrator
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.Offset_mL, ttrObj.Offset_mL);
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.MixingTime_AfterOffset_ms, ttrObj.MixingTime_AfterOffset_ms);
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.MixingTime_General_ms, ttrObj.MixingTime_General_ms);
+            File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.InterpolationEnabled, ttrObj.InterpolationEnabled);
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.ScaleFactor_VolumeToConcentration, ttrObj.ScaleFactor_VolumeToConcentration);
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.TitrationTarget_mV, ttrObj.AnalogValue_Target);
             File_AddKey(DicTtrSectionNames[sampleName], TitrationKey.TitrationEnd_mV, ttrObj.AnalogValue_End);
@@ -615,6 +617,22 @@ namespace L_Titrator
                 }
             }
 
+            public bool InterpolationEnabled
+            {
+                get
+                {
+                    if (MyRef != null)
+                    {
+                        return MyRef.EnableInterpolation;
+                    }
+                    if (MyParent != null)
+                    {
+                        return bool.Parse(MyParent.File_GetValue(MySection, TitrationKey.InterpolationEnabled));
+                    }
+                    return false;
+                }
+            }
+
             public TitrationObj(TitrationRef titrationRef)
             {
                 MyRef = titrationRef;
@@ -670,12 +688,61 @@ namespace L_Titrator
                     return false;
                 }
 
-                var validInfos = InjectedList.Where(injInfo => injInfo.Analog > AnalogValue_Target).ToList();
+                List<InjectedObj> validInfos = null;
+                if (InterpolationEnabled == true)
+                {
+                    validInfos = InjectedList.Where(injInfo => injInfo.Analog == AnalogValue_Target).ToList();
+
+                    // TBD: Migration Previous
+                    //if (validInfos.Count == 0)
+                    //{
+                    //    var overTarget = InjectedList.Where(injInfo => injInfo.Analog > AnalogValue_Target).ToList();
+                    //    if (InjectedList.Count > 1 && overTarget.Count > 0)
+                    //    {
+                    //        InjectedObj injObj_L = null;
+                    //        InjectedObj injObj_H = null;
+                    //        for (int i = 0; i < InjectedList.Count; i++)
+                    //        {
+                    //            if (InjectedList[i].Analog <= AnalogValue_Target)
+                    //            {
+                    //                injObj_L = InjectedList[i];
+                    //            }
+                    //            else
+                    //            {
+                    //                injObj_H = InjectedList[i];
+                    //            }
+                    //        }
+
+                    //        double inj_Accum = Util.GetInterpolatedValue(AnalogValue_Target, injObj_L.InjVol_Accum, injObj_L.Analog, injObj_H.InjVol_Accum, injObj_H.Analog);
+                    //    }
+                    //}
+                }
+                else
+                {
+                    validInfos = InjectedList.Where(injInfo => injInfo.Analog >= AnalogValue_Target).ToList();
+                }
+
                 if (validInfos.Count == 0)
                 {
                     return false;
                 }
                 injObj = validInfos[0];
+
+                return true;
+            }
+
+            public bool Get_LastPoint(out InjectedObj injLast)
+            {
+                injLast = null;
+                if (Get_InjectedObjList(out var list) == false)
+                {
+                    return false;
+                }
+                if (list.Count == 0)
+                {
+                    return false;
+                }
+                injLast = list[list.Count - 1];
                 return true;
             }
 
@@ -754,7 +821,7 @@ namespace L_Titrator
 
                 public override string ToString()
                 {
-                    return $"{No},{Time.Hour}:{Time.Minute}:{Time.Second},{InjVol_Single},{InjVol_Accum},{Concentration:0.000},{Analog}";
+                    return $"{No},{Time.Hour}:{Time.Minute}:{Time.Second},{InjVol_Single},{InjVol_Accum:0.00##},{Concentration:0.000#},{Analog}";
                 }
             }
         }
@@ -768,13 +835,29 @@ namespace L_Titrator
             return allHistory;
         }
 
-        public static Dictionary<int, List<HistoryObj>> LoadMonth(int year, int month)
+        public static Dictionary<int, List<string>> LoadMonthSummary(int year, int month)
         {
-            Dictionary<int, List<HistoryObj>> monthHistory = new Dictionary<int, List<HistoryObj>>();
-            string monthPath = Path.Combine(PreDef.Path_History, year.ToString("0000"), month.ToString("00"));
+            Dictionary<int, List<string>> monthHistorySummary = new Dictionary<int, List<string>>();
+            string monthPath = Path.Combine(PreDef.Path_History_Data, year.ToString("0000"), month.ToString("00"));
             for (int i = 1; i < DateTime.DaysInMonth(year, month); i++)
             {
                 string dayPath = Path.Combine(monthPath, i.ToString("00"));
+                if (LoadDaySummary(year, month, i, out List<string> dayHistorys) == true)
+                {
+                    monthHistorySummary.Add(i, dayHistorys);
+                }
+
+            }
+            return monthHistorySummary;
+        }
+
+        public static Dictionary<int, List<HistoryObj>> LoadMonth(int year, int month)
+        {
+            Dictionary<int, List<HistoryObj>> monthHistory = new Dictionary<int, List<HistoryObj>>();
+            string monthPath = Path.Combine(PreDef.Path_History_Data, year.ToString("0000"), month.ToString("00"));            
+            for (int i = 1; i < DateTime.DaysInMonth(year, month); i++)
+            {
+                string dayPath = Path.Combine(monthPath, i.ToString("00"));                
                 if (LoadDay(dayPath, out List<HistoryObj> dayHistorys) == true)
                 {
                     monthHistory.Add(i, dayHistorys);
@@ -782,6 +865,19 @@ namespace L_Titrator
 
             }
             return monthHistory;
+        }
+
+        public static bool LoadDaySummary(int year, int month, int day, out List<string> historySummaryInDay)
+        {
+            historySummaryInDay = new List<string>();
+            string FilePath = Path.Combine(PreDef.Path_History_Data, year.ToString("00"), month.ToString("00"), day.ToString("00"));
+            if (Directory.Exists(FilePath) == false)
+            {
+                return false;
+            }
+
+            historySummaryInDay = Directory.GetFiles(FilePath).Where(file => file.EndsWith("log")).ToList();
+            return true;
         }
 
         public static bool LoadDay(string dayPath, out List<HistoryObj> dayHistorys)
@@ -797,6 +893,10 @@ namespace L_Titrator
             {
                 try
                 {
+                    if (fileInDay[i].EndsWith("log") == false)
+                    {
+                        continue;
+                    }
                     HistoryObj history = new HistoryObj(fileInDay[i]);
                     dayHistorys.Add(history);
                 }
@@ -810,14 +910,36 @@ namespace L_Titrator
 
         public static bool LoadDay(int year, int month, int day, out List<HistoryObj> historyInDay)
         {
-            historyInDay = new List<HistoryObj>();
-            string FilePath = Path.Combine(PreDef.Path_History, year.ToString("00"), month.ToString("00"), day.ToString("00"));
+            string FilePath = Path.Combine(PreDef.Path_History_Data, year.ToString("00"), month.ToString("00"), day.ToString("00"));
             if (LoadDay(FilePath, out historyInDay) == true)
             {
                 return true;
             }
 
             return false;
+        }
+
+        public static bool LoadHistory(string fileName, out HistoryObj history)
+        {
+            history = null;
+            if (File.Exists(fileName) == false)
+            {
+                return false;
+            }
+            if (fileName.EndsWith("log") == false)
+            {
+                return false;
+            }
+
+            try
+            {
+                history = new HistoryObj(fileName);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

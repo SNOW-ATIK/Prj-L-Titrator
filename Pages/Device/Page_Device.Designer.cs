@@ -149,6 +149,7 @@ namespace L_Titrator.Pages
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Page_Device";
             this.Size = new System.Drawing.Size(1024, 634);
+            this.VisibleChanged += new System.EventHandler(this.Page_Device_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);

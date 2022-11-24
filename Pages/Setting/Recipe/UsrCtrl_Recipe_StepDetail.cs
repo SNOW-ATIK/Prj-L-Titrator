@@ -13,7 +13,7 @@ using L_Titrator.Controls;
 
 namespace L_Titrator.Pages
 {
-    public partial class UsrCtrl_Recipe_StepDetail : UserControl
+    public partial class UsrCtrl_Recipe_StepDetail : UserControl, IAuthority
     {
         private enum Edit
         { 
@@ -116,10 +116,10 @@ namespace L_Titrator.Pages
                 usrCtrl_Control.Parse(stepRef);
 
                 // Enable Add or Remove buttons
-                btn_Add.Enabled = true;
-                btn_Insert.Enabled = true;
-                btn_Delete.Enabled = true;
-                btn_Clear.Enabled = true;
+                btn_Add.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+                btn_Insert.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+                btn_Delete.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+                btn_Clear.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
 
                 // Enable or Disable Reset button
                 if (RefSequence.No == 0 && SelectedStepNo == 0)
@@ -128,7 +128,7 @@ namespace L_Titrator.Pages
                 }
                 else
                 {
-                    btn_ResetToPrvStep.Enabled = true;
+                    btn_ResetToPrvStep.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
                 }
             }
         }
@@ -402,21 +402,37 @@ namespace L_Titrator.Pages
 
             // Draw Control
             usrCtrl_Control.SetBackground();
-            //usrCtrl_Control = new UsrCtrl_Recipe_StepDetail_Control();
-            //usrCtrl_Control.Visible = false;
-            //usrCtrl_Control.Margin = new Padding(1, 1, 1, 1);
-            //usrCtrl_Control.Dock = DockStyle.Fill;
-            //usrCtrl_Control.SetBackground();
-            //pnl_View.Controls.Add(usrCtrl_Control);
 
             // Draw Titration
             usrCtrl_Titration.SetBackground();
-            //usrCtrl_Titration = new UsrCtrl_Recipe_StepDetail_Titration();
-            //usrCtrl_Titration.Visible = false;
-            //usrCtrl_Titration.Margin = new Padding(1, 1, 1, 1);
-            //usrCtrl_Titration.Dock = DockStyle.Fill;
-            //usrCtrl_Titration.SetBackground();
-            //pnl_View.Controls.Add(usrCtrl_Titration);
+
+            if (FluidicsControl.MainState == FluidicsState.Run)
+            {
+                btn_Add.Enabled = false;
+                btn_Insert.Enabled = false;
+                btn_Delete.Enabled = false;
+                btn_Clear.Enabled = false;
+
+                CmpVal_StepName.EnableModifying(true, false);
+                CmpCol_StepEnabled.EnableModifying(true, false);
+                //CmpCol_IsTitration.EnableParameter(GlbVar.CurrentAuthority == UserAuthority.Admin);
+                btn_ResetToPrvStep.Enabled = false;
+
+                if (FluidicsControl.MainState == FluidicsState.Run)
+                {
+                    usrCtrl_Control.EnableControl(false);
+                    usrCtrl_Titration.EnableControl(false);
+                }
+                else
+                {
+                    usrCtrl_Control.UserAuthorityIsChanged();
+                    usrCtrl_Titration.UserAuthorityIsChanged();
+                }
+            }
+            else
+            {
+                UserAuthorityIsChanged();
+            }
         }
 
         private void StepName_ValueClickedEvent(object sender, object oldValue)
@@ -456,6 +472,14 @@ namespace L_Titrator.Pages
             //usrCtrl_Control.Visible = false;
             //usrCtrl_Titration.Visible = false;
             SelectedStepNo = -1;
+        }
+
+        public void UpateNamePlates()
+        {
+            if (usrCtrl_Titration.Visible == true)
+            {
+                ParamPageUtil.GetAll_IComps(this).ForEach(cmp => cmp.Color_Name = Color.LemonChiffon);
+            }
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -507,6 +531,22 @@ namespace L_Titrator.Pages
         private void btn_ResetToPrvStep_Click(object sender, EventArgs e)
         {
             usrCtrl_Control.SetSameAsPrvStep();
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            btn_Add.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+            btn_Insert.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+            btn_Delete.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+            btn_Clear.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+
+            CmpVal_StepName.EnableModifying(true, GlbVar.CurrentAuthority == UserAuthority.Admin);
+            CmpCol_StepEnabled.EnableModifying(true, GlbVar.CurrentAuthority == UserAuthority.Admin);
+            //CmpCol_IsTitration.EnableParameter(GlbVar.CurrentAuthority == UserAuthority.Admin);
+            btn_ResetToPrvStep.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+
+            usrCtrl_Control.UserAuthorityIsChanged();
+            usrCtrl_Titration.UserAuthorityIsChanged();
         }
     }
 }

@@ -67,6 +67,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FluidicsControl\FluidicsControl.cs" />
+    <Compile Include="FluidicsControl\FluidicsControl_Assist.cs" />
+    <Compile Include="Forms\Frm_ManualStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_ManualStart.Designer.cs">
+      <DependentUpon>Frm_ManualStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_SyringeControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_SyringeControl.Designer.cs">
+      <DependentUpon>Frm_SyringeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_ValveControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_ValveControl.Designer.cs">
+      <DependentUpon>Frm_ValveControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LT_Alarm.cs" />
     <Compile Include="LT_History.cs" />
     <Compile Include="LT_LifeTime.cs" />
     <Compile Include="LT_Recipe.cs" />
@@ -79,6 +99,18 @@
     </Compile>
     <Compile Include="Pages\Device\SubPage_Device_Overview.Designer.cs">
       <DependentUpon>SubPage_Device_Overview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\History\Frm_TrendExpand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\History\Frm_TrendExpand.Designer.cs">
+      <DependentUpon>Frm_TrendExpand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Setting\Page_Alarm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Setting\Page_Alarm.Designer.cs">
+      <DependentUpon>Page_Alarm.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Setting\Recipe\SubPage_Recipe_Process.cs">
       <SubType>UserControl</SubType>
@@ -107,70 +139,76 @@
     <Compile Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_Titration.Designer.cs">
       <DependentUpon>UsrCtrl_Recipe_StepDetail_Titration.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Analog.cs">
+    <Compile Include="UserControls\UsrCtrl_AlarmInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Analog.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_AlarmInfo.designer.cs">
+      <DependentUpon>UsrCtrl_AlarmInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UsrCtrl_Analog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UsrCtrl_Analog.Designer.cs">
       <DependentUpon>UsrCtrl_Analog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Bit.cs">
+    <Compile Include="UserControls\UsrCtrl_Bit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Bit.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_Bit.Designer.cs">
       <DependentUpon>UsrCtrl_Bit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Fluidics_Large.cs">
+    <Compile Include="UserControls\UsrCtrl_Fluidics_Large.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Fluidics_Large.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_Fluidics_Large.Designer.cs">
       <DependentUpon>UsrCtrl_Fluidics_Large.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Fluidics_Small.cs">
+    <Compile Include="UserControls\UsrCtrl_Fluidics_Small.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Fluidics_Small.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_Fluidics_Small.Designer.cs">
       <DependentUpon>UsrCtrl_Fluidics_Small.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Light.cs">
+    <Compile Include="UserControls\UsrCtrl_Light.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Light.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_Light.Designer.cs">
       <DependentUpon>UsrCtrl_Light.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\Frm_PopUpMenu.cs">
+    <Compile Include="Forms\Frm_PopUpMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Frm_PopUpMenu.Designer.cs">
+    <Compile Include="Forms\Frm_PopUpMenu.Designer.cs">
       <DependentUpon>Frm_PopUpMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_MeasureStatus.cs">
+    <Compile Include="UserControls\UsrCtrl_MeasureStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_MeasureStatus.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_MeasureStatus.Designer.cs">
       <DependentUpon>UsrCtrl_MeasureStatus.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_OnlineMode.cs">
+    <Compile Include="UserControls\UsrCtrl_OnlineMode.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_OnlineMode.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_OnlineMode.Designer.cs">
       <DependentUpon>UsrCtrl_OnlineMode.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_State.cs">
+    <Compile Include="UserControls\UsrCtrl_State.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_State.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_State.Designer.cs">
       <DependentUpon>UsrCtrl_State.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Login.cs">
+    <Compile Include="UserControls\UsrCtrl_Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_Login.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_Login.Designer.cs">
       <DependentUpon>UsrCtrl_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_MeasureResult.cs">
+    <Compile Include="UserControls\UsrCtrl_MeasureResult.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_MeasureResult.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_MeasureResult.Designer.cs">
       <DependentUpon>UsrCtrl_MeasureResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_Main.cs">
@@ -203,17 +241,17 @@
     <Compile Include="Pages\Device\SubPage_Device_Element.Designer.cs">
       <DependentUpon>SubPage_Device_Element.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\History\Page_Alarm.cs">
+    <Compile Include="Pages\History\Page_AlarmHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\History\Page_Alarm.Designer.cs">
-      <DependentUpon>Page_Alarm.cs</DependentUpon>
+    <Compile Include="Pages\History\Page_AlarmHistory.Designer.cs">
+      <DependentUpon>Page_AlarmHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\History\Page_Data.cs">
+    <Compile Include="Pages\History\Page_DataHistory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Pages\History\Page_Data.Designer.cs">
-      <DependentUpon>Page_Data.cs</DependentUpon>
+    <Compile Include="Pages\History\Page_DataHistory.Designer.cs">
+      <DependentUpon>Page_DataHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\History\Page_History.cs">
       <SubType>UserControl</SubType>
@@ -258,25 +296,34 @@
     <Compile Include="Pages\Setting\Recipe\Page_Recipe.Designer.cs">
       <DependentUpon>Page_Recipe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Setting\Recipe\SubPage_Recipe_Measure.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Pages\Setting\Recipe\SubPage_Recipe_Measure.Designer.cs">
-      <DependentUpon>SubPage_Recipe_Measure.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControl\UsrCtrl_TitrationGraph.cs">
+    <Compile Include="UserControls\UsrCtrl_TitrationGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UsrCtrl_TitrationGraph.Designer.cs">
+    <Compile Include="UserControls\UsrCtrl_TitrationGraph.Designer.cs">
       <DependentUpon>UsrCtrl_TitrationGraph.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Frm_ManualStart.resx">
+      <DependentUpon>Frm_ManualStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_SyringeControl.resx">
+      <DependentUpon>Frm_SyringeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_ValveControl.resx">
+      <DependentUpon>Frm_ValveControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Device\SubPage_Device_Overview.resx">
       <DependentUpon>SubPage_Device_Overview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\History\Frm_TrendExpand.resx">
+      <DependentUpon>Frm_TrendExpand.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Main\Page_Main.resx">
       <DependentUpon>Page_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Setting\Page_Alarm.resx">
+      <DependentUpon>Page_Alarm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\Setting\Recipe\SubPage_Recipe_Process.resx">
       <DependentUpon>SubPage_Recipe_Process.cs</DependentUpon>
@@ -291,37 +338,40 @@
       <DependentUpon>UsrCtrl_Recipe_StepDetail_Titration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="UserControl\UsrCtrl_Analog.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_AlarmInfo.resx">
+      <DependentUpon>UsrCtrl_AlarmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UsrCtrl_Analog.resx">
       <DependentUpon>UsrCtrl_Analog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Bit.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_Bit.resx">
       <DependentUpon>UsrCtrl_Bit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Fluidics_Large.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_Fluidics_Large.resx">
       <DependentUpon>UsrCtrl_Fluidics_Large.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Fluidics_Small.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_Fluidics_Small.resx">
       <DependentUpon>UsrCtrl_Fluidics_Small.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Light.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_Light.resx">
       <DependentUpon>UsrCtrl_Light.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\Frm_PopUpMenu.resx">
+    <EmbeddedResource Include="Forms\Frm_PopUpMenu.resx">
       <DependentUpon>Frm_PopUpMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_MeasureStatus.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_MeasureStatus.resx">
       <DependentUpon>UsrCtrl_MeasureStatus.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_OnlineMode.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_OnlineMode.resx">
       <DependentUpon>UsrCtrl_OnlineMode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_State.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_State.resx">
       <DependentUpon>UsrCtrl_State.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_Login.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_Login.resx">
       <DependentUpon>UsrCtrl_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UsrCtrl_MeasureResult.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_MeasureResult.resx">
       <DependentUpon>UsrCtrl_MeasureResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Main.resx">
@@ -336,11 +386,11 @@
     <EmbeddedResource Include="Pages\Device\SubPage_Device_Element.resx">
       <DependentUpon>SubPage_Device_Element.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\History\Page_Alarm.resx">
-      <DependentUpon>Page_Alarm.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\History\Page_AlarmHistory.resx">
+      <DependentUpon>Page_AlarmHistory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\History\Page_Data.resx">
-      <DependentUpon>Page_Data.cs</DependentUpon>
+    <EmbeddedResource Include="Pages\History\Page_DataHistory.resx">
+      <DependentUpon>Page_DataHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\History\Page_History.resx">
       <DependentUpon>Page_History.cs</DependentUpon>
@@ -360,9 +410,6 @@
     <EmbeddedResource Include="Pages\Setting\Recipe\Page_Recipe.resx">
       <DependentUpon>Page_Recipe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Setting\Recipe\SubPage_Recipe_Measure.resx">
-      <DependentUpon>SubPage_Recipe_Measure.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -373,7 +420,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControl\UsrCtrl_TitrationGraph.resx">
+    <EmbeddedResource Include="UserControls\UsrCtrl_TitrationGraph.resx">
       <DependentUpon>UsrCtrl_TitrationGraph.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

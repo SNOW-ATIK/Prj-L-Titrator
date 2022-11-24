@@ -60,11 +60,11 @@ namespace L_Titrator.Pages
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(250, 2);
+            this.label1.Location = new System.Drawing.Point(225, 1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 24);
+            this.label1.Size = new System.Drawing.Size(150, 24);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Valve1";
+            this.label1.Text = "3Way-DIW";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -73,31 +73,31 @@ namespace L_Titrator.Pages
             this.label2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(318, 113);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 24);
+            this.label2.Size = new System.Drawing.Size(150, 24);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Valve2";
+            this.label2.Text = "3Way-Sample";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(185, 195);
+            this.label3.Location = new System.Drawing.Point(133, 196);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 24);
+            this.label3.Size = new System.Drawing.Size(150, 24);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Valve3";
+            this.label3.Text = "3Way-Validation";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(673, 62);
+            this.label4.Location = new System.Drawing.Point(647, 62);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 24);
+            this.label4.Size = new System.Drawing.Size(150, 24);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Valve4";
+            this.label4.Text = "6Way-Capture";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -159,11 +159,11 @@ namespace L_Titrator.Pages
             // 
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(392, 479);
+            this.label10.Location = new System.Drawing.Point(371, 479);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(100, 24);
+            this.label10.Size = new System.Drawing.Size(125, 24);
             this.label10.TabIndex = 1;
-            this.label10.Text = "Valve5";
+            this.label10.Text = "Drain Valve";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SubPage_Device_Overview
@@ -184,6 +184,7 @@ namespace L_Titrator.Pages
             this.Name = "SubPage_Device_Overview";
             this.Size = new System.Drawing.Size(1024, 584);
             this.Tag = "COMMUNICATION";
+            this.VisibleChanged += new System.EventHandler(this.SubPage_Device_Overview_VisibleChanged);
             this.ResumeLayout(false);
 
         }

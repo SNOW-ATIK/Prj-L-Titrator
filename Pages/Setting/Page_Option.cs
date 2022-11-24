@@ -12,7 +12,7 @@ using ATIK;
 
 namespace L_Titrator.Pages
 {
-    public partial class Page_Option : UserControl, IPage, IParamSetting
+    public partial class Page_Option : UserControl, IPage, IParamSetting, IAuthority
     {
         public Page_Option()
         {
@@ -25,7 +25,6 @@ namespace L_Titrator.Pages
             CmpCol_Language.SelectedUserItemChangedEvent += CmpCol_LanguageChangedEvent;
 
             CmpCol_BootUpOnlineMode.Init(LT_Config.GenPrm_BootupOnlineMode, "Boot-Up Online Mode", Enum.GetValues(typeof(OnlineMode)), LT_Config.GenPrm_BootupOnlineMode.Value);
-            CmpVal_AutoLogOutTime.Init(LT_Config.GenPrm_LogOutCheckTime, "Log-Out Check Time [sec]");
 
             CmpCol_Manual_Enabled.Init(LT_Config.GenPrm_Manual_Enabled, "Enabled");
             CmpCol_Manual_AvailableOnRemote.Init(LT_Config.GenPrm_Manual_AvailableOnRemote, "Available On Remote");
@@ -45,6 +44,13 @@ namespace L_Titrator.Pages
         public void SetVisible(bool visible)
         {
             this.Visible = visible;
+            if (visible == true)
+            {
+                UserAuthorityIsChanged();
+            }
+            else
+            { 
+            }
         }
 
         private void CmpCol_LanguageChangedEvent(object sender, object changedValue)
@@ -93,7 +99,7 @@ namespace L_Titrator.Pages
             UpdateChangedStatus();
         }
 
-        public bool CheckParamChanged()
+        public bool IsParamChanged()
         {
             int changedCounts = 0;
             ParamPageUtil.GetAll_IParams(this).ForEach(prm =>
@@ -104,6 +110,11 @@ namespace L_Titrator.Pages
                 }
             });
             return (changedCounts != 0);
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            ParamPageUtil.GetAll_IComps(this).ForEach(cmp => cmp.EnableModifying(true, GlbVar.CurrentAuthority != UserAuthority.User));
         }
     }
 }

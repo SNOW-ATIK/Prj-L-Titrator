@@ -12,7 +12,7 @@ using ATIK;
 
 namespace L_Titrator.Pages
 {
-    public partial class Page_LifeTime : UserControl, IPage
+    public partial class Page_LifeTime : UserControl, IPage, IAuthority
     {
         private Dictionary<int, Panel> SubPages = new Dictionary<int, Panel>();
         private int SelectedSubPage = -1; 
@@ -29,14 +29,14 @@ namespace L_Titrator.Pages
 
             Show_BottomMenu(false);
 
-            LifeTimeList = PartsLifeTimeManager.GetAllMaintParts();
+            LifeTimeList = LT_LifeTime.GetAllParts();
 
-            int height = 56;
-            int height_Margin = 8;
-            if (tableLayoutPanel4.RowStyles[1].Height != 0)
-            {
-                height_Margin = 9;
-            }
+            int height = 57;
+            int height_Margin = 5;
+            //if (tableLayoutPanel4.RowStyles[1].Height != 0)
+            //{
+            //    height_Margin = 4;
+            //}
             int eachHeight = height + height_Margin;
             int ctrlsPerPage = pnl_View.Height / eachHeight;
             int pages = LifeTimeList.Count / ctrlsPerPage;
@@ -97,11 +97,14 @@ namespace L_Titrator.Pages
             Panel pnl = (Panel)sender;
             if (pnl.Visible == true)
             {
+                UserAuthorityIsChanged();
+
                 List<UsrCtrl_LifeTime> cmps = pnl.Controls.OfType<UsrCtrl_LifeTime>().ToList();
                 cmps.ForEach(cmp =>
                 {
+                    cmp.UpdateStatus();
                     cmp.ChangeLanguage(GlbVar.CurrentLanguage);
-                    cmp.CheckAuthority(GlbVar.CurrentAuthority);
+                    cmp.CheckAuthority(GlbVar.CurrentAuthority, GlbVar.CurrentMainState != MainState.Run);
                 });
             }
         }
@@ -162,6 +165,14 @@ namespace L_Titrator.Pages
         public void PagingPrev()
         {
             throw new NotImplementedException();
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+        }
+
+        private void Page_LifeTime_VisibleChanged(object sender, EventArgs e)
+        {
         }
     }
 }

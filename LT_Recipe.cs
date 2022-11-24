@@ -13,6 +13,31 @@ namespace L_Titrator
     public class LT_Recipe
     {
         public const int RecipeMaxCount = 10;
+        public const int HotKeyMaxCount = 5;
+        public const int ValidationMaxCount = 2;
+        public const int DummyMaxCount = 3;
+
+        public enum HotKeyRecipeNo
+        { 
+            Initialize = 10,
+            Flush = 11,
+            VesselEmpty = 12,
+            RefillSyringe1 = 13,
+            RefillSyringe2 = 14,
+            Validation1 = 15,
+            Validation2 = 16,
+        }
+
+        public enum ValidationRecipeNo
+        { 
+        }
+
+        public enum DummyRecipeNo
+        { 
+            Dummy1 = 17,
+            Dummy2 = 18, 
+            Dummy3= 19,
+        }
 
         public enum SequenceList
         {
@@ -26,11 +51,12 @@ namespace L_Titrator
         private static Dictionary<int, RecipeObj> RecipeDic = new Dictionary<int, RecipeObj>();
         private static Dictionary<string, Sequence> PreDefinedSeqDic = new Dictionary<string, Sequence>();
 
-        public static bool Load_Recipes()
+        public static bool Load()
         {
             RecipeDic.Clear();
 
             List<string> fileNames = Directory.GetFiles(PreDef.Path_Recipe).ToList();
+            fileNames.AddRange(Directory.GetFiles(PreDef.Path_Recipe_HotKey).ToList());
             fileNames.ForEach(filename =>
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(RecipeObj));
@@ -64,9 +90,18 @@ namespace L_Titrator
             bool bDone = false;
             try
             {
-                string saveFileName = $@"{PreDef.Path_Recipe}\{rcpObj.Name}.xml";
+                string saveFileName;
+                if (rcpObj.No < RecipeMaxCount)
+                {
+                    saveFileName = $@"{PreDef.Path_Recipe}\{rcpObj.Name}.xml";
+                }
+                else
+                {
+                    saveFileName = $@"{PreDef.Path_Recipe_HotKey}\{rcpObj.Name}.xml";
+                }
+
                 if (File.Exists(saveFileName) == true)
-                { 
+                {
                     // TBD
                 }
 
@@ -150,7 +185,16 @@ namespace L_Titrator
             }
             RecipeDic.Remove(rcpNo);
 
-            string rcpFileName = $@"{PreDef.Path_Recipe}\{rcpObj.Name}.xml";
+            string rcpFileName;
+            if (rcpNo < RecipeMaxCount)
+            {
+                rcpFileName = $@"{PreDef.Path_Recipe}\{rcpObj.Name}.xml";
+            }
+            else
+            {
+                rcpFileName = $@"{PreDef.Path_Recipe_HotKey}\{rcpObj.Name}.xml";
+            }
+
             if (File.Exists(rcpFileName) == false)
             {
                 return;

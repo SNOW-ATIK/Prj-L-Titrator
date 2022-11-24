@@ -51,7 +51,7 @@ namespace L_Titrator
             this.usrCtrl_TimeNow1 = new ATIK.UsrCtrl_TimeNow();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_AppVersion = new System.Windows.Forms.Label();
             this.pnl_BG = new System.Windows.Forms.Panel();
             this.tmr_StateCheck = new System.Windows.Forms.Timer(this.components);
             this.tbl_BG.SuspendLayout();
@@ -122,6 +122,7 @@ namespace L_Titrator
             this.btn_Setting.Tag = "SETTING";
             this.btn_Setting.Text = "SETTING";
             this.btn_Setting.UseVisualStyleBackColor = false;
+            this.btn_Setting.EnabledChanged += new System.EventHandler(this.btn_Setting_EnabledChanged);
             this.btn_Setting.Click += new System.EventHandler(this.Menu_Click);
             // 
             // btn_Device
@@ -141,6 +142,7 @@ namespace L_Titrator
             this.btn_Device.Tag = "DEVICE";
             this.btn_Device.Text = "DEVICE";
             this.btn_Device.UseVisualStyleBackColor = false;
+            this.btn_Device.EnabledChanged += new System.EventHandler(this.btn_Setting_EnabledChanged);
             this.btn_Device.Click += new System.EventHandler(this.Menu_Click);
             // 
             // btn_LifeTime
@@ -160,6 +162,7 @@ namespace L_Titrator
             this.btn_LifeTime.Tag = "LIFE_TIME";
             this.btn_LifeTime.Text = "LIFE TIME";
             this.btn_LifeTime.UseVisualStyleBackColor = false;
+            this.btn_LifeTime.EnabledChanged += new System.EventHandler(this.btn_Setting_EnabledChanged);
             this.btn_LifeTime.Click += new System.EventHandler(this.Menu_Click);
             // 
             // btn_History
@@ -179,6 +182,7 @@ namespace L_Titrator
             this.btn_History.Tag = "HISTORY";
             this.btn_History.Text = "HISTORY";
             this.btn_History.UseVisualStyleBackColor = false;
+            this.btn_History.EnabledChanged += new System.EventHandler(this.btn_Setting_EnabledChanged);
             this.btn_History.Click += new System.EventHandler(this.Menu_Click);
             // 
             // btn_Main
@@ -198,6 +202,7 @@ namespace L_Titrator
             this.btn_Main.Tag = "MAIN";
             this.btn_Main.Text = "MAIN";
             this.btn_Main.UseVisualStyleBackColor = false;
+            this.btn_Main.EnabledChanged += new System.EventHandler(this.btn_Setting_EnabledChanged);
             this.btn_Main.Click += new System.EventHandler(this.Menu_Click);
             // 
             // pnl_MainView
@@ -365,7 +370,7 @@ namespace L_Titrator
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_AppVersion, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -382,27 +387,27 @@ namespace L_Titrator
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 1);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(122, 43);
+            this.panel1.Size = new System.Drawing.Size(121, 43);
             this.panel1.TabIndex = 4;
             // 
-            // label1
+            // lbl_AppVersion
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lbl_AppVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1, 47);
-            this.label1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 15);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "S/W Ver. 0.0.0.0";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_AppVersion.BackColor = System.Drawing.Color.White;
+            this.lbl_AppVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_AppVersion.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_AppVersion.Location = new System.Drawing.Point(2, 47);
+            this.lbl_AppVersion.Margin = new System.Windows.Forms.Padding(2, 1, 1, 2);
+            this.lbl_AppVersion.Name = "lbl_AppVersion";
+            this.lbl_AppVersion.Size = new System.Drawing.Size(121, 15);
+            this.lbl_AppVersion.TabIndex = 5;
+            this.lbl_AppVersion.Text = "S/W Ver. 0.0.0.0";
+            this.lbl_AppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnl_BG
             // 
@@ -455,7 +460,7 @@ namespace L_Titrator
         private System.Windows.Forms.Label lbl_AppTitle;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_AppVersion;
         private System.Windows.Forms.Panel pnl_BG;
         private System.Windows.Forms.Button btn_Main;
         private System.Windows.Forms.Button btn_Setting;

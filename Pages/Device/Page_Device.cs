@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ATIK;
+
 namespace L_Titrator.Pages
 {
-    public partial class Page_Device : UserControl, IPage
+    public partial class Page_Device : UserControl, IPage, IAuthority
     {
         public enum SubPage
         { 
@@ -67,7 +69,7 @@ namespace L_Titrator.Pages
             DicSubPageChangeBtn.Add(SubPage.IO, btn_IO);
             DicSubPageChangeBtn.Add(SubPage.OVERVIEW, btn_Overview);
 
-            btn_Communication.PerformClick();
+            //btn_Communication.PerformClick();
         }
 
         public void SetDock(DockStyle dockStyle)
@@ -109,6 +111,20 @@ namespace L_Titrator.Pages
         {
             Button btn = (Button)sender;
             ShowSubPage((string)btn.Tag);
+        }
+
+        private void Page_Device_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible == true)
+            {
+                UserAuthorityIsChanged();
+                btn_Communication.PerformClick();
+            }
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            btn_IO.Visible = GlbVar.CurrentAuthority == UserAuthority.Admin;
         }
     }
 }

@@ -31,22 +31,16 @@ namespace L_Titrator.Pages
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbl_Manual = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_Periodic_SetNextMeasureTime = new System.Windows.Forms.Button();
             this.CmpCol_Manual_Enabled = new ATIK.PrmCmp_Collection();
             this.CmpCol_Manual_AvailableOnRemote = new ATIK.PrmCmp_Collection();
             this.CmpCol_Manual_NotifyResult = new ATIK.PrmCmp_Collection();
             this.CmpCol_Manual_SaveHistory = new ATIK.PrmCmp_Collection();
+            this.tbl_Periodic = new System.Windows.Forms.TableLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.CmpCol_Periodic_Enabled = new ATIK.PrmCmp_Collection();
             this.CmpCol_Periodic_AvailableOnRemote = new ATIK.PrmCmp_Collection();
             this.CmpCol_Periodic_NotifyResult = new ATIK.PrmCmp_Collection();
@@ -54,22 +48,27 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Period = new ATIK.PrmCmp_Value();
             this.CmpCol_Periodic_UseValidation = new ATIK.PrmCmp_Collection();
             this.CmpVal_Periodic_NextMeasureTime = new ATIK.PrmCmp_Value();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_Periodic_SetNextMeasureTime = new System.Windows.Forms.Button();
             this.CmpVal_Periodic_Set_Hour = new ATIK.PrmCmp_Value();
             this.CmpVal_Periodic_Set_Minute = new ATIK.PrmCmp_Value();
             this.CmpCol_Periodic_RecipeNo = new ATIK.PrmCmp_Collection();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbl_General = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.CmpCol_Language = new ATIK.PrmCmp_Collection();
             this.CmpCol_BootUpOnlineMode = new ATIK.PrmCmp_Collection();
-            this.CmpVal_AutoLogOutTime = new ATIK.PrmCmp_Value();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
+            this.tbl_Manual.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
-            this.tableLayoutPanel10.SuspendLayout();
+            this.tbl_Periodic.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tbl_General.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -95,8 +94,8 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel8, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel10, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.tbl_Manual, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.tbl_Periodic, 0, 1);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(488, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
@@ -106,24 +105,24 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel5.Size = new System.Drawing.Size(479, 574);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
-            // tableLayoutPanel8
+            // tbl_Manual
             // 
-            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbl_Manual.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel8.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel8.ColumnCount = 1;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 0, 1);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(1, 1);
-            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 2;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(477, 154);
-            this.tableLayoutPanel8.TabIndex = 1;
+            this.tbl_Manual.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tbl_Manual.ColumnCount = 1;
+            this.tbl_Manual.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_Manual.Controls.Add(this.label3, 0, 0);
+            this.tbl_Manual.Controls.Add(this.tableLayoutPanel9, 0, 1);
+            this.tbl_Manual.Location = new System.Drawing.Point(1, 1);
+            this.tbl_Manual.Margin = new System.Windows.Forms.Padding(1);
+            this.tbl_Manual.Name = "tbl_Manual";
+            this.tbl_Manual.RowCount = 2;
+            this.tbl_Manual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tbl_Manual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_Manual.Size = new System.Drawing.Size(477, 154);
+            this.tbl_Manual.TabIndex = 1;
             // 
             // label3
             // 
@@ -162,178 +161,6 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(473, 117);
             this.tableLayoutPanel9.TabIndex = 1;
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel10.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel10.ColumnCount = 1;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 0, 1);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(1, 157);
-            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 2;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(477, 333);
-            this.tableLayoutPanel10.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.BackColor = System.Drawing.Color.Gold;
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label4.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(2, 2);
-            this.label4.Margin = new System.Windows.Forms.Padding(1);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(473, 30);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Periodic Measure";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel11
-            // 
-            this.tableLayoutPanel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel11.ColumnCount = 2;
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_Enabled, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_AvailableOnRemote, 1, 0);
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_NotifyResult, 0, 1);
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_SaveHistory, 1, 1);
-            this.tableLayoutPanel11.Controls.Add(this.CmpVal_Periodic_Period, 0, 3);
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_UseValidation, 1, 2);
-            this.tableLayoutPanel11.Controls.Add(this.CmpVal_Periodic_NextMeasureTime, 1, 4);
-            this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel12, 1, 3);
-            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_RecipeNo, 0, 2);
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(2, 35);
-            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 5;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(473, 296);
-            this.tableLayoutPanel11.TabIndex = 1;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 156F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(479, 574);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(1, 1);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(477, 154);
-            this.tableLayoutPanel3.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.BackColor = System.Drawing.Color.Gold;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(2, 2);
-            this.label2.Margin = new System.Windows.Forms.Padding(1);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(473, 30);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "General";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.CmpCol_Language, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.CmpCol_BootUpOnlineMode, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.CmpVal_AutoLogOutTime, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 35);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(1);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(473, 117);
-            this.tableLayoutPanel4.TabIndex = 1;
-            // 
-            // tableLayoutPanel12
-            // 
-            this.tableLayoutPanel12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel12.ColumnCount = 3;
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
-            this.tableLayoutPanel12.Controls.Add(this.btn_Periodic_SetNextMeasureTime, 2, 0);
-            this.tableLayoutPanel12.Controls.Add(this.CmpVal_Periodic_Set_Hour, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.CmpVal_Periodic_Set_Minute, 1, 0);
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(236, 177);
-            this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
-            this.tableLayoutPanel12.RowCount = 1;
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(237, 59);
-            this.tableLayoutPanel12.TabIndex = 2;
-            // 
-            // btn_Periodic_SetNextMeasureTime
-            // 
-            this.btn_Periodic_SetNextMeasureTime.BackColor = System.Drawing.Color.White;
-            this.btn_Periodic_SetNextMeasureTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Periodic_SetNextMeasureTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Periodic_SetNextMeasureTime.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.btn_Periodic_SetNextMeasureTime.Location = new System.Drawing.Point(171, 1);
-            this.btn_Periodic_SetNextMeasureTime.Margin = new System.Windows.Forms.Padding(1);
-            this.btn_Periodic_SetNextMeasureTime.Name = "btn_Periodic_SetNextMeasureTime";
-            this.btn_Periodic_SetNextMeasureTime.Size = new System.Drawing.Size(65, 57);
-            this.btn_Periodic_SetNextMeasureTime.TabIndex = 3;
-            this.btn_Periodic_SetNextMeasureTime.Text = "SET";
-            this.btn_Periodic_SetNextMeasureTime.UseVisualStyleBackColor = false;
             // 
             // CmpCol_Manual_Enabled
             // 
@@ -422,6 +249,73 @@ namespace L_Titrator.Pages
             this.CmpCol_Manual_SaveHistory.Size = new System.Drawing.Size(235, 57);
             this.CmpCol_Manual_SaveHistory.SplitterDistance = 27;
             this.CmpCol_Manual_SaveHistory.TabIndex = 0;
+            // 
+            // tbl_Periodic
+            // 
+            this.tbl_Periodic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbl_Periodic.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tbl_Periodic.ColumnCount = 1;
+            this.tbl_Periodic.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_Periodic.Controls.Add(this.label4, 0, 0);
+            this.tbl_Periodic.Controls.Add(this.tableLayoutPanel11, 0, 1);
+            this.tbl_Periodic.Location = new System.Drawing.Point(1, 157);
+            this.tbl_Periodic.Margin = new System.Windows.Forms.Padding(1);
+            this.tbl_Periodic.Name = "tbl_Periodic";
+            this.tbl_Periodic.RowCount = 2;
+            this.tbl_Periodic.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tbl_Periodic.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_Periodic.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tbl_Periodic.Size = new System.Drawing.Size(477, 333);
+            this.tbl_Periodic.TabIndex = 1;
+            this.tbl_Periodic.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.BackColor = System.Drawing.Color.Gold;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label4.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(2, 2);
+            this.label4.Margin = new System.Windows.Forms.Padding(1);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(473, 30);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Periodic Measure";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_Enabled, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_AvailableOnRemote, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_NotifyResult, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_SaveHistory, 1, 1);
+            this.tableLayoutPanel11.Controls.Add(this.CmpVal_Periodic_Period, 0, 3);
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_UseValidation, 1, 2);
+            this.tableLayoutPanel11.Controls.Add(this.CmpVal_Periodic_NextMeasureTime, 1, 4);
+            this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel12, 1, 3);
+            this.tableLayoutPanel11.Controls.Add(this.CmpCol_Periodic_RecipeNo, 0, 2);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(2, 35);
+            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(1);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 5;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(473, 296);
+            this.tableLayoutPanel11.TabIndex = 1;
             // 
             // CmpCol_Periodic_Enabled
             // 
@@ -525,6 +419,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Period.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_Periodic_Period.MinimumSize = new System.Drawing.Size(30, 49);
             this.CmpVal_Periodic_Period.Name = "CmpVal_Periodic_Period";
+            this.CmpVal_Periodic_Period.NameTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CmpVal_Periodic_Period.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.CmpVal_Periodic_Period.Prm_Name = "Period [min]";
             this.CmpVal_Periodic_Period.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
@@ -534,6 +429,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Period.TabIndex = 1;
             this.CmpVal_Periodic_Period.UseKeyPadUI = false;
             this.CmpVal_Periodic_Period.UseUserKeyPad = false;
+            this.CmpVal_Periodic_Period.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CmpCol_Periodic_UseValidation
             // 
@@ -571,15 +467,51 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_NextMeasureTime.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_Periodic_NextMeasureTime.MinimumSize = new System.Drawing.Size(30, 49);
             this.CmpVal_Periodic_NextMeasureTime.Name = "CmpVal_Periodic_NextMeasureTime";
+            this.CmpVal_Periodic_NextMeasureTime.NameTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CmpVal_Periodic_NextMeasureTime.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.CmpVal_Periodic_NextMeasureTime.Prm_Name = "Next Start Time";
             this.CmpVal_Periodic_NextMeasureTime.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
             this.CmpVal_Periodic_NextMeasureTime.Prm_Value = "";
             this.CmpVal_Periodic_NextMeasureTime.Size = new System.Drawing.Size(235, 58);
-            this.CmpVal_Periodic_NextMeasureTime.SplitterDistance = 27;
+            this.CmpVal_Periodic_NextMeasureTime.SplitterDistance = 26;
             this.CmpVal_Periodic_NextMeasureTime.TabIndex = 1;
             this.CmpVal_Periodic_NextMeasureTime.UseKeyPadUI = false;
             this.CmpVal_Periodic_NextMeasureTime.UseUserKeyPad = false;
+            this.CmpVal_Periodic_NextMeasureTime.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel12.ColumnCount = 3;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
+            this.tableLayoutPanel12.Controls.Add(this.btn_Periodic_SetNextMeasureTime, 2, 0);
+            this.tableLayoutPanel12.Controls.Add(this.CmpVal_Periodic_Set_Hour, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.CmpVal_Periodic_Set_Minute, 1, 0);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(236, 177);
+            this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(237, 59);
+            this.tableLayoutPanel12.TabIndex = 2;
+            // 
+            // btn_Periodic_SetNextMeasureTime
+            // 
+            this.btn_Periodic_SetNextMeasureTime.BackColor = System.Drawing.Color.White;
+            this.btn_Periodic_SetNextMeasureTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Periodic_SetNextMeasureTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Periodic_SetNextMeasureTime.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
+            this.btn_Periodic_SetNextMeasureTime.Location = new System.Drawing.Point(171, 1);
+            this.btn_Periodic_SetNextMeasureTime.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_Periodic_SetNextMeasureTime.Name = "btn_Periodic_SetNextMeasureTime";
+            this.btn_Periodic_SetNextMeasureTime.Size = new System.Drawing.Size(65, 57);
+            this.btn_Periodic_SetNextMeasureTime.TabIndex = 3;
+            this.btn_Periodic_SetNextMeasureTime.Text = "SET";
+            this.btn_Periodic_SetNextMeasureTime.UseVisualStyleBackColor = false;
             // 
             // CmpVal_Periodic_Set_Hour
             // 
@@ -595,6 +527,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Set_Hour.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_Periodic_Set_Hour.MinimumSize = new System.Drawing.Size(30, 49);
             this.CmpVal_Periodic_Set_Hour.Name = "CmpVal_Periodic_Set_Hour";
+            this.CmpVal_Periodic_Set_Hour.NameTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CmpVal_Periodic_Set_Hour.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.CmpVal_Periodic_Set_Hour.Prm_Name = "Hour";
             this.CmpVal_Periodic_Set_Hour.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
@@ -604,6 +537,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Set_Hour.TabIndex = 1;
             this.CmpVal_Periodic_Set_Hour.UseKeyPadUI = true;
             this.CmpVal_Periodic_Set_Hour.UseUserKeyPad = false;
+            this.CmpVal_Periodic_Set_Hour.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CmpVal_Periodic_Set_Minute
             // 
@@ -619,6 +553,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Set_Minute.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_Periodic_Set_Minute.MinimumSize = new System.Drawing.Size(30, 49);
             this.CmpVal_Periodic_Set_Minute.Name = "CmpVal_Periodic_Set_Minute";
+            this.CmpVal_Periodic_Set_Minute.NameTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CmpVal_Periodic_Set_Minute.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.CmpVal_Periodic_Set_Minute.Prm_Name = "Minute";
             this.CmpVal_Periodic_Set_Minute.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
@@ -628,6 +563,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Periodic_Set_Minute.TabIndex = 1;
             this.CmpVal_Periodic_Set_Minute.UseKeyPadUI = true;
             this.CmpVal_Periodic_Set_Minute.UseUserKeyPad = false;
+            this.CmpVal_Periodic_Set_Minute.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CmpCol_Periodic_RecipeNo
             // 
@@ -650,6 +586,77 @@ namespace L_Titrator.Pages
             this.CmpCol_Periodic_RecipeNo.Size = new System.Drawing.Size(234, 57);
             this.CmpCol_Periodic_RecipeNo.SplitterDistance = 27;
             this.CmpCol_Periodic_RecipeNo.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.tbl_General, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 156F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(479, 574);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // tbl_General
+            // 
+            this.tbl_General.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbl_General.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tbl_General.ColumnCount = 1;
+            this.tbl_General.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_General.Controls.Add(this.label2, 0, 0);
+            this.tbl_General.Controls.Add(this.tableLayoutPanel4, 0, 1);
+            this.tbl_General.Location = new System.Drawing.Point(1, 1);
+            this.tbl_General.Margin = new System.Windows.Forms.Padding(1);
+            this.tbl_General.Name = "tbl_General";
+            this.tbl_General.RowCount = 2;
+            this.tbl_General.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tbl_General.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbl_General.Size = new System.Drawing.Size(477, 154);
+            this.tbl_General.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.BackColor = System.Drawing.Color.Gold;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(2, 2);
+            this.label2.Margin = new System.Windows.Forms.Padding(1);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(473, 30);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "General";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.CmpCol_Language, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.CmpCol_BootUpOnlineMode, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 35);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(1);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(473, 117);
+            this.tableLayoutPanel4.TabIndex = 1;
             // 
             // CmpCol_Language
             // 
@@ -695,30 +702,6 @@ namespace L_Titrator.Pages
             this.CmpCol_BootUpOnlineMode.SplitterDistance = 27;
             this.CmpCol_BootUpOnlineMode.TabIndex = 0;
             // 
-            // CmpVal_AutoLogOutTime
-            // 
-            this.CmpVal_AutoLogOutTime.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmpVal_AutoLogOutTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CmpVal_AutoLogOutTime.Color_Name = System.Drawing.Color.LemonChiffon;
-            this.CmpVal_AutoLogOutTime.Color_Value = System.Drawing.Color.White;
-            this.CmpVal_AutoLogOutTime.GenParam = null;
-            this.CmpVal_AutoLogOutTime.Location = new System.Drawing.Point(1, 60);
-            this.CmpVal_AutoLogOutTime.Margin = new System.Windows.Forms.Padding(1);
-            this.CmpVal_AutoLogOutTime.MaximumSize = new System.Drawing.Size(1000, 96);
-            this.CmpVal_AutoLogOutTime.MinimumSize = new System.Drawing.Size(30, 49);
-            this.CmpVal_AutoLogOutTime.Name = "CmpVal_AutoLogOutTime";
-            this.CmpVal_AutoLogOutTime.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.CmpVal_AutoLogOutTime.Prm_Name = "Log-Out Check Time [sec]";
-            this.CmpVal_AutoLogOutTime.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
-            this.CmpVal_AutoLogOutTime.Prm_Value = "";
-            this.CmpVal_AutoLogOutTime.Size = new System.Drawing.Size(234, 57);
-            this.CmpVal_AutoLogOutTime.SplitterDistance = 27;
-            this.CmpVal_AutoLogOutTime.TabIndex = 1;
-            this.CmpVal_AutoLogOutTime.UseKeyPadUI = false;
-            this.CmpVal_AutoLogOutTime.UseUserKeyPad = false;
-            // 
             // Page_Option
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -728,14 +711,14 @@ namespace L_Titrator.Pages
             this.Tag = "OPTION";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tbl_Manual.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
-            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tbl_Periodic.ResumeLayout(false);
             this.tableLayoutPanel11.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tbl_General.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -743,35 +726,34 @@ namespace L_Titrator.Pages
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.TableLayoutPanel tbl_Manual;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private ATIK.PrmCmp_Collection CmpCol_Manual_Enabled;
         private ATIK.PrmCmp_Collection CmpCol_Manual_AvailableOnRemote;
         private ATIK.PrmCmp_Collection CmpCol_Manual_NotifyResult;
         private ATIK.PrmCmp_Collection CmpCol_Manual_SaveHistory;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.TableLayoutPanel tbl_Periodic;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private ATIK.PrmCmp_Collection CmpCol_Periodic_Enabled;
-        private ATIK.PrmCmp_Value CmpVal_Periodic_Period;
         private ATIK.PrmCmp_Collection CmpCol_Periodic_AvailableOnRemote;
         private ATIK.PrmCmp_Collection CmpCol_Periodic_NotifyResult;
         private ATIK.PrmCmp_Collection CmpCol_Periodic_SaveHistory;
+        private ATIK.PrmCmp_Value CmpVal_Periodic_Period;
+        private ATIK.PrmCmp_Collection CmpCol_Periodic_UseValidation;
         private ATIK.PrmCmp_Value CmpVal_Periodic_NextMeasureTime;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.Button btn_Periodic_SetNextMeasureTime;
+        private ATIK.PrmCmp_Value CmpVal_Periodic_Set_Hour;
+        private ATIK.PrmCmp_Value CmpVal_Periodic_Set_Minute;
+        private ATIK.PrmCmp_Collection CmpCol_Periodic_RecipeNo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tbl_General;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private ATIK.PrmCmp_Collection CmpCol_Language;
-        private ATIK.PrmCmp_Value CmpVal_AutoLogOutTime;
         private ATIK.PrmCmp_Collection CmpCol_BootUpOnlineMode;
-        private ATIK.PrmCmp_Collection CmpCol_Periodic_UseValidation;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
-        private ATIK.PrmCmp_Value CmpVal_Periodic_Set_Hour;
-        private System.Windows.Forms.Button btn_Periodic_SetNextMeasureTime;
-        private ATIK.PrmCmp_Value CmpVal_Periodic_Set_Minute;
-        private ATIK.PrmCmp_Collection CmpCol_Periodic_RecipeNo;
     }
 }

@@ -29,19 +29,14 @@ namespace L_Titrator.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Page_Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_MeasureResults = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_MeasResult4 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult4 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult3 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult3 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult2 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult2 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.pnl_MeasResult1 = new System.Windows.Forms.Panel();
-            this.usrCtrl_MeasureResult1 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
             this.tbl_CenterView = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_SelectCenterSubject = new System.Windows.Forms.TableLayoutPanel();
             this.chk_ShowBoth = new System.Windows.Forms.CheckBox();
@@ -49,18 +44,19 @@ namespace L_Titrator.Pages
             this.chk_ShowFluidics = new System.Windows.Forms.CheckBox();
             this.tbl_CenterSubjectView = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_TitrateGraph = new System.Windows.Forms.Panel();
-            this.usrCtrl_TitrationGraph1 = new L_Titrator.Controls.UsrCtrl_TitrationGraph();
             this.pnl_Fluidics = new System.Windows.Forms.Panel();
-            this.usrCtrl_Fluidics_Small1 = new L_Titrator.Controls.UsrCtrl_Fluidics_Small();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.usrCtrl_MeasureStatus1 = new L_Titrator.Controls.UsrCtrl_MeasureStatus();
             this.chk_ExpandMeasureStatus = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_OnlineMode = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Measure = new System.Windows.Forms.Button();
             this.lbl_MeasureTarget = new System.Windows.Forms.Label();
             this.btn_Initialize = new System.Windows.Forms.Button();
+            this.btn_Abort = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -71,16 +67,28 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lbl_Sts_Leak1 = new System.Windows.Forms.Label();
-            this.lbl_Sts_Leak2 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lbl_Sts_Overflow = new System.Windows.Forms.Label();
-            this.tmr_StatusCheck = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_OnlineMode = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbl_Sts_LifeTime = new System.Windows.Forms.Label();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbl_HotKeys = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_Flush = new System.Windows.Forms.Button();
+            this.btn_RefillSyringe1 = new System.Windows.Forms.Button();
+            this.btn_VesselEmpty = new System.Windows.Forms.Button();
+            this.btn_RefillSyringe2 = new System.Windows.Forms.Button();
+            this.btn_VLD1 = new System.Windows.Forms.Button();
+            this.btn_VLD2 = new System.Windows.Forms.Button();
+            this.usrCtrl_MeasureResult4 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult3 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult2 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_MeasureResult1 = new L_Titrator.Controls.UsrCtrl_MeasureResult();
+            this.usrCtrl_TitrationGraph1 = new L_Titrator.Controls.UsrCtrl_TitrationGraph();
+            this.usrCtrl_Fluidics_Small1 = new L_Titrator.Controls.UsrCtrl_Fluidics_Small();
+            this.usrCtrl_MeasureStatus1 = new L_Titrator.Controls.UsrCtrl_MeasureStatus();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbl_MeasureResults.SuspendLayout();
@@ -96,12 +104,14 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.tbl_HotKeys.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -167,20 +177,6 @@ namespace L_Titrator.Pages
             this.pnl_MeasResult4.Size = new System.Drawing.Size(203, 106);
             this.pnl_MeasResult4.TabIndex = 3;
             // 
-            // usrCtrl_MeasureResult4
-            // 
-            this.usrCtrl_MeasureResult4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_MeasureResult4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrCtrl_MeasureResult4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrCtrl_MeasureResult4.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_MeasureResult4.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult4.Name = "usrCtrl_MeasureResult4";
-            this.usrCtrl_MeasureResult4.Padding = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult4.Size = new System.Drawing.Size(203, 106);
-            this.usrCtrl_MeasureResult4.TabIndex = 1;
-            // 
             // pnl_MeasResult3
             // 
             this.pnl_MeasResult3.Controls.Add(this.usrCtrl_MeasureResult3);
@@ -190,20 +186,6 @@ namespace L_Titrator.Pages
             this.pnl_MeasResult3.Name = "pnl_MeasResult3";
             this.pnl_MeasResult3.Size = new System.Drawing.Size(203, 106);
             this.pnl_MeasResult3.TabIndex = 2;
-            // 
-            // usrCtrl_MeasureResult3
-            // 
-            this.usrCtrl_MeasureResult3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_MeasureResult3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrCtrl_MeasureResult3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrCtrl_MeasureResult3.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_MeasureResult3.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult3.Name = "usrCtrl_MeasureResult3";
-            this.usrCtrl_MeasureResult3.Padding = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult3.Size = new System.Drawing.Size(203, 106);
-            this.usrCtrl_MeasureResult3.TabIndex = 1;
             // 
             // pnl_MeasResult2
             // 
@@ -215,20 +197,6 @@ namespace L_Titrator.Pages
             this.pnl_MeasResult2.Size = new System.Drawing.Size(203, 106);
             this.pnl_MeasResult2.TabIndex = 1;
             // 
-            // usrCtrl_MeasureResult2
-            // 
-            this.usrCtrl_MeasureResult2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_MeasureResult2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrCtrl_MeasureResult2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrCtrl_MeasureResult2.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_MeasureResult2.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult2.Name = "usrCtrl_MeasureResult2";
-            this.usrCtrl_MeasureResult2.Padding = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult2.Size = new System.Drawing.Size(203, 106);
-            this.usrCtrl_MeasureResult2.TabIndex = 1;
-            // 
             // pnl_MeasResult1
             // 
             this.pnl_MeasResult1.Controls.Add(this.usrCtrl_MeasureResult1);
@@ -238,20 +206,6 @@ namespace L_Titrator.Pages
             this.pnl_MeasResult1.Name = "pnl_MeasResult1";
             this.pnl_MeasResult1.Size = new System.Drawing.Size(203, 106);
             this.pnl_MeasResult1.TabIndex = 0;
-            // 
-            // usrCtrl_MeasureResult1
-            // 
-            this.usrCtrl_MeasureResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_MeasureResult1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrCtrl_MeasureResult1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrCtrl_MeasureResult1.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_MeasureResult1.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult1.Name = "usrCtrl_MeasureResult1";
-            this.usrCtrl_MeasureResult1.Padding = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureResult1.Size = new System.Drawing.Size(203, 106);
-            this.usrCtrl_MeasureResult1.TabIndex = 0;
             // 
             // tbl_CenterView
             // 
@@ -379,15 +333,6 @@ namespace L_Titrator.Pages
             this.pnl_TitrateGraph.Size = new System.Drawing.Size(475, 370);
             this.pnl_TitrateGraph.TabIndex = 3;
             // 
-            // usrCtrl_TitrationGraph1
-            // 
-            this.usrCtrl_TitrationGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrCtrl_TitrationGraph1.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_TitrationGraph1.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_TitrationGraph1.Name = "usrCtrl_TitrationGraph1";
-            this.usrCtrl_TitrationGraph1.Size = new System.Drawing.Size(473, 368);
-            this.usrCtrl_TitrationGraph1.TabIndex = 0;
-            // 
             // pnl_Fluidics
             // 
             this.pnl_Fluidics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -398,17 +343,6 @@ namespace L_Titrator.Pages
             this.pnl_Fluidics.Name = "pnl_Fluidics";
             this.pnl_Fluidics.Size = new System.Drawing.Size(341, 370);
             this.pnl_Fluidics.TabIndex = 2;
-            // 
-            // usrCtrl_Fluidics_Small1
-            // 
-            this.usrCtrl_Fluidics_Small1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("usrCtrl_Fluidics_Small1.BackgroundImage")));
-            this.usrCtrl_Fluidics_Small1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.usrCtrl_Fluidics_Small1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrCtrl_Fluidics_Small1.Location = new System.Drawing.Point(0, 0);
-            this.usrCtrl_Fluidics_Small1.Margin = new System.Windows.Forms.Padding(0);
-            this.usrCtrl_Fluidics_Small1.Name = "usrCtrl_Fluidics_Small1";
-            this.usrCtrl_Fluidics_Small1.Size = new System.Drawing.Size(339, 368);
-            this.usrCtrl_Fluidics_Small1.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
@@ -427,18 +361,6 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(820, 148);
             this.tableLayoutPanel3.TabIndex = 2;
-            // 
-            // usrCtrl_MeasureStatus1
-            // 
-            this.usrCtrl_MeasureStatus1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_MeasureStatus1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usrCtrl_MeasureStatus1.Location = new System.Drawing.Point(1, 1);
-            this.usrCtrl_MeasureStatus1.Margin = new System.Windows.Forms.Padding(1);
-            this.usrCtrl_MeasureStatus1.Name = "usrCtrl_MeasureStatus1";
-            this.usrCtrl_MeasureStatus1.Size = new System.Drawing.Size(818, 146);
-            this.usrCtrl_MeasureStatus1.TabIndex = 4;
             // 
             // chk_ExpandMeasureStatus
             // 
@@ -477,22 +399,69 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 6);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel8, 0, 8);
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel11, 0, 4);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 9;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 6F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(202, 634);
             this.tableLayoutPanel6.TabIndex = 0;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.btn_OnlineMode, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(202, 72);
+            this.tableLayoutPanel5.TabIndex = 9;
+            // 
+            // btn_OnlineMode
+            // 
+            this.btn_OnlineMode.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btn_OnlineMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_OnlineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_OnlineMode.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.btn_OnlineMode.Location = new System.Drawing.Point(1, 28);
+            this.btn_OnlineMode.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_OnlineMode.Name = "btn_OnlineMode";
+            this.btn_OnlineMode.Size = new System.Drawing.Size(200, 43);
+            this.btn_OnlineMode.TabIndex = 3;
+            this.btn_OnlineMode.Text = "REMOTE";
+            this.btn_OnlineMode.UseVisualStyleBackColor = false;
+            this.btn_OnlineMode.Click += new System.EventHandler(this.btn_OnlineMode_Click);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(1, 1);
+            this.label3.Margin = new System.Windows.Forms.Padding(1);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(200, 25);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Online Mode";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel4
             // 
@@ -504,29 +473,35 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel4.Controls.Add(this.btn_Measure, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.lbl_MeasureTarget, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.btn_Initialize, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(1, 85);
+            this.tableLayoutPanel4.Controls.Add(this.btn_Abort, 0, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(1, 79);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowCount = 5;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 123);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 159);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // btn_Measure
             // 
+            this.btn_Measure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Measure.BackColor = System.Drawing.Color.White;
-            this.btn_Measure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Measure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Measure.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
-            this.btn_Measure.Location = new System.Drawing.Point(1, 76);
+            this.btn_Measure.Location = new System.Drawing.Point(1, 72);
             this.btn_Measure.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Measure.Name = "btn_Measure";
-            this.btn_Measure.Size = new System.Drawing.Size(198, 46);
+            this.btn_Measure.Size = new System.Drawing.Size(198, 42);
             this.btn_Measure.TabIndex = 3;
             this.btn_Measure.Text = "MEASURE";
             this.btn_Measure.UseVisualStyleBackColor = false;
+            this.btn_Measure.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
             this.btn_Measure.Click += new System.EventHandler(this.btn_Measure_Click);
             // 
             // lbl_MeasureTarget
@@ -545,17 +520,39 @@ namespace L_Titrator.Pages
             // 
             // btn_Initialize
             // 
+            this.btn_Initialize.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Initialize.BackColor = System.Drawing.Color.White;
-            this.btn_Initialize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Initialize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Initialize.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
             this.btn_Initialize.Location = new System.Drawing.Point(1, 28);
             this.btn_Initialize.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Initialize.Name = "btn_Initialize";
-            this.btn_Initialize.Size = new System.Drawing.Size(198, 46);
+            this.btn_Initialize.Size = new System.Drawing.Size(198, 42);
             this.btn_Initialize.TabIndex = 2;
             this.btn_Initialize.Text = "INITIALIZE";
             this.btn_Initialize.UseVisualStyleBackColor = false;
+            this.btn_Initialize.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_Initialize.Click += new System.EventHandler(this.btn_Initialize_Click);
+            // 
+            // btn_Abort
+            // 
+            this.btn_Abort.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Abort.BackColor = System.Drawing.Color.White;
+            this.btn_Abort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Abort.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
+            this.btn_Abort.Location = new System.Drawing.Point(1, 116);
+            this.btn_Abort.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_Abort.Name = "btn_Abort";
+            this.btn_Abort.Size = new System.Drawing.Size(198, 42);
+            this.btn_Abort.TabIndex = 3;
+            this.btn_Abort.Text = "ABORT";
+            this.btn_Abort.UseVisualStyleBackColor = false;
+            this.btn_Abort.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_Abort.Click += new System.EventHandler(this.btn_Abort_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -567,13 +564,13 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel9, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 371);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 423);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(202, 107);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(202, 91);
             this.tableLayoutPanel7.TabIndex = 6;
             // 
             // label1
@@ -596,8 +593,8 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel9.ColumnCount = 2;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel9.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel9.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.lbl_Sts_Mainboard, 1, 0);
@@ -608,7 +605,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel9.RowCount = 2;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(200, 78);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(200, 62);
             this.tableLayoutPanel9.TabIndex = 3;
             // 
             // label5
@@ -619,10 +616,10 @@ namespace L_Titrator.Pages
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(1, 40);
+            this.label5.Location = new System.Drawing.Point(1, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 37);
+            this.label5.Size = new System.Drawing.Size(108, 29);
             this.label5.TabIndex = 4;
             this.label5.Text = "External";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -638,7 +635,7 @@ namespace L_Titrator.Pages
             this.label4.Location = new System.Drawing.Point(1, 1);
             this.label4.Margin = new System.Windows.Forms.Padding(1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 37);
+            this.label4.Size = new System.Drawing.Size(108, 29);
             this.label4.TabIndex = 3;
             this.label4.Text = "Mainboard";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -651,10 +648,10 @@ namespace L_Titrator.Pages
             this.lbl_Sts_Mainboard.BackColor = System.Drawing.Color.White;
             this.lbl_Sts_Mainboard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_Sts_Mainboard.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_Sts_Mainboard.Location = new System.Drawing.Point(121, 1);
+            this.lbl_Sts_Mainboard.Location = new System.Drawing.Point(111, 1);
             this.lbl_Sts_Mainboard.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_Sts_Mainboard.Name = "lbl_Sts_Mainboard";
-            this.lbl_Sts_Mainboard.Size = new System.Drawing.Size(78, 37);
+            this.lbl_Sts_Mainboard.Size = new System.Drawing.Size(88, 29);
             this.lbl_Sts_Mainboard.TabIndex = 3;
             this.lbl_Sts_Mainboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -666,10 +663,10 @@ namespace L_Titrator.Pages
             this.lbl_Sts_External.BackColor = System.Drawing.Color.White;
             this.lbl_Sts_External.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_Sts_External.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_Sts_External.Location = new System.Drawing.Point(121, 40);
+            this.lbl_Sts_External.Location = new System.Drawing.Point(111, 32);
             this.lbl_Sts_External.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_Sts_External.Name = "lbl_Sts_External";
-            this.lbl_Sts_External.Size = new System.Drawing.Size(78, 37);
+            this.lbl_Sts_External.Size = new System.Drawing.Size(88, 29);
             this.lbl_Sts_External.TabIndex = 3;
             this.lbl_Sts_External.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -683,13 +680,13 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel8.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel10, 0, 1);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 484);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 520);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(202, 150);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(202, 114);
             this.tableLayoutPanel8.TabIndex = 6;
             // 
             // label2
@@ -712,40 +709,24 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel10.Controls.Add(this.label6, 0, 1);
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel10.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.lbl_Sts_Leak1, 1, 0);
-            this.tableLayoutPanel10.Controls.Add(this.lbl_Sts_Leak2, 1, 1);
-            this.tableLayoutPanel10.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel10.Controls.Add(this.lbl_Sts_Overflow, 1, 2);
+            this.tableLayoutPanel10.Controls.Add(this.label10, 0, 1);
+            this.tableLayoutPanel10.Controls.Add(this.lbl_Sts_Overflow, 1, 1);
+            this.tableLayoutPanel10.Controls.Add(this.label8, 0, 2);
+            this.tableLayoutPanel10.Controls.Add(this.lbl_Sts_LifeTime, 1, 2);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(1, 28);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 4;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(200, 121);
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(200, 85);
             this.tableLayoutPanel10.TabIndex = 3;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(1, 40);
-            this.label6.Margin = new System.Windows.Forms.Padding(1);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 37);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Leak2";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -758,9 +739,9 @@ namespace L_Titrator.Pages
             this.label7.Location = new System.Drawing.Point(1, 1);
             this.label7.Margin = new System.Windows.Forms.Padding(1);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 37);
+            this.label7.Size = new System.Drawing.Size(108, 26);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Leak1";
+            this.label7.Text = "Leak";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_Sts_Leak1
@@ -771,27 +752,12 @@ namespace L_Titrator.Pages
             this.lbl_Sts_Leak1.BackColor = System.Drawing.Color.White;
             this.lbl_Sts_Leak1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_Sts_Leak1.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_Sts_Leak1.Location = new System.Drawing.Point(121, 1);
+            this.lbl_Sts_Leak1.Location = new System.Drawing.Point(111, 1);
             this.lbl_Sts_Leak1.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_Sts_Leak1.Name = "lbl_Sts_Leak1";
-            this.lbl_Sts_Leak1.Size = new System.Drawing.Size(78, 37);
+            this.lbl_Sts_Leak1.Size = new System.Drawing.Size(88, 26);
             this.lbl_Sts_Leak1.TabIndex = 3;
             this.lbl_Sts_Leak1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_Sts_Leak2
-            // 
-            this.lbl_Sts_Leak2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_Sts_Leak2.BackColor = System.Drawing.Color.White;
-            this.lbl_Sts_Leak2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbl_Sts_Leak2.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_Sts_Leak2.Location = new System.Drawing.Point(121, 40);
-            this.lbl_Sts_Leak2.Margin = new System.Windows.Forms.Padding(1);
-            this.lbl_Sts_Leak2.Name = "lbl_Sts_Leak2";
-            this.lbl_Sts_Leak2.Size = new System.Drawing.Size(78, 37);
-            this.lbl_Sts_Leak2.TabIndex = 3;
-            this.lbl_Sts_Leak2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
@@ -801,10 +767,10 @@ namespace L_Titrator.Pages
             this.label10.BackColor = System.Drawing.Color.White;
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(1, 79);
+            this.label10.Location = new System.Drawing.Point(1, 29);
             this.label10.Margin = new System.Windows.Forms.Padding(1);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(118, 37);
+            this.label10.Size = new System.Drawing.Size(108, 26);
             this.label10.TabIndex = 4;
             this.label10.Text = "Overflow";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -817,64 +783,300 @@ namespace L_Titrator.Pages
             this.lbl_Sts_Overflow.BackColor = System.Drawing.Color.White;
             this.lbl_Sts_Overflow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_Sts_Overflow.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_Sts_Overflow.Location = new System.Drawing.Point(121, 79);
+            this.lbl_Sts_Overflow.Location = new System.Drawing.Point(111, 29);
             this.lbl_Sts_Overflow.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_Sts_Overflow.Name = "lbl_Sts_Overflow";
-            this.lbl_Sts_Overflow.Size = new System.Drawing.Size(78, 37);
+            this.lbl_Sts_Overflow.Size = new System.Drawing.Size(88, 26);
             this.lbl_Sts_Overflow.TabIndex = 3;
             this.lbl_Sts_Overflow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tmr_StatusCheck
+            // label8
             // 
-            this.tmr_StatusCheck.Interval = 500;
-            this.tmr_StatusCheck.Tick += new System.EventHandler(this.tmr_StatusCheck_Tick);
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.btn_OnlineMode, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(202, 78);
-            this.tableLayoutPanel5.TabIndex = 9;
+            this.label8.BackColor = System.Drawing.Color.White;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
+            this.label8.Location = new System.Drawing.Point(1, 57);
+            this.label8.Margin = new System.Windows.Forms.Padding(1);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 26);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "LifeTime";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_OnlineMode
+            // lbl_Sts_LifeTime
             // 
-            this.btn_OnlineMode.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btn_OnlineMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_OnlineMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_OnlineMode.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold);
-            this.btn_OnlineMode.Location = new System.Drawing.Point(1, 28);
-            this.btn_OnlineMode.Margin = new System.Windows.Forms.Padding(1);
-            this.btn_OnlineMode.Name = "btn_OnlineMode";
-            this.btn_OnlineMode.Size = new System.Drawing.Size(200, 49);
-            this.btn_OnlineMode.TabIndex = 3;
-            this.btn_OnlineMode.Text = "REMOTE";
-            this.btn_OnlineMode.UseVisualStyleBackColor = false;
-            this.btn_OnlineMode.Click += new System.EventHandler(this.btn_OnlineMode_Click);
+            this.lbl_Sts_LifeTime.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_Sts_LifeTime.BackColor = System.Drawing.Color.White;
+            this.lbl_Sts_LifeTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_Sts_LifeTime.Font = new System.Drawing.Font("Consolas", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_Sts_LifeTime.Location = new System.Drawing.Point(111, 57);
+            this.lbl_Sts_LifeTime.Margin = new System.Windows.Forms.Padding(1);
+            this.lbl_Sts_LifeTime.Name = "lbl_Sts_LifeTime";
+            this.lbl_Sts_LifeTime.Size = new System.Drawing.Size(88, 26);
+            this.lbl_Sts_LifeTime.TabIndex = 3;
+            this.lbl_Sts_LifeTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // tableLayoutPanel11
             // 
-            this.label3.BackColor = System.Drawing.Color.LemonChiffon;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(1, 1);
-            this.label3.Margin = new System.Windows.Forms.Padding(1);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(200, 25);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Online Mode";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tableLayoutPanel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.tbl_HotKeys, 0, 1);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(1, 246);
+            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(1);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(200, 170);
+            this.tableLayoutPanel11.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.LemonChiffon;
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(1, 1);
+            this.label6.Margin = new System.Windows.Forms.Padding(1);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(198, 25);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Hot Keys";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbl_HotKeys
+            // 
+            this.tbl_HotKeys.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbl_HotKeys.ColumnCount = 2;
+            this.tbl_HotKeys.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_HotKeys.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_HotKeys.Controls.Add(this.btn_Flush, 0, 0);
+            this.tbl_HotKeys.Controls.Add(this.btn_RefillSyringe1, 0, 1);
+            this.tbl_HotKeys.Controls.Add(this.btn_VesselEmpty, 1, 0);
+            this.tbl_HotKeys.Controls.Add(this.btn_RefillSyringe2, 1, 1);
+            this.tbl_HotKeys.Controls.Add(this.btn_VLD1, 0, 2);
+            this.tbl_HotKeys.Controls.Add(this.btn_VLD2, 1, 2);
+            this.tbl_HotKeys.Enabled = false;
+            this.tbl_HotKeys.Location = new System.Drawing.Point(0, 27);
+            this.tbl_HotKeys.Margin = new System.Windows.Forms.Padding(0);
+            this.tbl_HotKeys.Name = "tbl_HotKeys";
+            this.tbl_HotKeys.RowCount = 3;
+            this.tbl_HotKeys.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tbl_HotKeys.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tbl_HotKeys.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tbl_HotKeys.Size = new System.Drawing.Size(200, 143);
+            this.tbl_HotKeys.TabIndex = 4;
+            this.tbl_HotKeys.EnabledChanged += new System.EventHandler(this.tbl_HotKeys_EnabledChanged);
+            // 
+            // btn_Flush
+            // 
+            this.btn_Flush.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Flush.BackColor = System.Drawing.Color.White;
+            this.btn_Flush.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Flush.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_Flush.Location = new System.Drawing.Point(1, 1);
+            this.btn_Flush.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_Flush.Name = "btn_Flush";
+            this.btn_Flush.Size = new System.Drawing.Size(98, 45);
+            this.btn_Flush.TabIndex = 2;
+            this.btn_Flush.Text = "FLUSH";
+            this.btn_Flush.UseVisualStyleBackColor = false;
+            this.btn_Flush.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_Flush.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // btn_RefillSyringe1
+            // 
+            this.btn_RefillSyringe1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_RefillSyringe1.BackColor = System.Drawing.Color.White;
+            this.btn_RefillSyringe1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_RefillSyringe1.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_RefillSyringe1.Location = new System.Drawing.Point(1, 48);
+            this.btn_RefillSyringe1.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_RefillSyringe1.Name = "btn_RefillSyringe1";
+            this.btn_RefillSyringe1.Size = new System.Drawing.Size(98, 45);
+            this.btn_RefillSyringe1.TabIndex = 3;
+            this.btn_RefillSyringe1.Text = "REFILL\r\nSYRINGE1";
+            this.btn_RefillSyringe1.UseVisualStyleBackColor = false;
+            this.btn_RefillSyringe1.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_RefillSyringe1.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // btn_VesselEmpty
+            // 
+            this.btn_VesselEmpty.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_VesselEmpty.BackColor = System.Drawing.Color.White;
+            this.btn_VesselEmpty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_VesselEmpty.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_VesselEmpty.Location = new System.Drawing.Point(101, 1);
+            this.btn_VesselEmpty.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_VesselEmpty.Name = "btn_VesselEmpty";
+            this.btn_VesselEmpty.Size = new System.Drawing.Size(98, 45);
+            this.btn_VesselEmpty.TabIndex = 3;
+            this.btn_VesselEmpty.Text = "VESSEL\r\nEMPTY";
+            this.btn_VesselEmpty.UseVisualStyleBackColor = false;
+            this.btn_VesselEmpty.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_VesselEmpty.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // btn_RefillSyringe2
+            // 
+            this.btn_RefillSyringe2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_RefillSyringe2.BackColor = System.Drawing.Color.White;
+            this.btn_RefillSyringe2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_RefillSyringe2.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_RefillSyringe2.Location = new System.Drawing.Point(101, 48);
+            this.btn_RefillSyringe2.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_RefillSyringe2.Name = "btn_RefillSyringe2";
+            this.btn_RefillSyringe2.Size = new System.Drawing.Size(98, 45);
+            this.btn_RefillSyringe2.TabIndex = 3;
+            this.btn_RefillSyringe2.Text = "REFILL\r\nSYRINGE2";
+            this.btn_RefillSyringe2.UseVisualStyleBackColor = false;
+            this.btn_RefillSyringe2.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_RefillSyringe2.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // btn_VLD1
+            // 
+            this.btn_VLD1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_VLD1.BackColor = System.Drawing.Color.White;
+            this.btn_VLD1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_VLD1.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_VLD1.Location = new System.Drawing.Point(1, 95);
+            this.btn_VLD1.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_VLD1.Name = "btn_VLD1";
+            this.btn_VLD1.Size = new System.Drawing.Size(98, 47);
+            this.btn_VLD1.TabIndex = 3;
+            this.btn_VLD1.Text = "VLD.1";
+            this.btn_VLD1.UseVisualStyleBackColor = false;
+            this.btn_VLD1.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_VLD1.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // btn_VLD2
+            // 
+            this.btn_VLD2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_VLD2.BackColor = System.Drawing.Color.White;
+            this.btn_VLD2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_VLD2.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_VLD2.Location = new System.Drawing.Point(101, 95);
+            this.btn_VLD2.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_VLD2.Name = "btn_VLD2";
+            this.btn_VLD2.Size = new System.Drawing.Size(98, 47);
+            this.btn_VLD2.TabIndex = 3;
+            this.btn_VLD2.Text = "VLD.2";
+            this.btn_VLD2.UseVisualStyleBackColor = false;
+            this.btn_VLD2.EnabledChanged += new System.EventHandler(this.btn_StartFunction_EnabledChanged);
+            this.btn_VLD2.Click += new System.EventHandler(this.HotKeyClicked);
+            // 
+            // usrCtrl_MeasureResult4
+            // 
+            this.usrCtrl_MeasureResult4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_MeasureResult4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrCtrl_MeasureResult4.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrCtrl_MeasureResult4.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_MeasureResult4.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult4.Name = "usrCtrl_MeasureResult4";
+            this.usrCtrl_MeasureResult4.Padding = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult4.Size = new System.Drawing.Size(203, 106);
+            this.usrCtrl_MeasureResult4.TabIndex = 1;
+            // 
+            // usrCtrl_MeasureResult3
+            // 
+            this.usrCtrl_MeasureResult3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_MeasureResult3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrCtrl_MeasureResult3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrCtrl_MeasureResult3.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_MeasureResult3.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult3.Name = "usrCtrl_MeasureResult3";
+            this.usrCtrl_MeasureResult3.Padding = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult3.Size = new System.Drawing.Size(203, 106);
+            this.usrCtrl_MeasureResult3.TabIndex = 1;
+            // 
+            // usrCtrl_MeasureResult2
+            // 
+            this.usrCtrl_MeasureResult2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_MeasureResult2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrCtrl_MeasureResult2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrCtrl_MeasureResult2.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_MeasureResult2.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult2.Name = "usrCtrl_MeasureResult2";
+            this.usrCtrl_MeasureResult2.Padding = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult2.Size = new System.Drawing.Size(203, 106);
+            this.usrCtrl_MeasureResult2.TabIndex = 1;
+            // 
+            // usrCtrl_MeasureResult1
+            // 
+            this.usrCtrl_MeasureResult1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_MeasureResult1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrCtrl_MeasureResult1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrCtrl_MeasureResult1.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_MeasureResult1.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult1.Name = "usrCtrl_MeasureResult1";
+            this.usrCtrl_MeasureResult1.Padding = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureResult1.Size = new System.Drawing.Size(203, 106);
+            this.usrCtrl_MeasureResult1.TabIndex = 0;
+            // 
+            // usrCtrl_TitrationGraph1
+            // 
+            this.usrCtrl_TitrationGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrCtrl_TitrationGraph1.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_TitrationGraph1.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_TitrationGraph1.Name = "usrCtrl_TitrationGraph1";
+            this.usrCtrl_TitrationGraph1.Size = new System.Drawing.Size(473, 368);
+            this.usrCtrl_TitrationGraph1.TabIndex = 0;
+            // 
+            // usrCtrl_Fluidics_Small1
+            // 
+            this.usrCtrl_Fluidics_Small1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("usrCtrl_Fluidics_Small1.BackgroundImage")));
+            this.usrCtrl_Fluidics_Small1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.usrCtrl_Fluidics_Small1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrCtrl_Fluidics_Small1.Location = new System.Drawing.Point(0, 0);
+            this.usrCtrl_Fluidics_Small1.Margin = new System.Windows.Forms.Padding(0);
+            this.usrCtrl_Fluidics_Small1.Name = "usrCtrl_Fluidics_Small1";
+            this.usrCtrl_Fluidics_Small1.Size = new System.Drawing.Size(339, 368);
+            this.usrCtrl_Fluidics_Small1.TabIndex = 0;
+            // 
+            // usrCtrl_MeasureStatus1
+            // 
+            this.usrCtrl_MeasureStatus1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrCtrl_MeasureStatus1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usrCtrl_MeasureStatus1.Location = new System.Drawing.Point(1, 1);
+            this.usrCtrl_MeasureStatus1.Margin = new System.Windows.Forms.Padding(1);
+            this.usrCtrl_MeasureStatus1.Name = "usrCtrl_MeasureStatus1";
+            this.usrCtrl_MeasureStatus1.Size = new System.Drawing.Size(818, 146);
+            this.usrCtrl_MeasureStatus1.TabIndex = 4;
             // 
             // Page_Main
             // 
@@ -883,6 +1085,7 @@ namespace L_Titrator.Pages
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Page_Main";
             this.Size = new System.Drawing.Size(1024, 634);
+            this.VisibleChanged += new System.EventHandler(this.Page_Main_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tbl_MeasureResults.ResumeLayout(false);
@@ -898,12 +1101,14 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tbl_HotKeys.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -950,15 +1155,24 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbl_Sts_Leak1;
-        private System.Windows.Forms.Label lbl_Sts_Leak2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_Sts_Overflow;
-        private System.Windows.Forms.Timer tmr_StatusCheck;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Button btn_OnlineMode;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btn_Abort;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button btn_RefillSyringe1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_Flush;
+        private System.Windows.Forms.Button btn_VesselEmpty;
+        private System.Windows.Forms.TableLayoutPanel tbl_HotKeys;
+        private System.Windows.Forms.Button btn_RefillSyringe2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbl_Sts_LifeTime;
+        private System.Windows.Forms.Button btn_VLD1;
+        private System.Windows.Forms.Button btn_VLD2;
     }
 }

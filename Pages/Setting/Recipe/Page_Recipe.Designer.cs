@@ -31,7 +31,6 @@ namespace L_Titrator.Pages
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tbl_RecipeMenu = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -80,6 +79,9 @@ namespace L_Titrator.Pages
             this.btn_Save = new System.Windows.Forms.Button();
             this.btn_Restore = new System.Windows.Forms.Button();
             this.pnl_SubPageView = new System.Windows.Forms.Panel();
+            this.tbl_RecipeListSelect = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_RecipeGeneral = new System.Windows.Forms.Button();
+            this.btn_HotKeyList = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbl_RecipeMenu.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -101,6 +103,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel20.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tbl_RecipeListSelect.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -126,34 +129,17 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbl_RecipeMenu.ColumnCount = 1;
             this.tbl_RecipeMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbl_RecipeMenu.Controls.Add(this.label2, 0, 0);
             this.tbl_RecipeMenu.Controls.Add(this.tableLayoutPanel4, 0, 2);
+            this.tbl_RecipeMenu.Controls.Add(this.tbl_RecipeListSelect, 0, 0);
             this.tbl_RecipeMenu.Location = new System.Drawing.Point(0, 0);
             this.tbl_RecipeMenu.Margin = new System.Windows.Forms.Padding(0);
             this.tbl_RecipeMenu.Name = "tbl_RecipeMenu";
             this.tbl_RecipeMenu.RowCount = 3;
-            this.tbl_RecipeMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tbl_RecipeMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
+            this.tbl_RecipeMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tbl_RecipeMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4F));
             this.tbl_RecipeMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbl_RecipeMenu.Size = new System.Drawing.Size(215, 634);
             this.tbl_RecipeMenu.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.BackColor = System.Drawing.Color.Gold;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1, 1);
-            this.label2.Margin = new System.Windows.Forms.Padding(1);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(213, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Recipe List";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel4
             // 
@@ -162,12 +148,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel7, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 29);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 36);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(215, 605);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(215, 598);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // tableLayoutPanel7
@@ -184,9 +170,9 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(215, 605);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(215, 598);
             this.tableLayoutPanel7.TabIndex = 2;
             // 
             // tableLayoutPanel6
@@ -301,13 +287,13 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel10, 0, 1);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 74);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 76);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(215, 531);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(215, 522);
             this.tableLayoutPanel8.TabIndex = 1;
             // 
             // tableLayoutPanel9
@@ -376,7 +362,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(215, 503);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(215, 494);
             this.tableLayoutPanel10.TabIndex = 2;
             // 
             // tbl_Recipes
@@ -400,18 +386,18 @@ namespace L_Titrator.Pages
             this.tbl_Recipes.Margin = new System.Windows.Forms.Padding(0);
             this.tbl_Recipes.Name = "tbl_Recipes";
             this.tbl_Recipes.RowCount = 11;
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.tbl_Recipes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbl_Recipes.Size = new System.Drawing.Size(215, 503);
+            this.tbl_Recipes.Size = new System.Drawing.Size(215, 494);
             this.tbl_Recipes.TabIndex = 2;
             // 
             // tableLayoutPanel5
@@ -429,7 +415,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel5.TabIndex = 1;
             // 
             // btn_RecipeNo_0
@@ -443,7 +429,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_0.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_0.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_0.Name = "btn_RecipeNo_0";
-            this.btn_RecipeNo_0.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_0.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_0.TabIndex = 1;
             this.btn_RecipeNo_0.TabStop = false;
             this.btn_RecipeNo_0.Tag = "false";
@@ -463,7 +449,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_0.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_0.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_0.Name = "lbl_RecipeName_0";
-            this.lbl_RecipeName_0.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_0.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_0.TabIndex = 1;
             this.lbl_RecipeName_0.Text = "(Empty)";
             this.lbl_RecipeName_0.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -479,12 +465,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel12.Controls.Add(this.btn_RecipeNo_1, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.lbl_RecipeName_1, 1, 0);
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(1, 51);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(1, 50);
             this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel12.TabIndex = 1;
             // 
             // btn_RecipeNo_1
@@ -498,7 +484,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_1.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_1.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_1.Name = "btn_RecipeNo_1";
-            this.btn_RecipeNo_1.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_1.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_1.TabIndex = 1;
             this.btn_RecipeNo_1.TabStop = false;
             this.btn_RecipeNo_1.Tag = "false";
@@ -518,7 +504,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_1.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_1.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_1.Name = "lbl_RecipeName_1";
-            this.lbl_RecipeName_1.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_1.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_1.TabIndex = 1;
             this.lbl_RecipeName_1.Text = "(Empty)";
             this.lbl_RecipeName_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -534,12 +520,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel13.Controls.Add(this.btn_RecipeNo_2, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.lbl_RecipeName_2, 1, 0);
-            this.tableLayoutPanel13.Location = new System.Drawing.Point(1, 101);
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(1, 99);
             this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel13.TabIndex = 1;
             // 
             // btn_RecipeNo_2
@@ -553,7 +539,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_2.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_2.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_2.Name = "btn_RecipeNo_2";
-            this.btn_RecipeNo_2.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_2.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_2.TabIndex = 1;
             this.btn_RecipeNo_2.TabStop = false;
             this.btn_RecipeNo_2.Tag = "false";
@@ -573,7 +559,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_2.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_2.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_2.Name = "lbl_RecipeName_2";
-            this.lbl_RecipeName_2.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_2.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_2.TabIndex = 1;
             this.lbl_RecipeName_2.Text = "(Empty)";
             this.lbl_RecipeName_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -589,12 +575,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel14.Controls.Add(this.btn_RecipeNo_3, 0, 0);
             this.tableLayoutPanel14.Controls.Add(this.lbl_RecipeName_3, 1, 0);
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(1, 151);
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(1, 148);
             this.tableLayoutPanel14.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // btn_RecipeNo_3
@@ -608,7 +594,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_3.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_3.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_3.Name = "btn_RecipeNo_3";
-            this.btn_RecipeNo_3.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_3.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_3.TabIndex = 1;
             this.btn_RecipeNo_3.TabStop = false;
             this.btn_RecipeNo_3.Tag = "false";
@@ -628,7 +614,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_3.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_3.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_3.Name = "lbl_RecipeName_3";
-            this.lbl_RecipeName_3.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_3.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_3.TabIndex = 1;
             this.lbl_RecipeName_3.Text = "(Empty)";
             this.lbl_RecipeName_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -644,12 +630,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel15.Controls.Add(this.btn_RecipeNo_4, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.lbl_RecipeName_4, 1, 0);
-            this.tableLayoutPanel15.Location = new System.Drawing.Point(1, 201);
+            this.tableLayoutPanel15.Location = new System.Drawing.Point(1, 197);
             this.tableLayoutPanel15.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
             this.tableLayoutPanel15.RowCount = 1;
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel15.TabIndex = 1;
             // 
             // btn_RecipeNo_4
@@ -663,7 +649,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_4.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_4.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_4.Name = "btn_RecipeNo_4";
-            this.btn_RecipeNo_4.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_4.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_4.TabIndex = 1;
             this.btn_RecipeNo_4.TabStop = false;
             this.btn_RecipeNo_4.Tag = "false";
@@ -683,7 +669,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_4.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_4.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_4.Name = "lbl_RecipeName_4";
-            this.lbl_RecipeName_4.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_4.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_4.TabIndex = 1;
             this.lbl_RecipeName_4.Text = "(Empty)";
             this.lbl_RecipeName_4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -699,12 +685,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel16.Controls.Add(this.btn_RecipeNo_5, 0, 0);
             this.tableLayoutPanel16.Controls.Add(this.lbl_RecipeName_5, 1, 0);
-            this.tableLayoutPanel16.Location = new System.Drawing.Point(1, 251);
+            this.tableLayoutPanel16.Location = new System.Drawing.Point(1, 246);
             this.tableLayoutPanel16.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
             this.tableLayoutPanel16.RowCount = 1;
             this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel16.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel16.TabIndex = 1;
             // 
             // btn_RecipeNo_5
@@ -718,7 +704,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_5.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_5.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_5.Name = "btn_RecipeNo_5";
-            this.btn_RecipeNo_5.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_5.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_5.TabIndex = 1;
             this.btn_RecipeNo_5.TabStop = false;
             this.btn_RecipeNo_5.Tag = "false";
@@ -738,7 +724,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_5.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_5.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_5.Name = "lbl_RecipeName_5";
-            this.lbl_RecipeName_5.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_5.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_5.TabIndex = 1;
             this.lbl_RecipeName_5.Text = "(Empty)";
             this.lbl_RecipeName_5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -754,12 +740,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel17.Controls.Add(this.btn_RecipeNo_6, 0, 0);
             this.tableLayoutPanel17.Controls.Add(this.lbl_RecipeName_6, 1, 0);
-            this.tableLayoutPanel17.Location = new System.Drawing.Point(1, 301);
+            this.tableLayoutPanel17.Location = new System.Drawing.Point(1, 295);
             this.tableLayoutPanel17.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel17.Name = "tableLayoutPanel17";
             this.tableLayoutPanel17.RowCount = 1;
             this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel17.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel17.TabIndex = 1;
             // 
             // btn_RecipeNo_6
@@ -773,7 +759,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_6.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_6.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_6.Name = "btn_RecipeNo_6";
-            this.btn_RecipeNo_6.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_6.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_6.TabIndex = 1;
             this.btn_RecipeNo_6.TabStop = false;
             this.btn_RecipeNo_6.Tag = "false";
@@ -793,7 +779,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_6.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_6.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_6.Name = "lbl_RecipeName_6";
-            this.lbl_RecipeName_6.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_6.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_6.TabIndex = 1;
             this.lbl_RecipeName_6.Text = "(Empty)";
             this.lbl_RecipeName_6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -809,12 +795,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel18.Controls.Add(this.btn_RecipeNo_7, 0, 0);
             this.tableLayoutPanel18.Controls.Add(this.lbl_RecipeName_7, 1, 0);
-            this.tableLayoutPanel18.Location = new System.Drawing.Point(1, 351);
+            this.tableLayoutPanel18.Location = new System.Drawing.Point(1, 344);
             this.tableLayoutPanel18.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel18.Name = "tableLayoutPanel18";
             this.tableLayoutPanel18.RowCount = 1;
             this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel18.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel18.TabIndex = 1;
             // 
             // btn_RecipeNo_7
@@ -828,7 +814,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_7.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_7.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_7.Name = "btn_RecipeNo_7";
-            this.btn_RecipeNo_7.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_7.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_7.TabIndex = 1;
             this.btn_RecipeNo_7.TabStop = false;
             this.btn_RecipeNo_7.Tag = "false";
@@ -848,7 +834,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_7.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_7.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_7.Name = "lbl_RecipeName_7";
-            this.lbl_RecipeName_7.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_7.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_7.TabIndex = 1;
             this.lbl_RecipeName_7.Text = "(Empty)";
             this.lbl_RecipeName_7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -864,12 +850,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel19.Controls.Add(this.btn_RecipeNo_8, 0, 0);
             this.tableLayoutPanel19.Controls.Add(this.lbl_RecipeName_8, 1, 0);
-            this.tableLayoutPanel19.Location = new System.Drawing.Point(1, 401);
+            this.tableLayoutPanel19.Location = new System.Drawing.Point(1, 393);
             this.tableLayoutPanel19.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
             this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel19.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel19.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel19.TabIndex = 1;
             // 
             // btn_RecipeNo_8
@@ -883,7 +869,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_8.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_8.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_8.Name = "btn_RecipeNo_8";
-            this.btn_RecipeNo_8.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_8.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_8.TabIndex = 1;
             this.btn_RecipeNo_8.TabStop = false;
             this.btn_RecipeNo_8.Tag = "false";
@@ -903,7 +889,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_8.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_8.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_8.Name = "lbl_RecipeName_8";
-            this.lbl_RecipeName_8.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_8.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_8.TabIndex = 1;
             this.lbl_RecipeName_8.Text = "(Empty)";
             this.lbl_RecipeName_8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -919,12 +905,12 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel20.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel20.Controls.Add(this.btn_RecipeNo_9, 0, 0);
             this.tableLayoutPanel20.Controls.Add(this.lbl_RecipeName_9, 1, 0);
-            this.tableLayoutPanel20.Location = new System.Drawing.Point(1, 451);
+            this.tableLayoutPanel20.Location = new System.Drawing.Point(1, 442);
             this.tableLayoutPanel20.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel20.Name = "tableLayoutPanel20";
             this.tableLayoutPanel20.RowCount = 1;
             this.tableLayoutPanel20.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel20.Size = new System.Drawing.Size(213, 48);
+            this.tableLayoutPanel20.Size = new System.Drawing.Size(213, 47);
             this.tableLayoutPanel20.TabIndex = 1;
             // 
             // btn_RecipeNo_9
@@ -938,7 +924,7 @@ namespace L_Titrator.Pages
             this.btn_RecipeNo_9.Location = new System.Drawing.Point(1, 1);
             this.btn_RecipeNo_9.Margin = new System.Windows.Forms.Padding(1);
             this.btn_RecipeNo_9.Name = "btn_RecipeNo_9";
-            this.btn_RecipeNo_9.Size = new System.Drawing.Size(42, 46);
+            this.btn_RecipeNo_9.Size = new System.Drawing.Size(42, 45);
             this.btn_RecipeNo_9.TabIndex = 1;
             this.btn_RecipeNo_9.TabStop = false;
             this.btn_RecipeNo_9.Tag = "false";
@@ -958,7 +944,7 @@ namespace L_Titrator.Pages
             this.lbl_RecipeName_9.Location = new System.Drawing.Point(45, 1);
             this.lbl_RecipeName_9.Margin = new System.Windows.Forms.Padding(1);
             this.lbl_RecipeName_9.Name = "lbl_RecipeName_9";
-            this.lbl_RecipeName_9.Size = new System.Drawing.Size(167, 46);
+            this.lbl_RecipeName_9.Size = new System.Drawing.Size(167, 45);
             this.lbl_RecipeName_9.TabIndex = 1;
             this.lbl_RecipeName_9.Text = "(Empty)";
             this.lbl_RecipeName_9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1048,6 +1034,62 @@ namespace L_Titrator.Pages
             this.pnl_SubPageView.Size = new System.Drawing.Size(809, 584);
             this.pnl_SubPageView.TabIndex = 3;
             // 
+            // tbl_RecipeListSelect
+            // 
+            this.tbl_RecipeListSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbl_RecipeListSelect.ColumnCount = 2;
+            this.tbl_RecipeListSelect.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_RecipeListSelect.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_RecipeListSelect.Controls.Add(this.btn_RecipeGeneral, 0, 0);
+            this.tbl_RecipeListSelect.Controls.Add(this.btn_HotKeyList, 1, 0);
+            this.tbl_RecipeListSelect.Location = new System.Drawing.Point(0, 0);
+            this.tbl_RecipeListSelect.Margin = new System.Windows.Forms.Padding(0);
+            this.tbl_RecipeListSelect.Name = "tbl_RecipeListSelect";
+            this.tbl_RecipeListSelect.RowCount = 1;
+            this.tbl_RecipeListSelect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_RecipeListSelect.Size = new System.Drawing.Size(215, 32);
+            this.tbl_RecipeListSelect.TabIndex = 3;
+            // 
+            // btn_RecipeGeneral
+            // 
+            this.btn_RecipeGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_RecipeGeneral.BackColor = System.Drawing.Color.White;
+            this.btn_RecipeGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_RecipeGeneral.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_RecipeGeneral.Location = new System.Drawing.Point(1, 1);
+            this.btn_RecipeGeneral.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_RecipeGeneral.Name = "btn_RecipeGeneral";
+            this.btn_RecipeGeneral.Size = new System.Drawing.Size(105, 30);
+            this.btn_RecipeGeneral.TabIndex = 1;
+            this.btn_RecipeGeneral.TabStop = false;
+            this.btn_RecipeGeneral.Tag = "";
+            this.btn_RecipeGeneral.Text = "Recipe List";
+            this.btn_RecipeGeneral.UseVisualStyleBackColor = false;
+            this.btn_RecipeGeneral.Click += new System.EventHandler(this.btn_RecipeGeneral_Click);
+            // 
+            // btn_HotKeyList
+            // 
+            this.btn_HotKeyList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_HotKeyList.BackColor = System.Drawing.Color.White;
+            this.btn_HotKeyList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_HotKeyList.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_HotKeyList.Location = new System.Drawing.Point(108, 1);
+            this.btn_HotKeyList.Margin = new System.Windows.Forms.Padding(1);
+            this.btn_HotKeyList.Name = "btn_HotKeyList";
+            this.btn_HotKeyList.Size = new System.Drawing.Size(106, 30);
+            this.btn_HotKeyList.TabIndex = 1;
+            this.btn_HotKeyList.TabStop = false;
+            this.btn_HotKeyList.Tag = "";
+            this.btn_HotKeyList.Text = "HotKey List";
+            this.btn_HotKeyList.UseVisualStyleBackColor = false;
+            this.btn_HotKeyList.Click += new System.EventHandler(this.btn_HotKeyList_Click);
+            // 
             // Page_Recipe
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1077,6 +1119,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel20.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tbl_RecipeListSelect.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1085,7 +1128,6 @@ namespace L_Titrator.Pages
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tbl_RecipeMenu;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
@@ -1134,5 +1176,8 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.Button btn_Restore;
+        private System.Windows.Forms.TableLayoutPanel tbl_RecipeListSelect;
+        private System.Windows.Forms.Button btn_RecipeGeneral;
+        private System.Windows.Forms.Button btn_HotKeyList;
     }
 }

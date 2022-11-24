@@ -14,7 +14,7 @@ using ATIK.Device.ATIK_MainBoard;
 
 namespace L_Titrator
 {
-    public class FluidicsControl
+    public partial class FluidicsControl
     {
         public enum NotifyProcess
         { 
@@ -43,7 +43,7 @@ namespace L_Titrator
             SyringeEnd
         }
 
-        public delegate void RunEndDelegate(bool successfullyEnd);
+        public delegate void RunEndDelegate(RunEndState runEndState);
         public static RunEndDelegate RunEnd;
 
         public delegate void NotifyProcessInfoDelegate(NotifyProcess notifyProcess, object data);
@@ -59,124 +59,23 @@ namespace L_Titrator
         public static ConcurrentQueue<object> qSeq = new ConcurrentQueue<object>();
         public static Thread thrSeq;
 
-        //private static MeasureInfo CurMeasInfo = new MeasureInfo();
-
-        private static int Temp_RcpNo = 0;
-        private static int Temp_IterationMax = 0;
-        private static int Temp_IterationCount = 0;
-
+        private static int Glb_RcpNo = 0;
+        private static int Glb_IterationMax = 0;
+        private static int Glb_IterationCount = 0;
+        private static double Glb_Concentration = 0;
+        private static int Glb_VLD_Order = 0;
 
         private static StepProgress StepState = StepProgress.None;
         private static HistoryObj HistoryObjCurrent;
 
         private static Dictionary<StepEndCheck, bool> DicStepEndCheck = new Dictionary<StepEndCheck, bool>();
 
-        private class SeqAssist
-        {
-            public static int RecipeNo { get; private set; }
-            public static int SeqNo { get; private set; }
-            public static int StepNo { get; private set; }
-
-            private static Stopwatch TimeCheck = new Stopwatch();
-            public static bool IsTimerRunning { get { return TimeCheck.IsRunning; } }
-            public static int TimeElapsed_ms { get { return (int)TimeCheck.ElapsedMilliseconds; } }
-
-            public const int PEndCheckMax = 3;
-            public static int PEndCheckCnt = 0;
-
-            public static void Init(int rcpNo)
-            {
-                RecipeNo = rcpNo;
-                SeqNo = 0;
-                StepNo = 0;
-            }
-
-            public static void Set_SeqStep(int seqNo, int stepNo)
-            {
-                SeqNo = seqNo;
-                StepNo = stepNo;
-            }
-
-            public static void Start_Timer()
-            {
-                TimeCheck.Reset();
-                TimeCheck.Start();
-            }
-
-            public static void Stop_Timer()
-            {
-                TimeCheck.Stop();
-            }
-
-            public static void Init_StepEndCheck()
-            {
-                DicStepEndCheck.Clear();
-                DicStepEndCheck.Add(StepEndCheck.TimeDelay, false);
-                DicStepEndCheck.Add(StepEndCheck.SensorDetect, false);
-                DicStepEndCheck.Add(StepEndCheck.SyringeEnd, false);
-            }
-
-            public static void Set_StepEndCheck(StepEndCheck stepEnd, bool done)
-            {
-                DicStepEndCheck[stepEnd] = done;
-            }
-
-            public static bool IsDone_StepEndCheck(StepEndCheck stepEnd)
-            {
-                return DicStepEndCheck[stepEnd];
-            }
-
-            public static bool AllDone_StepEndCheck()
-            {
-                return DicStepEndCheck.ContainsValue(false) == false;
-            }
-        }
-
-        private class TtrAssist
-        {
-            public static bool Flag_AnalyzingPoint = false;
-            public static bool Flag_RefillSyringe = false;
-            public static bool Flag_NotifyResultOnce = false;
-            public static double RecentInjVolume_mL = 0;
-            public static int TargetSyringePos_Digit = 0;
-
-            public static HistoryObj.TitrationObj TtrObj;
-
-            private static Stopwatch MixingStopWatch = new Stopwatch();
-            public static bool IsMixing { get { return MixingStopWatch.IsRunning; } }
-            public static int MixingTimeElapsed_ms { get { return (int)MixingStopWatch.ElapsedMilliseconds; } }
-
-            public static void Init(HistoryObj.TitrationObj ttrObj)
-            {
-                TtrObj = ttrObj;
-                Flag_AnalyzingPoint = false;
-                Flag_RefillSyringe = false;
-                Flag_NotifyResultOnce = false;
-                RecentInjVolume_mL = 0;
-                TargetSyringePos_Digit = 0;
-                MixingStopWatch.Stop();
-                MixingStopWatch.Reset();
-            }
-
-            public static void Start_Mixing()
-            {
-                MixingStopWatch.Reset();
-                MixingStopWatch.Start();
-            }
-
-            public static void Stop_Mixing()
-            {
-                MixingStopWatch.Stop();
-            }
-        }
-
         public static bool Initialize()
         {
             thrSeq = new Thread(SequenceProcess) { IsBackground = true };
             thrSeq.Start();
 
-            // Test
-            MainState = FluidicsState.Idle;
+            MainState = FluidicsState.None;
 
             Log.Init_Log(PreDef.Path_Log, "Seq");
             Log.Init_Log(PreDef.Path_Log, "Result");
@@ -186,10 +85,29 @@ namespace L_Titrator
 
         public static void StartMeasure(int RcpNo, int IterationCnt)
         {
-            Temp_RcpNo = RcpNo;
-            Temp_IterationCount = 0;
-            Temp_IterationMax = IterationCnt;
+            Glb_RcpNo = RcpNo;
+            Glb_IterationCount = 0;
+            Glb_IterationMax = IterationCnt;
+            Glb_Concentration = 0;
+            Glb_VLD_Order = 0;
+
             qSeq.Enqueue(new object[] { FluidicsMsg.Measure, RcpNo });
+        }
+
+        public static void StartHotKeyFunction(int RcpNo, int IterationCnt)
+        {
+            Glb_RcpNo = RcpNo;
+            Glb_IterationCount = 0;
+            Glb_IterationMax = IterationCnt;
+            Glb_Concentration = 0;
+            Glb_VLD_Order = 0;
+
+            qSeq.Enqueue(new object[] { FluidicsMsg.HotKey, RcpNo });
+        }
+
+        public static void AbortMeasure()
+        {
+            qSeq.Enqueue(new object[] { FluidicsMsg.Abort });
         }
 
         public static void SequenceProcess()
@@ -208,21 +126,7 @@ namespace L_Titrator
                 bool Flag_Alarm = false;
                 if (IsLeak() == true || IsOverflow() == true)
                 {
-                    // Open Drain
-                    var vlv_Drain_Close = MB_Elem_Bit.GetElem("DrainPair_Close");
-                    var vlv_Drain_Open = MB_Elem_Bit.GetElem("DrainPair_Open");
-                    vlv_Drain_Close.Set_State(false);
-                    vlv_Drain_Open.Set_State(true);
-
-                    // Stop Supplying every liquid
-                    var vlv_DIW_6way = MB_Elem_Bit.GetElem("DIW_To_6Way");
-                    var vlv_DIW_Vessel = MB_Elem_Bit.GetElem("DIW_To_Vessel");
-                    vlv_DIW_6way.Set_State(false);
-                    vlv_DIW_Vessel.Set_State(false);
-
-                    // Stop Mixing                    
-
-                    Flag_Alarm = true;
+                    //Flag_Alarm = true;
                 }
 
                 // Reset Msg.
@@ -237,7 +141,7 @@ namespace L_Titrator
                     {
                         object[] inputData = (object[])input;
                         Msg = (FluidicsMsg)inputData[0];
-                        if (Msg == FluidicsMsg.Measure)
+                        if (Msg == FluidicsMsg.Measure || Msg == FluidicsMsg.HotKey)
                         {
                             RcpNo = (int)inputData[1];
 
@@ -247,66 +151,95 @@ namespace L_Titrator
                         {
                             Log.WriteLog("Seq", $"[{MainState}/{RunState}] MsgRecv={Msg}");
                         }
-
                     }
                 }
 
                 switch (MainState)
                 {
                     case FluidicsState.None:
-                        if (Msg == FluidicsMsg.Initialize)
+                        if (Msg == FluidicsMsg.HotKey)
                         {
-                            MainState = FluidicsState.Run;
-                            RunState = FluidicsRunState.Initializing;
+                            if (LT_Recipe.Get_RecipeObj(RcpNo, out var RcpInfo) == true)
+                            {
+                                SeqAssist.Init(RcpNo);
+
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Clear, null);
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Start, new object[] { DateTime.Now, RcpNo });
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"Start {Msg}({RcpNo}:{RcpInfo.Name}) {Glb_IterationCount + 1}/{Glb_IterationMax}");
+
+                                MainState = FluidicsState.Run;
+                                RunState = FluidicsRunState.HotKey_Running;
+                                StepState = StepProgress.Start;
+                            }
                         }
                         break;
 
                     case FluidicsState.Idle:
-                        if (Msg == FluidicsMsg.Measure)
+                        if (Msg == FluidicsMsg.Measure || Msg == FluidicsMsg.HotKey)
                         {
-                            DateTime seqStartTime = DateTime.Now;
-                            HistoryObjCurrent = new HistoryObj(seqStartTime, RcpNo);
-                            if (HistoryObjCurrent.Init_Success == false)
-                            { 
-                                // #. Failed to load recipe
+                            if (LT_Recipe.Get_RecipeObj(RcpNo, out var RcpInfo) == true)
+                            {
+                                DateTime seqStartTime = DateTime.Now;
+                                HistoryObjCurrent = new HistoryObj(seqStartTime, RcpNo);
+                                if (HistoryObjCurrent.Init_Success == false)
+                                {
+                                    // #. Failed to load recipe
+                                }
+
+                                SeqAssist.Init(RcpNo);
+
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Clear, null);
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Start, new object[] { DateTime.Now, RcpNo });
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"Start {Msg}({RcpNo}:{RcpInfo.Name}) {Glb_IterationCount + 1}/{Glb_IterationMax}");
+
+                                MainState = FluidicsState.Run;
+                                if (Msg == FluidicsMsg.Measure)
+                                {
+                                    RunState = FluidicsRunState.Measuring;
+                                }
+                                else if (Msg == FluidicsMsg.HotKey)
+                                {
+                                    RunState = FluidicsRunState.HotKey_Running;
+                                }
+                                StepState = StepProgress.Start;
                             }
-
-                            SeqAssist.Init(RcpNo);
-
-                            NotifyProcessInfo?.Invoke(NotifyProcess.Clear, null);
-                            NotifyProcessInfo?.Invoke(NotifyProcess.Start, new object[] { DateTime.Now, RcpNo });
-                            NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"Start Measure {Temp_IterationCount + 1}/{Temp_IterationMax}");
-
-                            MainState = FluidicsState.Run;
-                            RunState = FluidicsRunState.Measuring;
-                            StepState = StepProgress.Start;
                         }
                         break;
 
                     case FluidicsState.Run:
                         if (Flag_Alarm == false)
                         {
-                            switch (RunState)
+                            if (Msg == FluidicsMsg.Abort)
                             {
-                                case FluidicsRunState.Initializing:
-                                    InitProc();
-                                    break;
+                                AbortSeq();
 
-                                case FluidicsRunState.Measuring:
-                                    if (LT_Recipe.Get_RecipeObj(RcpNo, out RecipeObj Cur_Recipe) == true)
-                                    {
-                                        RunSequence(Cur_Recipe);
-                                    }
-                                    else
-                                    {
-                                        // #. TBD. Invalid
-                                    }
-                                    break;
+                                Run_End(RunEndState.Abort);
+
+                                MainState = FluidicsState.None;
+                                RunState = FluidicsRunState.None;
+                                StepState = StepProgress.None;
+                            }
+                            else
+                            {
+                                switch (RunState)
+                                {
+                                    case FluidicsRunState.HotKey_Running:
+                                    case FluidicsRunState.Measuring:
+                                        if (LT_Recipe.Get_RecipeObj(RcpNo, out RecipeObj Cur_Recipe) == true)
+                                        {
+                                            RunSequence(Cur_Recipe);
+                                        }
+                                        else
+                                        {
+                                            // #. TBD. Invalid
+                                        }
+                                        break;
+                                }
                             }
                         }
                         else
                         {
-                            Run_End(false);
+                            Run_End(RunEndState.Alarm);
 
                             Thread.Sleep(LOOP_PERIOD);
 
@@ -315,7 +248,22 @@ namespace L_Titrator
                         break;
 
                     case FluidicsState.Error:
-                        // TBD. Only Init. Msg. is valid after handling error
+                        // Only HotKey Msg. is valid after handling error
+                        if (Msg == FluidicsMsg.HotKey)
+                        {
+                            if (LT_Recipe.Get_RecipeObj(RcpNo, out var RcpInfo) == true)
+                            {
+                                SeqAssist.Init(RcpNo);
+
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Clear, null);
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Start, new object[] { DateTime.Now, RcpNo });
+                                NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"Start {Msg}({RcpNo}:{RcpInfo.Name}) {Glb_IterationCount + 1}/{Glb_IterationMax}");
+
+                                MainState = FluidicsState.Run;
+                                RunState = FluidicsRunState.HotKey_Running;
+                                StepState = StepProgress.Start;
+                            }
+                        }
                         break;
                 }
 
@@ -327,7 +275,7 @@ namespace L_Titrator
 
                 if (Prv_SeqNo != SeqAssist.SeqNo || Prv_StepNo != SeqAssist.StepNo)
                 {
-                    if (RunState == FluidicsRunState.Measuring)
+                    if (RunState == FluidicsRunState.Measuring || RunState == FluidicsRunState.HotKey_Running)
                     {
                         var rtn = Get_SetStepName(RcpNo, SeqAssist.SeqNo, SeqAssist.StepNo);
                         NotifyProcessInfo?.Invoke(NotifyProcess.ChangeSeqStep, new object[] { rtn.SeqName, rtn.StepName });
@@ -359,18 +307,40 @@ namespace L_Titrator
 
         private static bool IsLeak()
         {
+            var elem = MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.AlarmInput.Leak_1);
+            if (elem.Get_State() == false)
+            {
+                // Leak
+                return true;
+            }
             return false;
         }
 
         private static bool IsOverflow()
         {
-            var elem = MB_Elem_Bit.GetElem("Level_2");
+            var elem = MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.AlarmInput.Level_2);
             if (elem.Get_State() == false)
             {
                 // Overflow
                 return true;
             }
             return false;
+        }
+
+        private static void AbortSeq()
+        {
+            // Close supply valves
+            MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.SolenoidOutput.DualPort_3Way_DIW_6Way).Set_State(false);
+            MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.SolenoidOutput.DualPort_3Way_DIW_Vessel).Set_State(false);
+            MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.SolenoidOutput.DualPort_3Way_Sample_6Way).Set_State(false);
+
+            // TBD: Stop Syringe
+            //MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.SolenoidOutput.Ceric_To_3Way).Set_State(false);    // TBD: Stop Syringe First
+
+            // Stop Mixer
+            MB_Elem_Analog.GetElem(PreDef.ElemLogicalName.AnalogOutput.Mixer_Duty).Set_Value(0);
+
+            SeqAssist.Stop_Timer();
         }
 
         private static void RunSequence(RecipeObj Cur_Recipe)
@@ -419,7 +389,7 @@ namespace L_Titrator
                         }
                         else
                         {
-                            Run_End(true);
+                            Run_End(RunEndState.Success);
                             StepState = StepProgress.None;
                         }
                     }
@@ -434,7 +404,7 @@ namespace L_Titrator
                         }
                         else
                         {
-                            Run_End(true);
+                            Run_End(RunEndState.Success);
                             StepState = StepProgress.None;
                         }
                     }
@@ -505,18 +475,20 @@ namespace L_Titrator
                     }
                     else
                     {
-                        if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToMiddle)
-                        {
-                            injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Large_mL * SyringeElem.ScaleFactor);
-                        }
-                        else if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToSmall)
-                        {
-                            injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Middle_mL * SyringeElem.ScaleFactor);
-                        }
-                        else
-                        {
-                            injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Small_mL * SyringeElem.ScaleFactor);
-                        }
+                        // 20221120. 이전 주입에 대한 분석 직후 읽은 값으로 다음 주입량을 판단해야되서 삭제함.
+                        //if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToMiddle)
+                        //{
+                        //    injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Large_mL * SyringeElem.ScaleFactor);
+                        //}
+                        //else if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToSmall)
+                        //{
+                        //    injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Middle_mL * SyringeElem.ScaleFactor);
+                        //}
+                        //else
+                        //{
+                        //    injVol_Digit = (int)(TtrAssist.TtrObj.Inc_Small_mL * SyringeElem.ScaleFactor);
+                        //}
+                        injVol_Digit = (int)(TtrAssist.NextInjectionVol * SyringeElem.ScaleFactor);
                     }
 
                     int tgtVol_Abs_Digit = curVol_Abs_Digit - injVol_Digit;
@@ -633,19 +605,11 @@ namespace L_Titrator
 
                                         // End Mixing
                                         TtrAssist.Stop_Mixing();
-
-                                        // Write Result
-                                        TtrAssist.TtrObj.End_Inject(dtMixingEnd, TtrAssist.RecentInjVolume_mL, dReadAnalogVal);
-
-                                        double dConcentration = TtrAssist.TtrObj.TotalInjectionVolume_mL * TtrAssist.TtrObj.ScaleFactor_VolumeToConcentration;
-
-                                        Log.WriteLog("Result", $"> End Mixing (AnalogValue={dReadAnalogVal}mV, TotalInjectionVolume={TtrAssist.TtrObj.TotalInjectionVolume_mL}, Elapsed ms={TtrAssist.MixingTimeElapsed_ms}ms, Untill={mixingTime_ms}ms)");
-
                                         NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"End Mixing, Read Result");
-                                        NotifyProcessInfo?.Invoke(NotifyProcess.Log, $">>{AnalogElem.LogicalName}={dReadAnalogVal}mV, Injected(Total)={TtrAssist.TtrObj.TotalInjectionVolume_mL}mL");
-                                        NotifyProcessInfo?.Invoke(NotifyProcess.AddPoint, new object[] { TtrAssist.TtrObj.SampleName, TtrAssist.TtrObj.TotalInjectionVolume_mL, dReadAnalogVal });
 
                                         // Analyze Result
+                                        double dConcentration = 0;
+                                        double dIntepolated_Inj_Single = 0;
                                         if (dReadAnalogVal > TtrAssist.TtrObj.AnalogValue_Target)
                                         {
                                             // Notify Once
@@ -653,14 +617,66 @@ namespace L_Titrator
                                             {
                                                 // #. TBD. 공급 설비 출력 추가
 
-                                                
 
-                                                NotifyProcessInfo?.Invoke(NotifyProcess.Result, new object[] { AnalogElem.LineNo, dConcentration, dReadAnalogVal, (double)0 });
-                                                NotifyProcessInfo?.Invoke(NotifyProcess.TitrationEnd, dtMixingEnd);
+                                                double dResultForNotifying = dReadAnalogVal;
+                                                if (TtrAssist.TtrObj.InterpolationEnabled == true && TtrAssist.TtrObj.Get_LastPoint(out var injPrv) == true)
+                                                {
+                                                    double pX1 = injPrv.InjVol_Accum;
+                                                    double pY1 = injPrv.Analog;
+                                                    double pX2 = injPrv.InjVol_Accum + TtrAssist.RecentInjVolume_mL;
+                                                    double pY2 = dReadAnalogVal;
+                                                    double interpolated_Inj_Accum = Util.GetInterpolatedValue(TtrAssist.TtrObj.AnalogValue_Target, pX1, pY1, pX2, pY2);
+                                                    Log.WriteLog("Debug", $"Interpolate> Target={TtrAssist.TtrObj.AnalogValue_Target}, pX1={pX1}, pY1={pY1}, pX2={pX2}, pY2={pY2}, Result={interpolated_Inj_Accum}");
 
+                                                    dConcentration = interpolated_Inj_Accum * TtrAssist.TtrObj.ScaleFactor_VolumeToConcentration;
+                                                    Log.WriteLog("Debug", $"Interpolate> ScaleFactor={TtrAssist.TtrObj.ScaleFactor_VolumeToConcentration}, Concentration={dConcentration}");
+
+                                                    dResultForNotifying = TtrAssist.TtrObj.AnalogValue_Target;
+
+                                                    // 기준 전압(800mV)에 대한 주입량을 역산하여 History에 추가함
+                                                    dIntepolated_Inj_Single = interpolated_Inj_Accum - pX1;
+                                                    Log.WriteLog("Debug", $"Interpolate> Inj_Single={dIntepolated_Inj_Single}");
+
+                                                    TtrAssist.TtrObj.End_Inject(dtMixingEnd, dIntepolated_Inj_Single, TtrAssist.TtrObj.AnalogValue_Target);
+
+                                                    NotifyProcessInfo?.Invoke(NotifyProcess.AddPoint, new object[] { TtrAssist.TtrObj.SampleName, interpolated_Inj_Accum, TtrAssist.TtrObj.AnalogValue_Target });
+
+                                                    Log.WriteLog("Result", $"> Analyze (AnalogValue={TtrAssist.TtrObj.AnalogValue_Target}mV, TotalInjectionVolume={interpolated_Inj_Accum}, Elapsed ms={TtrAssist.MixingTimeElapsed_ms}ms, Untill={mixingTime_ms}ms)");
+                                                }
+                                                else
+                                                {
+                                                    // 주의: TtrAssist.TtrObj.End_Inject가 호출되지 않았으므로
+                                                    // TtrAssist.TtrObj.TotalInjectionVolume_mL(총 주입량)가 아직 업데이트되지 않음. 따라서 TtrAssist.RecentInjVolume_mL(최근 주입량)을 더해준다.
+                                                    dConcentration = (TtrAssist.TtrObj.TotalInjectionVolume_mL + TtrAssist.RecentInjVolume_mL) * TtrAssist.TtrObj.ScaleFactor_VolumeToConcentration;
+                                                }
+
+                                                NotifyProcessInfo?.Invoke(NotifyProcess.Result, new object[] { AnalogElem.LineNo, dConcentration, dResultForNotifying, (double)0 });
+
+                                                Glb_Concentration = dConcentration;
                                                 TtrAssist.Flag_NotifyResultOnce = true;
                                             }
                                         }
+
+                                        NotifyProcessInfo?.Invoke(NotifyProcess.TitrationEnd, dtMixingEnd);
+
+                                        // Write Result
+                                        if (dIntepolated_Inj_Single > 0)
+                                        {
+                                            // Interpolate 한 경우, 주입량의 중복 합산을 피하기 위해, 
+                                            // 기준 값을 환산하기 위해 역산한 양만큼을 뺀 양을 주입한 것으로 간주한다.
+                                            // (TtrAssist.TtrObj.End_Inject가 호출되었으므로 연산한 만큼 바로 빼주면 된다)
+                                            double inj_Single = TtrAssist.RecentInjVolume_mL - dIntepolated_Inj_Single;
+                                            TtrAssist.TtrObj.End_Inject(dtMixingEnd, inj_Single, dReadAnalogVal);
+                                        }
+                                        else
+                                        {
+                                            TtrAssist.TtrObj.End_Inject(dtMixingEnd, TtrAssist.RecentInjVolume_mL, dReadAnalogVal);
+                                        }
+
+                                        Log.WriteLog("Result", $"> Analyze (AnalogValue={dReadAnalogVal}mV, TotalInjectionVolume={TtrAssist.TtrObj.TotalInjectionVolume_mL}, Elapsed ms={TtrAssist.MixingTimeElapsed_ms}ms, Untill={mixingTime_ms}ms)");
+
+                                        NotifyProcessInfo?.Invoke(NotifyProcess.Log, $">>{AnalogElem.LogicalName}={dReadAnalogVal}mV, Injected(Total)={TtrAssist.TtrObj.TotalInjectionVolume_mL}mL");
+                                        NotifyProcessInfo?.Invoke(NotifyProcess.AddPoint, new object[] { TtrAssist.TtrObj.SampleName, TtrAssist.TtrObj.TotalInjectionVolume_mL, dReadAnalogVal });
 
                                         // Reset Analyzing Flag after Mixing and Reading.
                                         TtrAssist.Flag_AnalyzingPoint = false;
@@ -669,6 +685,19 @@ namespace L_Titrator
                                         {
                                             if (TtrAssist.TtrObj.IterationCount < TtrAssist.TtrObj.MaxIterationCount)
                                             {
+                                                // 20221120 다음 주입량 판단
+                                                if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToMiddle)
+                                                {
+                                                    TtrAssist.NextInjectionVol = TtrAssist.TtrObj.Inc_Large_mL;
+                                                }
+                                                else if (dReadAnalogVal < TtrAssist.TtrObj.IncThr_ToSmall)
+                                                {
+                                                    TtrAssist.NextInjectionVol = TtrAssist.TtrObj.Inc_Middle_mL;
+                                                }
+                                                else
+                                                {
+                                                    TtrAssist.NextInjectionVol = TtrAssist.TtrObj.Inc_Small_mL;
+                                                }
 
                                                 Log.WriteLog("Result", $"> Continue (Result={dReadAnalogVal}mV, Count={TtrAssist.TtrObj.IterationCount}/{TtrAssist.TtrObj.MaxIterationCount})");
                                             }
@@ -733,6 +762,12 @@ namespace L_Titrator
             step.Valves.ForEach(valve =>
             {
                 var elem = MB_Elem_Bit.GetElem(valve.Name);
+
+                if (elem.Get_State() != valve.Get_Condition())
+                {
+                    LT_LifeTime.IncreaseCount(elem.LogicalName);
+                }
+
                 elem.Set_State(valve.Get_Condition());
 
                 Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Valve : Name={valve.Name}, SetCondition={valve.Get_Condition()}");
@@ -800,7 +835,10 @@ namespace L_Titrator
                         }
                         else
                         {
+                            LT_LifeTime.IncreaseCount(elem.LogicalName);
+
                             elem.Run_Raw(syringe.Get_Flow(), syringe.Get_Direction(), injVol, syringe.Get_Speed(), false);
+
                             Log.WriteLog("Seq", $"[{MainState}/{RunState}] Run. Syringe : Name={syringe.Name}, SetCondition={syringe.Get_Direction()},{syringe.Get_Speed()},{injVol}(CurAbs={curVol_Abs / elem.ScaleFactor},Inj={injVol / elem.ScaleFactor},TgtAbs={tgtVol_Abs / elem.ScaleFactor},Condition={syringe.Get_Volume_mL()})");
                         }
                     }
@@ -1066,39 +1104,92 @@ namespace L_Titrator
             return false;
         }
 
-        private static void Run_End(bool successfullyEnd)
+        private static void Run_End(RunEndState runEndState)
         {
-            MainState = successfullyEnd == true ? FluidicsState.Idle : FluidicsState.Error;
+            switch (runEndState)
+            {
+                case RunEndState.Success:
+                    if (Glb_RcpNo > (int)LT_Recipe.HotKeyRecipeNo.Initialize)
+                    {
+                        MainState = FluidicsState.None;
+                    }
+                    else
+                    {
+                        MainState = FluidicsState.Idle;
+                    }
+                    break;
+
+                case RunEndState.Abort:
+                    MainState = FluidicsState.None;
+                    break;
+
+                case RunEndState.Alarm:
+                    MainState = FluidicsState.Error;
+                    break;
+            }
             RunState = FluidicsRunState.None;
 
             DateTime seqEndTime = DateTime.Now;
 
             NotifyProcessInfo?.Invoke(NotifyProcess.ChangeSeqStep, new object[] { "None", "None" });
             NotifyProcessInfo?.Invoke(NotifyProcess.SequenceEnd, seqEndTime);
-            NotifyProcessInfo?.Invoke(NotifyProcess.Log, "End Measure");
+            NotifyProcessInfo?.Invoke(NotifyProcess.Log, $"End Sequence ({runEndState})");
 
-            HistoryObjCurrent.End_Sequence(seqEndTime);
+            HistoryObjCurrent?.End_Sequence(seqEndTime);
 
-            if (successfullyEnd == true)
+            if (runEndState == RunEndState.Success)
             {
-                ++Temp_IterationCount;
-
-                Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunEnd. (Iteration {Temp_IterationCount}/{Temp_IterationMax})");
-
-                if (Temp_IterationCount < Temp_IterationMax)
+                if (LT_Config.GenPrm_Validation_Enabled.Value == true)
                 {
-                    qSeq.Enqueue(new object[] { FluidicsMsg.Measure, Temp_RcpNo });
+                    bool bIsResultOK = IsResultOK();
+                    if (bIsResultOK == true)
+                    {
+                        // Result=OK -> End
+                        RunEnd?.Invoke(runEndState);
+                    }
+                    else
+                    {
+                        // Result=NG -> VLD
+                        if (VLD_Continue() == true)
+                        {
+                            qSeq.Enqueue(new object[] { FluidicsMsg.Measure, Glb_RcpNo });
+
+                            Log.WriteLog("Seq", $"[{MainState}/{RunState}] VLD Continue. (Iteration {Glb_IterationCount}/{Glb_IterationMax})");
+                        }
+                        else
+                        {
+                            RunEnd?.Invoke(runEndState);
+                        }
+                    }
                 }
                 else
                 {
-                    RunEnd?.Invoke(true);
-                }
+                    ++Glb_IterationCount;
+
+                    Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunEnd. (Iteration {Glb_IterationCount}/{Glb_IterationMax})");
+
+                    if (Glb_IterationCount < Glb_IterationMax)
+                    {
+                        if (Glb_RcpNo < LT_Recipe.RecipeMaxCount)
+                        {
+                            qSeq.Enqueue(new object[] { FluidicsMsg.Measure, Glb_RcpNo });
+                        }
+                        else
+                        {
+                            qSeq.Enqueue(new object[] { FluidicsMsg.HotKey, Glb_RcpNo });
+                        }
+                    }
+                    else
+                    {
+                        RunEnd?.Invoke(runEndState);
+                    }
+                }                
             }
             else
             {
-                RunEnd?.Invoke(false);
+                RunEnd?.Invoke(runEndState);
 
-                Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunCancel. (Iteration {Temp_IterationCount}/{Temp_IterationMax})");
+                Log.WriteLog("Seq", $"[{MainState}/{RunState}] RunCancel. (Iteration {Glb_IterationCount}/{Glb_IterationMax})");
             }
         }
     }

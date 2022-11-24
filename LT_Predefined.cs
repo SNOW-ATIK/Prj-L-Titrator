@@ -9,22 +9,97 @@ using ATIK;
 
 namespace L_Titrator
 {
-    public class PreDef
+    public static class PreDef
     {
         public const string Path_Log = "Log";
 
         public const string Path_Config = "Config";
         public const string Path_Config_Device = @"Config\Device";
         public const string Path_Recipe = "Recipe";
-        public const string Path_PreDefinedSeq = @"Recipe\PreDefinedSeq";
+        public const string Path_Recipe_HotKey = @"Recipe\HotKey";
+        public const string Path_PreDefinedSeq = @"Recipe\PreFixSequence";
         public const string Path_Recipe_TitrationRef = @"Recipe\TitrationRef";
-        public const string Path_History = "History";
+        public const string Path_History_Alarm = @"History\Alarm";
+        public const string Path_History_Data = @"History\Data";
+        public const string Path_History = @"History\Backup";
+
+        public const string FileName_AlarmHistory = "AlarmHistory.csv";
         public const string FileName_Elem_SerialPort = "Element_SerialPort.xml";
 
         public static Color MenuBG_Unselect = Color.White;
         public static Color MenuBG_Select = Color.MediumSeaGreen;
         public static Color Light_Green = Color.FromArgb(200, Color.MediumSeaGreen.G + 50, 200);
         public static Color Light_Red = Color.Pink;
+
+        public const bool Interlock_Occur_BooleanValue = false;
+
+        public static class ElemLogicalName
+        {
+            public static class Syringe
+            {
+                public const string Syringe_1 = "Syringe_1";
+                public const string Syringe_2 = "Syringe_2";
+            }
+
+            public static class AlarmInput
+            {
+                public const string Leak_1 = "Leak_1";
+                public const string Level_1 = "Level_1";
+                public const string Level_2 = "Level_2";
+                public const string Door = "Door";
+                public const string Exhaust = "Exhaust";
+                public const string Interlock = "Interlock";
+                public const string EMG_Stop = "EMG_Stop";
+                public const string Fan_1 = "Fan_1";
+                public const string Fan_2 = "Fan_2";
+                public const string Fan_3 = "Fan_3";
+                public const string Fan_4 = "Fan_4";
+            }
+
+            public static class SolenoidOutput
+            {
+                public const string DualPort_3Way_DIW_6Way = "3Way_DIW_6Way";
+                public const string DualPort_3Way_DIW_Vessel = "3Way_DIW_Vessel";
+                public const string DualPort_3Way_Sample_6Way = "3Way_Sample_6Way";
+                public const string Ceric_To_3Way = "Ceric_To_3Way";
+                public const string DrainPair_Open = "DrainPair_Open";
+                public const string DrainPair_Close = "DrainPair_Close";
+                public const string Valve6Way_Sample_To_Vessel = "6WayPair_Sample_To_Vessel";
+                public const string Valve6Way_Sample_To_Loop = "6WayPair_Sample_To_Loop";
+                public const string Fluidics_Purge = "Fluidics_Purge";
+                public const string ElecBox_Purge = "ElecBox_Purge";
+                public const string DualPort_3Way_Sample_Vessel = "3Way_Sample_Vessel";
+            }
+
+            public static class AnalogInput
+            {
+                public const string Temperature_RTD = "RTD";
+                public const string Temperature_TC = "TC";
+                public const string Mixer_RPM = "RPM";
+            }
+
+            public static class AnalogOutput
+            {
+                public const string Result_1 = "Result_1";
+                public const string Result_2 = "Result_2";
+                public const string Result_3 = "Result_3";
+                public const string Result_4 = "Result_4";
+                public const string Mixer_Duty = "Duty";
+            }
+        }
+
+        public static class LifeTimeParts
+        {
+            public const string ORP_Electrode = "ORP Electrode";
+            public const string Vessel = "Vessel";
+            public const string DualPort_3Way_DIW = "3Way-DIW";
+            public const string DualPort_3Way_Sample = "3Way-Sample";
+            public const string SiglePort_3Way_VLD = "3Way-Validation";
+            public const string Valve6Way = "6Way-Capture";
+            public const string ValveDrain = "Drain Valve";
+            public const string Syringe1 = "Syringe1";
+            public const string Syringe2 = "Syringe2";
+        }
     }
 
     public class GlbVar
@@ -108,6 +183,26 @@ namespace L_Titrator
                 }
             }
         }
+
+        private static object objLock_MainState = new object();
+        private static MainState _CurrentMainState = MainState.Unknown;
+        public static MainState CurrentMainState
+        {
+            get
+            {
+                lock (objLock_MainState)
+                {
+                    return _CurrentMainState;
+                }
+            }
+            set
+            {
+                lock (objLock_Language)
+                {
+                    _CurrentMainState = value;
+                }
+            }
+        }
     }
 
     public enum FluidicsMsg
@@ -115,6 +210,8 @@ namespace L_Titrator
         None,
         Initialize,
         Measure,
+        Abort,
+        HotKey,
         Pause,
         Resume,
         Stop
@@ -131,8 +228,8 @@ namespace L_Titrator
     public enum FluidicsRunState
     { 
         None,
-        Initializing,
-        Measuring
+        Measuring,
+        HotKey_Running,
     }
 
     public enum UI_Msg
@@ -165,6 +262,16 @@ namespace L_Titrator
             ATIK.Log.WriteLog("Seq", $"{syringeName}:PEND > Cur_Raw={cur_raw}, Dst_Raw={dst_raw}, Bandwidth_Raw={dBand_raw}, Diff_Raw={nDiff}, PEND={bPEnd}");
 
             return bPEnd;
+        }
+
+        public static double GetInterpolatedValue(double refVal, double pX1, double pY1, double pX2, double pY2)
+        {
+            double dX = pX2 - pX1;
+            double dY = pY2 - pY1;
+            double A = dY / dX;
+            double B = pY1 - A * pX1;
+            double result = (refVal - B) / A;
+            return result;
         }
     }
 }

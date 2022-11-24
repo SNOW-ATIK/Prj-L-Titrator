@@ -1014,6 +1014,7 @@ namespace L_Titrator.Pages
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SubPage_Device_Element";
             this.Size = new System.Drawing.Size(1024, 584);
+            this.VisibleChanged += new System.EventHandler(this.SubPage_Device_Element_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);

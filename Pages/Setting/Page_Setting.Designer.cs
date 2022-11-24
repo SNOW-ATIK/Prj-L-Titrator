@@ -38,6 +38,7 @@ namespace L_Titrator.Pages
             this.btn_PagingPrev = new System.Windows.Forms.Button();
             this.btn_PagingNext = new System.Windows.Forms.Button();
             this.pnl_View = new System.Windows.Forms.Panel();
+            this.chk_AlarmTestMode = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tbl_View_PageUpDown.SuspendLayout();
@@ -63,18 +64,20 @@ namespace L_Titrator.Pages
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
             this.tableLayoutPanel2.Controls.Add(this.btn_Save, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btn_Restore, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chk_AlarmTestMode, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(1, 585);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1022, 48);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
@@ -89,7 +92,7 @@ namespace L_Titrator.Pages
             this.btn_Save.Location = new System.Drawing.Point(1, 1);
             this.btn_Save.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Save.Name = "btn_Save";
-            this.btn_Save.Size = new System.Drawing.Size(509, 46);
+            this.btn_Save.Size = new System.Drawing.Size(335, 46);
             this.btn_Save.TabIndex = 1;
             this.btn_Save.TabStop = false;
             this.btn_Save.Tag = "SAVE";
@@ -105,10 +108,10 @@ namespace L_Titrator.Pages
             this.btn_Restore.BackColor = System.Drawing.Color.White;
             this.btn_Restore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Restore.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold);
-            this.btn_Restore.Location = new System.Drawing.Point(512, 1);
+            this.btn_Restore.Location = new System.Drawing.Point(338, 1);
             this.btn_Restore.Margin = new System.Windows.Forms.Padding(1);
             this.btn_Restore.Name = "btn_Restore";
-            this.btn_Restore.Size = new System.Drawing.Size(509, 46);
+            this.btn_Restore.Size = new System.Drawing.Size(335, 46);
             this.btn_Restore.TabIndex = 1;
             this.btn_Restore.TabStop = false;
             this.btn_Restore.Tag = "RESTORE";
@@ -196,6 +199,28 @@ namespace L_Titrator.Pages
             this.pnl_View.Size = new System.Drawing.Size(970, 580);
             this.pnl_View.TabIndex = 1;
             // 
+            // chk_AlarmTestMode
+            // 
+            this.chk_AlarmTestMode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chk_AlarmTestMode.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chk_AlarmTestMode.AutoSize = true;
+            this.chk_AlarmTestMode.BackColor = System.Drawing.Color.White;
+            this.chk_AlarmTestMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.chk_AlarmTestMode.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumSeaGreen;
+            this.chk_AlarmTestMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_AlarmTestMode.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold);
+            this.chk_AlarmTestMode.Location = new System.Drawing.Point(685, 1);
+            this.chk_AlarmTestMode.Margin = new System.Windows.Forms.Padding(1);
+            this.chk_AlarmTestMode.Name = "chk_AlarmTestMode";
+            this.chk_AlarmTestMode.Size = new System.Drawing.Size(336, 46);
+            this.chk_AlarmTestMode.TabIndex = 6;
+            this.chk_AlarmTestMode.Text = "ALARM TEST MODE";
+            this.chk_AlarmTestMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chk_AlarmTestMode.UseVisualStyleBackColor = false;
+            this.chk_AlarmTestMode.CheckedChanged += new System.EventHandler(this.chk_AlarmTestMode_CheckedChanged);
+            // 
             // Page_Setting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -204,6 +229,7 @@ namespace L_Titrator.Pages
             this.Size = new System.Drawing.Size(1024, 634);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tbl_View_PageUpDown.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -221,5 +247,6 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.Button btn_PagingPrev;
         private System.Windows.Forms.Button btn_PagingNext;
         private System.Windows.Forms.Panel pnl_View;
+        private System.Windows.Forms.CheckBox chk_AlarmTestMode;
     }
 }

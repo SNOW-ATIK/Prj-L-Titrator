@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 using L_Titrator.Controls;
 
 namespace L_Titrator.Pages
 {
-    public partial class SubPage_Device_Element : UserControl, IPage
+    public partial class SubPage_Device_Element : UserControl, IPage, IAuthority
     {
         private Dictionary<DrvMB_L_Titrator.LineOrder, Panel> Dic_BitPanels = new Dictionary<DrvMB_L_Titrator.LineOrder, Panel>();
         private Dictionary<DrvMB_L_Titrator.LineOrder, Panel> Dic_AnalogPanels = new Dictionary<DrvMB_L_Titrator.LineOrder, Panel>();
@@ -60,7 +61,6 @@ namespace L_Titrator.Pages
             if (ATIK_MainBoard.IsInitialized(DefinedMainBoards.L_Titrator) == false)
             {
                 this.Enabled = false;
-                return;
             }
             Init_BitIO_Panels();
             Init_AnalogIO_Panels();
@@ -171,14 +171,6 @@ namespace L_Titrator.Pages
         public void SetVisible(bool visible)
         {
             this.Visible = visible;
-            if (ATIK_MainBoard.IsInitialized(DefinedMainBoards.L_Titrator) == true)
-            {
-                tmr_UpdateState.Enabled = visible;
-            }
-            else
-            {
-                tmr_UpdateState.Enabled = false;
-            }
         }
 
         public void ShowSubPage(string subPageName)
@@ -278,6 +270,34 @@ namespace L_Titrator.Pages
             pnl_Analog_Output_Ch1.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl => ctrl.EnableUserInput(chk_AnalogBypass.Checked == false));
             pnl_Analog_Output_Ch2.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl => ctrl.EnableUserInput(chk_AnalogBypass.Checked == false));
             pnl_Analog_Output_Ch3.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl => ctrl.EnableUserInput(chk_AnalogBypass.Checked == false));
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            this.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+        }
+
+        private void SubPage_Device_Element_VisibleChanged(object sender, EventArgs e)
+        {
+            if (ATIK_MainBoard.IsInitialized(DefinedMainBoards.L_Titrator) == true)
+            {
+                tmr_UpdateState.Enabled = this.Visible;
+                if (this.Visible == true)
+                {
+                    if (GlbVar.CurrentMainState == MainState.Run)
+                    {
+                        this.Enabled = false;
+                    }
+                    else
+                    {
+                        UserAuthorityIsChanged();
+                    }
+                }
+            }
+            else
+            {
+                tmr_UpdateState.Enabled = false;
+            }
         }
     }
 }

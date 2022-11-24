@@ -14,16 +14,16 @@ namespace L_Titrator.Pages
 {
     public partial class Page_History : UserControl, IPage
     {
-        private Page_Alarm PageAlarm = new Page_Alarm();
-        private Page_Data PageData = new Page_Data();
+        private Page_AlarmHistory PageAlarm = new Page_AlarmHistory();
+        private Page_DataHistory PageData = new Page_DataHistory();
         private Dictionary<string, IPage> Dic_SettingSubPages = new Dictionary<string, IPage>();
 
         public Page_History()
         {
             InitializeComponent();
 
-            Dic_SettingSubPages.Add("ALARM", PageAlarm);
-            Dic_SettingSubPages.Add("DATA", PageData);
+            Dic_SettingSubPages.Add("ALARM_HISTORY", PageAlarm);
+            Dic_SettingSubPages.Add("DATA_HISTORY", PageData);
 
             Dic_SettingSubPages.Values.ToList().ForEach(subPage =>
             {

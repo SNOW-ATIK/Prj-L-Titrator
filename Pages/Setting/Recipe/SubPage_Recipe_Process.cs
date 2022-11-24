@@ -13,7 +13,7 @@ using ATIK;
 
 namespace L_Titrator.Pages
 {
-    public partial class SubPage_Recipe_Process : UserControl
+    public partial class SubPage_Recipe_Process : UserControl, IAuthority, IPage
     {
         public class SeqOrderCmp
         {
@@ -239,25 +239,33 @@ namespace L_Titrator.Pages
             pnl_SeqInfo.Controls.OfType<UsrCtrl_Recipe_StepDetail>().ToList().ForEach(page => page.ClearAll());
         }
 
+        public void UpdateNamePlates()
+        {
+            pnl_SeqInfo.Controls.OfType<UsrCtrl_Recipe_StepDetail>().ToList()?.ForEach(ctrl => ctrl.UpateNamePlates());
+        }
+
         // Seq. Order Edit
         private void btn_Add_Click(object sender, EventArgs e)
         {
             if (CmpCol_PreDefSeq.Prm_Value == null)
             {
                 return;
-            }            
+            }
 
             string seqName = (string)CmpCol_PreDefSeq.Prm_Value;
             if (RefRecipeObj.Sequences.Count == 0)
             {
-                if (seqName != "Start")
+                if (RefRecipeObj.No < LT_Recipe.RecipeMaxCount)
                 {
-                    MsgFrm_NotifyOnly msg = new MsgFrm_NotifyOnly("Add Start sequence first.");
-                    msg.ShowDialog();
+                    if (seqName != "Start")
+                    {
+                        MsgFrm_NotifyOnly msg = new MsgFrm_NotifyOnly("Add Start sequence first.");
+                        msg.ShowDialog();
 
-                    CmpCol_PreDefSeq.Prm_Value = "Start";
+                        CmpCol_PreDefSeq.Prm_Value = "Start";
 
-                    return;
+                        return;
+                    }
                 }
             }
 
@@ -309,6 +317,54 @@ namespace L_Titrator.Pages
         private void btn_Clear_Click(object sender, EventArgs e)
         {
             ClearAll();
+        }
+
+        public void SetMargin(Padding margin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDock(DockStyle dockStyle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetVisible(bool visible)
+        {
+            this.Visible = visible;
+            if (visible == true)
+            {
+                UserAuthorityIsChanged();
+            }
+        }
+
+        public void ShowSubPage(string subPageName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PagingNext()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PagingPrev()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            if (FluidicsControl.MainState == FluidicsState.Run)
+            {
+                CmpCol_PreDefSeq.EnableModifying(true, false);
+                tbl_Edit.Enabled = false;
+            }
+            else
+            {
+                CmpCol_PreDefSeq.EnableModifying(true, GlbVar.CurrentAuthority == UserAuthority.Admin);
+                tbl_Edit.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+            }
         }
     }
 }

@@ -42,6 +42,7 @@ namespace L_Titrator.Pages
             this.CmpVal_Analog_Target = new ATIK.PrmCmp_Value();
             this.CmpVal_Analog_End = new ATIK.PrmCmp_Value();
             this.CmpCol_Sensor = new ATIK.PrmCmp_Collection();
+            this.CmpCol_EnableInterpolation = new ATIK.PrmCmp_Collection();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.CmpVal_RefFile = new ATIK.PrmCmp_Value();
@@ -69,6 +70,13 @@ namespace L_Titrator.Pages
             this.CmpVal_Inj_Large = new ATIK.PrmCmp_Value();
             this.CmpVal_Inj_Middle = new ATIK.PrmCmp_Value();
             this.CmpVal_Inj_Small = new ATIK.PrmCmp_Value();
+            this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CmpCol_VLD_Enabled = new ATIK.PrmCmp_Collection();
+            this.tableLayoutPanel18 = new System.Windows.Forms.TableLayoutPanel();
+            this.CmpVal_VLD_Low = new ATIK.PrmCmp_Value();
+            this.CmpVal_VLD_Ref = new ATIK.PrmCmp_Value();
+            this.CmpVal_VLD_High = new ATIK.PrmCmp_Value();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -85,6 +93,8 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
+            this.tableLayoutPanel17.SuspendLayout();
+            this.tableLayoutPanel18.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -112,14 +122,15 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel5, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel7, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.CmpCol_EnableInterpolation, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel9, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 203F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(319, 484);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -133,13 +144,13 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 1);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 203);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 200);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(319, 87);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(319, 84);
             this.tableLayoutPanel5.TabIndex = 5;
             // 
             // label1
@@ -154,7 +165,7 @@ namespace L_Titrator.Pages
             this.label1.Location = new System.Drawing.Point(1, 1);
             this.label1.Margin = new System.Windows.Forms.Padding(1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(317, 27);
+            this.label1.Size = new System.Drawing.Size(317, 24);
             this.label1.TabIndex = 5;
             this.label1.Text = "Mixing Time [sec]";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -169,7 +180,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Controls.Add(this.CmpVal_MixingTime_Offset, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.CmpVal_MixingTime_General, 1, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 29);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 26);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
@@ -235,14 +246,14 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel7.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel8, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.CmpCol_Sensor, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 290);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 284);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 3;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(319, 145);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(319, 142);
             this.tableLayoutPanel7.TabIndex = 5;
             // 
             // label2
@@ -257,7 +268,7 @@ namespace L_Titrator.Pages
             this.label2.Location = new System.Drawing.Point(1, 1);
             this.label2.Margin = new System.Windows.Forms.Padding(1);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(317, 27);
+            this.label2.Size = new System.Drawing.Size(317, 24);
             this.label2.TabIndex = 5;
             this.label2.Text = "Analog";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -272,7 +283,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.Controls.Add(this.CmpVal_Analog_Target, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.CmpVal_Analog_End, 1, 0);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 87);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 84);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
@@ -337,7 +348,7 @@ namespace L_Titrator.Pages
             this.CmpCol_Sensor.Color_Name = System.Drawing.Color.LemonChiffon;
             this.CmpCol_Sensor.Color_Value = System.Drawing.SystemColors.Window;
             this.CmpCol_Sensor.GenParam = null;
-            this.CmpCol_Sensor.Location = new System.Drawing.Point(1, 30);
+            this.CmpCol_Sensor.Location = new System.Drawing.Point(1, 27);
             this.CmpCol_Sensor.Margin = new System.Windows.Forms.Padding(1);
             this.CmpCol_Sensor.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpCol_Sensor.MinimumSize = new System.Drawing.Size(30, 49);
@@ -349,6 +360,28 @@ namespace L_Titrator.Pages
             this.CmpCol_Sensor.Size = new System.Drawing.Size(317, 56);
             this.CmpCol_Sensor.SplitterDistance = 27;
             this.CmpCol_Sensor.TabIndex = 6;
+            // 
+            // CmpCol_EnableInterpolation
+            // 
+            this.CmpCol_EnableInterpolation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpCol_EnableInterpolation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpCol_EnableInterpolation.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpCol_EnableInterpolation.Color_Value = System.Drawing.SystemColors.Window;
+            this.CmpCol_EnableInterpolation.GenParam = null;
+            this.CmpCol_EnableInterpolation.Location = new System.Drawing.Point(1, 427);
+            this.CmpCol_EnableInterpolation.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpCol_EnableInterpolation.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpCol_EnableInterpolation.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpCol_EnableInterpolation.Name = "CmpCol_EnableInterpolation";
+            this.CmpCol_EnableInterpolation.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpCol_EnableInterpolation.Prm_Name = "Enable Interpolation";
+            this.CmpCol_EnableInterpolation.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
+            this.CmpCol_EnableInterpolation.Prm_Value = null;
+            this.CmpCol_EnableInterpolation.Size = new System.Drawing.Size(317, 56);
+            this.CmpCol_EnableInterpolation.SplitterDistance = 27;
+            this.CmpCol_EnableInterpolation.TabIndex = 6;
             // 
             // tableLayoutPanel9
             // 
@@ -365,11 +398,11 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 4;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(319, 203);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(319, 200);
             this.tableLayoutPanel9.TabIndex = 6;
             // 
             // label3
@@ -384,7 +417,7 @@ namespace L_Titrator.Pages
             this.label3.Location = new System.Drawing.Point(1, 1);
             this.label3.Margin = new System.Windows.Forms.Padding(1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(317, 27);
+            this.label3.Size = new System.Drawing.Size(317, 24);
             this.label3.TabIndex = 5;
             this.label3.Text = "Measure Info";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -398,7 +431,7 @@ namespace L_Titrator.Pages
             this.CmpVal_RefFile.Color_Name = System.Drawing.Color.LemonChiffon;
             this.CmpVal_RefFile.Color_Value = System.Drawing.Color.White;
             this.CmpVal_RefFile.GenParam = null;
-            this.CmpVal_RefFile.Location = new System.Drawing.Point(1, 30);
+            this.CmpVal_RefFile.Location = new System.Drawing.Point(1, 27);
             this.CmpVal_RefFile.Margin = new System.Windows.Forms.Padding(1);
             this.CmpVal_RefFile.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_RefFile.MinimumSize = new System.Drawing.Size(30, 49);
@@ -423,7 +456,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.CmpVal_ReagentName, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.CmpVal_SampleName, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 87);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 84);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
@@ -489,7 +522,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.CmpVal_ScaleFactor, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.CmpVal_DisplayUnit, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 145);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 142);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
@@ -555,13 +588,15 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel13, 0, 1);
             this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel15, 0, 2);
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel17, 0, 3);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(319, 0);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 4;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
+            this.tableLayoutPanel10.RowCount = 5;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 142F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel10.Size = new System.Drawing.Size(320, 484);
             this.tableLayoutPanel10.TabIndex = 1;
@@ -580,12 +615,10 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(320, 145);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(320, 142);
             this.tableLayoutPanel11.TabIndex = 2;
             // 
             // label4
@@ -600,7 +633,7 @@ namespace L_Titrator.Pages
             this.label4.Location = new System.Drawing.Point(1, 1);
             this.label4.Margin = new System.Windows.Forms.Padding(1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(318, 27);
+            this.label4.Size = new System.Drawing.Size(318, 24);
             this.label4.TabIndex = 5;
             this.label4.Text = "Injection Option";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -615,7 +648,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel12.Controls.Add(this.CmpVal_MaxIteration, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.CmpVal_Offset, 1, 0);
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(0, 87);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(0, 84);
             this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
@@ -680,7 +713,7 @@ namespace L_Titrator.Pages
             this.CmpCol_Syringe.Color_Name = System.Drawing.Color.LemonChiffon;
             this.CmpCol_Syringe.Color_Value = System.Drawing.SystemColors.Window;
             this.CmpCol_Syringe.GenParam = null;
-            this.CmpCol_Syringe.Location = new System.Drawing.Point(1, 30);
+            this.CmpCol_Syringe.Location = new System.Drawing.Point(1, 27);
             this.CmpCol_Syringe.Margin = new System.Windows.Forms.Padding(1);
             this.CmpCol_Syringe.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpCol_Syringe.MinimumSize = new System.Drawing.Size(30, 49);
@@ -702,15 +735,15 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel13.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.tableLayoutPanel14, 0, 1);
-            this.tableLayoutPanel13.Location = new System.Drawing.Point(0, 145);
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(0, 142);
             this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 4;
-            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(320, 87);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(320, 84);
             this.tableLayoutPanel13.TabIndex = 2;
             // 
             // label5
@@ -725,7 +758,7 @@ namespace L_Titrator.Pages
             this.label5.Location = new System.Drawing.Point(1, 1);
             this.label5.Margin = new System.Windows.Forms.Padding(1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(318, 27);
+            this.label5.Size = new System.Drawing.Size(318, 24);
             this.label5.TabIndex = 5;
             this.label5.Text = "Inj. Vol. Change Threshold [mV]";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -740,7 +773,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel14.Controls.Add(this.CmpVal_Change_LargeToMiddle, 0, 0);
             this.tableLayoutPanel14.Controls.Add(this.CmpVal_Change_MiddleToSmall, 1, 0);
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(0, 29);
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(0, 26);
             this.tableLayoutPanel14.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
@@ -805,15 +838,15 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel15.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel15.Controls.Add(this.tableLayoutPanel16, 0, 1);
-            this.tableLayoutPanel15.Location = new System.Drawing.Point(0, 232);
+            this.tableLayoutPanel15.Location = new System.Drawing.Point(0, 226);
             this.tableLayoutPanel15.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
             this.tableLayoutPanel15.RowCount = 4;
-            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(320, 87);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(320, 84);
             this.tableLayoutPanel15.TabIndex = 2;
             // 
             // label6
@@ -828,7 +861,7 @@ namespace L_Titrator.Pages
             this.label6.Location = new System.Drawing.Point(1, 1);
             this.label6.Margin = new System.Windows.Forms.Padding(1);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(318, 27);
+            this.label6.Size = new System.Drawing.Size(318, 24);
             this.label6.TabIndex = 5;
             this.label6.Text = "Inj. Vol. [mL]";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -845,7 +878,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel16.Controls.Add(this.CmpVal_Inj_Large, 0, 0);
             this.tableLayoutPanel16.Controls.Add(this.CmpVal_Inj_Middle, 1, 0);
             this.tableLayoutPanel16.Controls.Add(this.CmpVal_Inj_Small, 2, 0);
-            this.tableLayoutPanel16.Location = new System.Drawing.Point(0, 29);
+            this.tableLayoutPanel16.Location = new System.Drawing.Point(0, 26);
             this.tableLayoutPanel16.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
             this.tableLayoutPanel16.RowCount = 1;
@@ -925,6 +958,157 @@ namespace L_Titrator.Pages
             this.CmpVal_Inj_Small.UseKeyPadUI = true;
             this.CmpVal_Inj_Small.UseUserKeyPad = true;
             // 
+            // tableLayoutPanel17
+            // 
+            this.tableLayoutPanel17.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel17.ColumnCount = 1;
+            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel17.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel17.Controls.Add(this.tableLayoutPanel18, 0, 2);
+            this.tableLayoutPanel17.Controls.Add(this.CmpCol_VLD_Enabled, 0, 1);
+            this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 310);
+            this.tableLayoutPanel17.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel17.Name = "tableLayoutPanel17";
+            this.tableLayoutPanel17.RowCount = 3;
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(320, 142);
+            this.tableLayoutPanel17.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.BackColor = System.Drawing.Color.Gold;
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label7.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.Location = new System.Drawing.Point(1, 1);
+            this.label7.Margin = new System.Windows.Forms.Padding(1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(318, 24);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Validation";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CmpCol_VLD_Enabled
+            // 
+            this.CmpCol_VLD_Enabled.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpCol_VLD_Enabled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpCol_VLD_Enabled.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpCol_VLD_Enabled.Color_Value = System.Drawing.SystemColors.Window;
+            this.CmpCol_VLD_Enabled.GenParam = null;
+            this.CmpCol_VLD_Enabled.Location = new System.Drawing.Point(1, 27);
+            this.CmpCol_VLD_Enabled.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpCol_VLD_Enabled.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpCol_VLD_Enabled.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpCol_VLD_Enabled.Name = "CmpCol_VLD_Enabled";
+            this.CmpCol_VLD_Enabled.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpCol_VLD_Enabled.Prm_Name = "Enable Validation";
+            this.CmpCol_VLD_Enabled.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
+            this.CmpCol_VLD_Enabled.Prm_Value = null;
+            this.CmpCol_VLD_Enabled.Size = new System.Drawing.Size(318, 56);
+            this.CmpCol_VLD_Enabled.SplitterDistance = 27;
+            this.CmpCol_VLD_Enabled.TabIndex = 6;
+            // 
+            // tableLayoutPanel18
+            // 
+            this.tableLayoutPanel18.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel18.ColumnCount = 3;
+            this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel18.Controls.Add(this.CmpVal_VLD_Low, 0, 0);
+            this.tableLayoutPanel18.Controls.Add(this.CmpVal_VLD_Ref, 1, 0);
+            this.tableLayoutPanel18.Controls.Add(this.CmpVal_VLD_High, 2, 0);
+            this.tableLayoutPanel18.Location = new System.Drawing.Point(0, 84);
+            this.tableLayoutPanel18.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel18.Name = "tableLayoutPanel18";
+            this.tableLayoutPanel18.RowCount = 1;
+            this.tableLayoutPanel18.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel18.Size = new System.Drawing.Size(320, 58);
+            this.tableLayoutPanel18.TabIndex = 4;
+            // 
+            // CmpVal_VLD_Low
+            // 
+            this.CmpVal_VLD_Low.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpVal_VLD_Low.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpVal_VLD_Low.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpVal_VLD_Low.Color_Value = System.Drawing.Color.White;
+            this.CmpVal_VLD_Low.GenParam = null;
+            this.CmpVal_VLD_Low.Location = new System.Drawing.Point(1, 1);
+            this.CmpVal_VLD_Low.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpVal_VLD_Low.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpVal_VLD_Low.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpVal_VLD_Low.Name = "CmpVal_VLD_Low";
+            this.CmpVal_VLD_Low.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpVal_VLD_Low.Prm_Name = "Low";
+            this.CmpVal_VLD_Low.Prm_Type = ATIK.PrmCmp.PrmType.Double;
+            this.CmpVal_VLD_Low.Prm_Value = "";
+            this.CmpVal_VLD_Low.Size = new System.Drawing.Size(104, 56);
+            this.CmpVal_VLD_Low.SplitterDistance = 27;
+            this.CmpVal_VLD_Low.TabIndex = 3;
+            this.CmpVal_VLD_Low.UseKeyPadUI = true;
+            this.CmpVal_VLD_Low.UseUserKeyPad = true;
+            // 
+            // CmpVal_VLD_Ref
+            // 
+            this.CmpVal_VLD_Ref.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpVal_VLD_Ref.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpVal_VLD_Ref.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpVal_VLD_Ref.Color_Value = System.Drawing.Color.White;
+            this.CmpVal_VLD_Ref.GenParam = null;
+            this.CmpVal_VLD_Ref.Location = new System.Drawing.Point(107, 1);
+            this.CmpVal_VLD_Ref.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpVal_VLD_Ref.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpVal_VLD_Ref.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpVal_VLD_Ref.Name = "CmpVal_VLD_Ref";
+            this.CmpVal_VLD_Ref.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpVal_VLD_Ref.Prm_Name = "Reference";
+            this.CmpVal_VLD_Ref.Prm_Type = ATIK.PrmCmp.PrmType.Double;
+            this.CmpVal_VLD_Ref.Prm_Value = "";
+            this.CmpVal_VLD_Ref.Size = new System.Drawing.Size(104, 56);
+            this.CmpVal_VLD_Ref.SplitterDistance = 27;
+            this.CmpVal_VLD_Ref.TabIndex = 3;
+            this.CmpVal_VLD_Ref.UseKeyPadUI = true;
+            this.CmpVal_VLD_Ref.UseUserKeyPad = true;
+            // 
+            // CmpVal_VLD_High
+            // 
+            this.CmpVal_VLD_High.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpVal_VLD_High.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpVal_VLD_High.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpVal_VLD_High.Color_Value = System.Drawing.Color.White;
+            this.CmpVal_VLD_High.GenParam = null;
+            this.CmpVal_VLD_High.Location = new System.Drawing.Point(213, 1);
+            this.CmpVal_VLD_High.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpVal_VLD_High.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpVal_VLD_High.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpVal_VLD_High.Name = "CmpVal_VLD_High";
+            this.CmpVal_VLD_High.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpVal_VLD_High.Prm_Name = "High";
+            this.CmpVal_VLD_High.Prm_Type = ATIK.PrmCmp.PrmType.Double;
+            this.CmpVal_VLD_High.Prm_Value = "";
+            this.CmpVal_VLD_High.Size = new System.Drawing.Size(106, 56);
+            this.CmpVal_VLD_High.SplitterDistance = 27;
+            this.CmpVal_VLD_High.TabIndex = 3;
+            this.CmpVal_VLD_High.UseKeyPadUI = true;
+            this.CmpVal_VLD_High.UseUserKeyPad = true;
+            // 
             // UsrCtrl_Recipe_StepDetail_Titration
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -948,6 +1132,8 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tableLayoutPanel15.ResumeLayout(false);
             this.tableLayoutPanel16.ResumeLayout(false);
+            this.tableLayoutPanel17.ResumeLayout(false);
+            this.tableLayoutPanel18.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -994,5 +1180,13 @@ namespace L_Titrator.Pages
         private ATIK.PrmCmp_Value CmpVal_Inj_Small;
         private ATIK.PrmCmp_Value CmpVal_RefFile;
         private ATIK.PrmCmp_Value CmpVal_Offset;
+        private ATIK.PrmCmp_Collection CmpCol_EnableInterpolation;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel18;
+        private ATIK.PrmCmp_Value CmpVal_VLD_Low;
+        private ATIK.PrmCmp_Value CmpVal_VLD_Ref;
+        private ATIK.PrmCmp_Value CmpVal_VLD_High;
+        private ATIK.PrmCmp_Collection CmpCol_VLD_Enabled;
     }
 }

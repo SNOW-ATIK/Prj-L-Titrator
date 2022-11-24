@@ -14,7 +14,7 @@ using L_Titrator.Controls;
 
 namespace L_Titrator.Pages
 {
-    public partial class UsrCtrl_Recipe_StepDetail_Control : UserControl
+    public partial class UsrCtrl_Recipe_StepDetail_Control : UserControl, IAuthority
     {
         private List<MB_Elem_Bit> Elems_BitList = new List<MB_Elem_Bit>();
         private MB_Elem_Syringe Elem_Syringe1;
@@ -232,120 +232,6 @@ namespace L_Titrator.Pages
             });
         }
 
-        /*
-        public void SetMergedInfo(List<Step> prvSteps)
-        {
-            // Merge Bit State
-            if (prvSteps.Count == 0)
-            {
-                pnl_Solenoids.Controls.OfType<UsrCtrl_Bit>().ToList().ForEach(ctrl => ctrl.Set_MergedState(UsrCtrl_Bit.BitState.Unknown));
-                pnl_Mixer.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl => ctrl.Set_MergedState((int)-1));
-
-                return;
-            }
-
-            int valveCnt = prvSteps[0].Valves.Count;
-            Dictionary<int, Valve[]> valveStates = new Dictionary<int, Valve[]>();
-
-            for (int i = 0; i < prvSteps.Count; i++)
-            {
-                valveStates.Add(i, new Valve[valveCnt]);
-                Step step = prvSteps[i];
-
-                if (i == 0)
-                {
-                    for (int j = 0; j < valveCnt; j++)
-                    {
-                        valveStates[i][j] = (Valve)step.Valves[j].Clone(); // Step 0 에서는 bit0~n까지 모든 Bit가 Off/On으로만 설정됨. 따라서 indexing 가능
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < valveCnt; j++)
-                    {
-                        valveStates[i][j] = (Valve)valveStates[i - 1][j].Clone();
-                    }
-
-                    if (step.Control_Valve == true)
-                    {
-                        for (int j = 0; j < valveCnt; j++)
-                        {
-                            var ctrlValve = step.Valves.Where(valve => valve.Name == valveStates[i][j].Name).ToList();
-                            if (ctrlValve.Count > 0)
-                            {
-                                if (valveStates[i][j].Get_Condition() != ctrlValve[0].Get_Condition())
-                                {
-                                    valveStates[i][j] = (Valve)ctrlValve[0].Clone();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            valveStates[valveStates.Count - 1].ToList().ForEach(valve =>
-            {
-                pnl_Solenoids.Controls.OfType<UsrCtrl_Bit>().ToList().ForEach(ctrl =>
-                {
-                    if (valve.Name == ctrl.LogicalName)
-                    {
-                        ctrl.Set_MergedState(valve.Get_Condition() == true? UsrCtrl_Bit.BitState.On : UsrCtrl_Bit.BitState.Off);
-                    }
-                });
-            });
-
-            // Merge Mixer State
-            int mixerCnt = prvSteps[0].Mixers.Count;
-            Dictionary<int, Mixer[]> mixerStates = new Dictionary<int, Mixer[]>();
-            for (int i = 0; i < prvSteps.Count; i++)
-            {
-                mixerStates.Add(i, new Mixer[mixerCnt]);
-                Step step = prvSteps[i];
-
-                if (i == 0)
-                {
-                    for (int j = 0; j < mixerCnt; j++)
-                    {
-                        mixerStates[i][j] = (Mixer)step.Mixers[j].Clone();
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < mixerCnt; j++)
-                    {
-                        mixerStates[i][j] = (Mixer)mixerStates[i - 1][j].Clone();
-                    }
-
-                    if (step.Control_Mixer == true)
-                    {
-                        for (int j = 0; j < mixerCnt; j++)
-                        {
-                            var ctrlMixer = step.Mixers.Where(mixer => mixer.Name == mixerStates[i][j].Name).ToList();
-                            if (ctrlMixer.Count > 0)
-                            {
-                                if (mixerStates[i][j].Get_Duty() != ctrlMixer[0].Get_Duty())
-                                {
-                                    mixerStates[i][j] = (Mixer)ctrlMixer[0].Clone();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            mixerStates[mixerStates.Count - 1].ToList().ForEach(mixer =>
-            {
-                pnl_Mixer.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl =>
-                {
-                    if (mixer.Name == ctrl.LogicalName)
-                    {
-                        ctrl.Set_MergedState(mixer.Get_Duty());
-                    }
-                });
-            });
-        }
-        */
-
         public void SetSameAsPrvStep()
         {
             if (PrvStep == null)
@@ -503,7 +389,7 @@ namespace L_Titrator.Pages
             Tbl_StepEnd_Sensor = CreateTbl_StepEnd();
             CmpCol_StepEndEnabled_Sensor = CreatePrmCmp_StepEnd_Enabled(cmpWidth);
             CmpCol_StepEndEnabled_Sensor.SelectedUserItemChangedEvent += StepEnd_EnabledChangedEvent;
-            CmpCol_StepEndValues_Sensor = CreatePrmCmp_StepEnd_Collections(cmpWidth, "Select Sensor", new string[] { "Level_1", "Level_2" }); // TBD. Load value from selected step
+            CmpCol_StepEndValues_Sensor = CreatePrmCmp_StepEnd_Collections(cmpWidth, "Select Sensor", new string[] { PreDef.ElemLogicalName.AlarmInput.Level_1, PreDef.ElemLogicalName.AlarmInput.Level_2 }); // TBD. Load value from selected step
             CmpCol_StepEndValues_Sensor.SelectedUserItemChangedEvent += StepEnd_Sensor_SelectedUserItemChangedEvent;
             Tbl_StepEnd_Sensor.Controls.Add(CmpCol_StepEndEnabled_Sensor, 0, 0);
             Tbl_StepEnd_Sensor.Controls.Add(CmpCol_StepEndValues_Sensor, 0, 1);
@@ -578,6 +464,35 @@ namespace L_Titrator.Pages
             cmpVal.Width = width;
             cmpVal.UseKeyPadUI = true;
             return cmpVal;
+        }
+
+        public void EnableControl(bool enb)
+        {
+            ParamPageUtil.GetAll_IComps(this).ForEach(ctrl => ctrl.EnableModifying(true, enb));
+            Handle_UI.GetAllControlsRecursive(this).ForEach(ctrl =>
+            {
+                if (ctrl.GetType() == typeof(UsrCtrl_Analog))
+                {
+                    UsrCtrl_Analog analog = (UsrCtrl_Analog)ctrl;
+                    analog.EnableControl(enb);
+                }
+                else if (ctrl.GetType() == typeof(UsrCtrl_Bit))
+                {
+                    UsrCtrl_Bit bit = (UsrCtrl_Bit)ctrl;
+                    bit.EnableControl(enb);
+                }
+                else if (ctrl.GetType() == typeof(MB_Cmp_Syringe))
+                {
+                    MB_Cmp_Syringe syringe = (MB_Cmp_Syringe)ctrl;
+                    syringe.EnableEdit(enb);
+                    //syringe.Enabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+                }
+            });
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            EnableControl(GlbVar.CurrentAuthority == UserAuthority.Admin);
         }
     }
 }

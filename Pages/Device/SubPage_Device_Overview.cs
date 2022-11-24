@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ATIK;
 using ATIK.Device.ATIK_MainBoard;
 
 namespace L_Titrator.Pages
 {
-    public partial class SubPage_Device_Overview : UserControl, IPage
+    public partial class SubPage_Device_Overview : UserControl, IPage, IAuthority
     {
 
         public SubPage_Device_Overview()
@@ -28,7 +29,6 @@ namespace L_Titrator.Pages
         public void SetVisible(bool visible)
         {
             this.Visible = visible;
-            UsrCtrl_Fluidics.EnableFluidicsUpdate(visible);
         }
 
         public void SetDock(DockStyle dockStyle)
@@ -54,6 +54,27 @@ namespace L_Titrator.Pages
         public void ShowSubPage(string subPageName)
         {
             throw new NotImplementedException();
+        }
+
+        public void UserAuthorityIsChanged()
+        {
+            UsrCtrl_Fluidics.EnableFluidicsControl(GlbVar.CurrentAuthority == UserAuthority.Admin);
+        }
+
+        private void SubPage_Device_Overview_VisibleChanged(object sender, EventArgs e)
+        {
+            UsrCtrl_Fluidics.EnableFluidicsUpdate(this.Visible);
+            if (this.Visible == true)
+            {
+                if (GlbVar.CurrentMainState == MainState.Run)
+                {
+                    this.Enabled = false;
+                }
+                else
+                {
+                    UserAuthorityIsChanged();
+                }
+            }
         }
     }
 }

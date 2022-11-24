@@ -25,11 +25,20 @@ namespace L_Titrator
 
             InitializeComponent();
 
-            bool loadCfg = LT_Config.Load_Config();
+            System.Reflection.AssemblyName assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+            lbl_AppVersion.Text = "S/W Ver: " + assemblyName.Version.ToString();
 
-            bool loadRcp = LT_Recipe.Load_Recipes();
+            bool loadAlarm = LT_Alarm.Load();
+            if (loadAlarm == true)
+            {
+                LT_Alarm.AlarmUpdateEvent += AlarmUpdated;
+            }
 
-            bool loadLiftTime = PartsLifeTimeManager.Load("Config", "LifeTime.xml", "LifeTime");
+            bool loadCfg = LT_Config.Load();
+
+            bool loadRcp = LT_Recipe.Load();
+
+            bool loadLifeTime = LT_LifeTime.Load();
 
             Init_Devices();
 
@@ -37,7 +46,15 @@ namespace L_Titrator
 
             Init_Sequence();
                         
-            tmr_StateCheck.Enabled = false;
+            tmr_StateCheck.Enabled = true;
+
+            if (Enum.TryParse(LT_Config.GenPrm_LogInAuthority.Value, out UserAuthority logInAuthority) == true)
+            {
+                GlbVar.CurrentAuthority = logInAuthority;
+                usrCtrl_Login1.SetAuthorityText();
+            }
+
+            //AlarmUpdated();
 
             /*********************************************************************************************************************/
             //Frm_StrKeyPad frm = new Frm_StrKeyPad("Test", "Test");
@@ -102,7 +119,7 @@ namespace L_Titrator
         {
             if (Element_SerialPort.Load_Config($@"Config\Device\", "Element_SerialPort.xml", "L_Titrator", "Log") == true)
             {
-                if (ATIK_MainBoard.Initialize(@"Config\Device\ATIK_MainBoard.xml") == true)
+                if (ATIK_MainBoard.Initialize(@"Config\Device\ATIK_MainBoard.xml", LT_Config.GenPrm_InterlockEnabled.Value) == true)
                 {
                     return true;
                 }
@@ -123,15 +140,17 @@ namespace L_Titrator
             return bInit;
         }
 
-        private void Fluidics_RunEnd(bool successfullyEnd)
+        private void Fluidics_RunEnd(RunEndState runEndState)
         {
             if (this.InvokeRequired == true)
             {
-                this.BeginInvoke(new Action(() => Fluidics_RunEnd(successfullyEnd)));
+                this.BeginInvoke(new Action(() => Fluidics_RunEnd(runEndState)));
                 return;
             }
 
-            if (successfullyEnd == true)
+            PageMain.CloseAbortMsgFrm();
+
+            if (runEndState == RunEndState.Success)
             {
                 MsgFrm_NotifyOnly notify = new MsgFrm_NotifyOnly("Run End");
                 notify.ShowDialog();
@@ -141,6 +160,8 @@ namespace L_Titrator
                 MsgFrm_NotifyOnly notify = new MsgFrm_NotifyOnly("Run Cancel");
                 notify.ShowDialog();
             }
+
+            PageMain.RunEnd();
         }
 
         private void Fluidics_ProcessChanged(FluidicsControl.NotifyProcess notifyProcess, object info)
@@ -151,6 +172,7 @@ namespace L_Titrator
                 case FluidicsControl.NotifyProcess.Clear:
                     PageMain.Set_SeqStepInfo("None", "None");
                     PageMain.MeasureStatus_SetContent(UsrCtrl_MeasureStatus.Contents.Clear, null);
+                    PageMain.MeasureResult_Clear();
                     break;
 
                 case FluidicsControl.NotifyProcess.Start:
@@ -195,9 +217,102 @@ namespace L_Titrator
 
         private void tmr_StateCheck_Tick(object sender, EventArgs e)
         {
-            // Is Alarm
+            Update_MainState();
+        }
 
-            // Is Running
+        private void Update_MainState()
+        {
+            // Com.Internal(Mainboard)
+            var mbDrv = ATIK_MainBoard.Get_Driver(DefinedMainBoards.L_Titrator);
+            DrvMB_L_Titrator drvLT = (DrvMB_L_Titrator)mbDrv;
+            if (drvLT.IsInitialized == true)
+            {
+                if (drvLT.ComStatus == true)
+                {
+                    LT_Alarm.Reset_Alarm(AlarmName.Com_Internal);
+                }
+                else
+                {
+                    LT_Alarm.Set_Alarm(AlarmName.Com_Internal);
+                }
+            }
+            else
+            {
+                LT_Alarm.Set_Alarm(AlarmName.Com_Internal);
+            }
+
+            // TBD: Com.External
+
+            // Leak
+            var elem_Leak1 = MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.AlarmInput.Leak_1);
+            if (elem_Leak1.Get_State() == PreDef.Interlock_Occur_BooleanValue)
+            {
+                LT_Alarm.Set_Alarm(AlarmName.Leak);
+            }
+            else
+            {
+                LT_Alarm.Reset_Alarm(AlarmName.Leak);
+            }
+
+            // OverFlow
+            var elem_Overflow = MB_Elem_Bit.GetElem(PreDef.ElemLogicalName.AlarmInput.Level_2);
+            if (elem_Overflow.Get_State() == PreDef.Interlock_Occur_BooleanValue)
+            {
+                LT_Alarm.Set_Alarm(AlarmName.OverFlow);
+            }
+            else
+            {
+                LT_Alarm.Reset_Alarm(AlarmName.OverFlow);
+            }
+
+            // LifeTime
+            if (LT_LifeTime.IsExpiredPartExist() == true)
+            {
+                LT_Alarm.Set_Alarm(AlarmName.LifeTimeExpired);
+            }
+            else
+            {
+                LT_Alarm.Reset_Alarm(AlarmName.LifeTimeExpired);
+            }
+
+            // Update MainState
+            if (LT_Alarm.IsAlarmExist() == true)
+            {
+                if (LT_Alarm.IsCriticalAlarmExist() == true)
+                {
+                    usrCtrl_Status1.Set_State(MainState.Error);
+                }
+                else
+                {
+                    usrCtrl_Status1.Set_State(MainState.Warning);
+                }
+            }
+            else
+            {
+                switch (FluidicsControl.MainState)
+                {
+                    case FluidicsState.None:
+                        usrCtrl_Status1.Set_State(MainState.Unknown);
+                        break;
+
+                    case FluidicsState.Idle:
+                        usrCtrl_Status1.Set_State(MainState.Idle);
+                        break;
+
+                    case FluidicsState.Run:
+                        usrCtrl_Status1.Set_State(MainState.Run);
+                        break;
+
+                    case FluidicsState.Error:
+                        usrCtrl_Status1.Set_State(MainState.Error);
+                        break;
+                }
+            }
+        }
+
+        private void AlarmUpdated()
+        {
+            PageMain.Update_AlarmStatus();
         }
     }
 }

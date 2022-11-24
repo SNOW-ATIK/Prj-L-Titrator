@@ -81,7 +81,14 @@ namespace L_Titrator
 
         private void UsrCtrl_Login1_UserAuthorityChangedEvent(UserAuthority authority)
         {
-            btn_Main.PerformClick();
+            if (PageMain.Visible == true)
+            {
+                PageMain.UserAuthorityIsChanged();
+            }
+            else
+            {
+                btn_Main.PerformClick();
+            }
         }
 
         private void CreateSubMenus()
@@ -89,12 +96,12 @@ namespace L_Titrator
             Point menuLoc = PointToScreen(tbl_MainMenu.Location);
 
             Point settingLoc = new Point(menuLoc.X + btn_Setting.Location.X, menuLoc.Y + btn_Setting.Location.Y);
-            PopupMenu_Setting = new Frm_PopUpMenu(new string[] { "CONFIG", "OPTION", "RECIPE" }, settingLoc);
+            PopupMenu_Setting = new Frm_PopUpMenu(new string[] { "CONFIG", "OPTION", "RECIPE", "ALARM" }, new string[] { "CONFIG", "OPTION", "RECIPE", "ALARM" }, settingLoc);
             PopupMenu_Setting.Tag = MenuAndPage.SETTING;
             PopupMenu_Setting.SubMenuClickedEvent += PopupMenu_SubMenuClicked;
 
             Point historyLoc = new Point(menuLoc.X + btn_History.Location.X, menuLoc.Y + btn_History.Location.Y);
-            PopupMenu_History = new Frm_PopUpMenu(new string[] { "ALARM", "DATA" }, historyLoc);
+            PopupMenu_History = new Frm_PopUpMenu(new string[] { "ALARM", "DATA" }, new string[] { "ALARM_HISTORY", "DATA_HISTORY" }, historyLoc);
             PopupMenu_History.Tag = MenuAndPage.HISTORY;
             PopupMenu_History.SubMenuClickedEvent += PopupMenu_SubMenuClicked;
         }
@@ -153,7 +160,7 @@ namespace L_Titrator
                         MenuCurrent = clickedMenu;
 
                         // Show current
-                        Dic_Menu[MenuCurrent].BackColor = PreDef.MenuBG_Select;
+                        Dic_Menu[MenuCurrent].BackColor = PreDef.MenuBG_Select;                        
                         Dic_Page[MenuCurrent].SetVisible(true);
                     }
                 }
@@ -169,11 +176,11 @@ namespace L_Titrator
 
             Dic_Menu[MenuCurrent].BackColor = PreDef.MenuBG_Unselect;
             MenuAndPage clickedMenu = MenuAndPage.NONE;
-            if (subMenu == "CONFIG" || subMenu == "OPTION" || subMenu == "RECIPE")
+            if (subMenu == "CONFIG" || subMenu == "OPTION" || subMenu == "RECIPE" || subMenu == "ALARM")
             {
                 clickedMenu = MenuAndPage.SETTING;
             }
-            else if (subMenu == "ALARM" || subMenu == "DATA")
+            else if (subMenu == "ALARM_HISTORY" || subMenu == "DATA_HISTORY")
             {
                 clickedMenu = MenuAndPage.HISTORY;
             }
@@ -193,24 +200,52 @@ namespace L_Titrator
 
             // Show current
             Dic_Menu[MenuCurrent].BackColor = PreDef.MenuBG_Select;
-            Dic_Menu[MenuCurrent].Text = $"{Convert.ToString(Dic_Menu[MenuCurrent].Tag)}\r\n▶ {subMenu}";
+            Dic_Menu[MenuCurrent].Text = $"{Convert.ToString(Dic_Menu[MenuCurrent].Tag)}\r\n▶ {subMenu.Replace("_HISTORY", "")}";
             Dic_Page[MenuCurrent].ShowSubPage(subMenu);
             if (PrevPage != clickedMenu)
             {
                 Dic_Page[MenuCurrent].SetVisible(true);
             }
 
-            var rcpPage = (Page_Setting)Dic_Page[MenuCurrent];
-            if (subMenu == "RECIPE")
+            if (clickedMenu == MenuAndPage.SETTING)
             {
-                rcpPage.Show_RightMenu(false);
-                rcpPage.Show_BottomMenu(false);
+                var rcpPage = (Page_Setting)Dic_Page[MenuCurrent];
+                bool editEnabled = GlbVar.CurrentAuthority == UserAuthority.Admin;
+                bool alarmTestModeEnabled = subMenu == "ALARM";
+                switch (subMenu)
+                {
+                    case "CONFIG":
+                        rcpPage.Show_RightMenu(false);
+                        rcpPage.Show_BottomMenu(editEnabled, alarmTestModeEnabled);
+                        break;
+
+                    case "OPTION":
+                        rcpPage.Show_RightMenu(false);
+                        rcpPage.Show_BottomMenu(editEnabled, alarmTestModeEnabled);
+                        break;
+
+                    case "RECIPE":
+                        rcpPage.Show_RightMenu(false);
+                        rcpPage.Show_BottomMenu(false, alarmTestModeEnabled);
+                        break;
+
+                    case "ALARM":
+                        rcpPage.Show_RightMenu(false);
+                        rcpPage.Show_BottomMenu(editEnabled, alarmTestModeEnabled);
+                        break;
+                }
             }
-            else
-            {
-                rcpPage.Show_RightMenu(true);
-                rcpPage.Show_BottomMenu(true);
-            }
+            //else
+            //{
+            //    rcpPage.Show_RightMenu(true);
+            //    rcpPage.Show_BottomMenu(true);
+            //}
+        }
+
+        private void btn_Setting_EnabledChanged(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = btn.Enabled == true ? Color.White : Color.DarkGray;
         }
     }
 }

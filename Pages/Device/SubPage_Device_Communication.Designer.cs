@@ -242,6 +242,7 @@ namespace L_Titrator.Pages
             this.Name = "SubPage_Device_Communication";
             this.Size = new System.Drawing.Size(1024, 584);
             this.Tag = "COMMUNICATION";
+            this.VisibleChanged += new System.EventHandler(this.SubPage_Device_Communication_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_InternalLog)).EndInit();

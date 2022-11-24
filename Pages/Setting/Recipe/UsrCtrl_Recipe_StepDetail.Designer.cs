@@ -183,8 +183,8 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CmpCol_IsTitration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CmpCol_IsTitration.Color_Name = System.Drawing.Color.Silver;
-            this.CmpCol_IsTitration.Color_Value = System.Drawing.SystemColors.Window;
+            this.CmpCol_IsTitration.Color_Name = System.Drawing.Color.DarkGray;
+            this.CmpCol_IsTitration.Color_Value = System.Drawing.Color.LightGray;
             this.CmpCol_IsTitration.Enabled = false;
             this.CmpCol_IsTitration.GenParam = null;
             this.CmpCol_IsTitration.Location = new System.Drawing.Point(123, 1);

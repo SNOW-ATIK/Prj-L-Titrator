@@ -33,7 +33,7 @@ namespace L_Titrator.Pages
             this.tbl_SeqMenu = new System.Windows.Forms.TableLayoutPanel();
             this.pnl_SeqOrder = new System.Windows.Forms.Panel();
             this.tbl_SeqOrder = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbl_Edit = new System.Windows.Forms.TableLayoutPanel();
             this.btn_Add = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.btn_Insert = new System.Windows.Forms.Button();
@@ -44,7 +44,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel1.SuspendLayout();
             this.tbl_SeqMenu.SuspendLayout();
             this.pnl_SeqOrder.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
+            this.tbl_Edit.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -67,7 +67,7 @@ namespace L_Titrator.Pages
             this.tbl_SeqMenu.ColumnCount = 1;
             this.tbl_SeqMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbl_SeqMenu.Controls.Add(this.pnl_SeqOrder, 0, 3);
-            this.tbl_SeqMenu.Controls.Add(this.tableLayoutPanel4, 0, 1);
+            this.tbl_SeqMenu.Controls.Add(this.tbl_Edit, 0, 1);
             this.tbl_SeqMenu.Controls.Add(this.CmpCol_PreDefSeq, 0, 0);
             this.tbl_SeqMenu.Controls.Add(this.label3, 0, 2);
             this.tbl_SeqMenu.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -110,26 +110,26 @@ namespace L_Titrator.Pages
             this.tbl_SeqOrder.Size = new System.Drawing.Size(170, 441);
             this.tbl_SeqOrder.TabIndex = 7;
             // 
-            // tableLayoutPanel4
+            // tbl_Edit
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbl_Edit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Controls.Add(this.btn_Add, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btn_Clear, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.btn_Insert, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.btn_Delete, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 54);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(170, 62);
-            this.tableLayoutPanel4.TabIndex = 4;
+            this.tbl_Edit.ColumnCount = 2;
+            this.tbl_Edit.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tbl_Edit.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tbl_Edit.Controls.Add(this.btn_Add, 0, 0);
+            this.tbl_Edit.Controls.Add(this.btn_Clear, 1, 1);
+            this.tbl_Edit.Controls.Add(this.btn_Insert, 1, 0);
+            this.tbl_Edit.Controls.Add(this.btn_Delete, 0, 1);
+            this.tbl_Edit.Location = new System.Drawing.Point(0, 54);
+            this.tbl_Edit.Margin = new System.Windows.Forms.Padding(0);
+            this.tbl_Edit.Name = "tbl_Edit";
+            this.tbl_Edit.RowCount = 2;
+            this.tbl_Edit.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_Edit.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tbl_Edit.Size = new System.Drawing.Size(170, 62);
+            this.tbl_Edit.TabIndex = 4;
             // 
             // btn_Add
             // 
@@ -266,7 +266,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tbl_SeqMenu.ResumeLayout(false);
             this.pnl_SeqOrder.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tbl_Edit.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -276,7 +276,7 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tbl_SeqMenu;
         private ATIK.PrmCmp_Collection CmpCol_PreDefSeq;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tbl_Edit;
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Button btn_Insert;
         private System.Windows.Forms.Button btn_Clear;

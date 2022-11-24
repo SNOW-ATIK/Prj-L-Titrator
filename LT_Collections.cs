@@ -24,10 +24,18 @@ namespace L_Titrator
         Error
     }
 
+    public enum RunEndState
+    {
+        Success,
+        Abort,
+        Alarm,
+    }
+
     public enum CommonStatus
     { 
-        NA,
+        None,
         OK,
+        Warning,
         Error
     }
 
