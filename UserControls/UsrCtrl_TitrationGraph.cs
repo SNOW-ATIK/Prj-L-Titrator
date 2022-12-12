@@ -65,7 +65,7 @@ namespace L_Titrator.Controls
                 List<Step> StepAll = seq.Steps.ToList();
                 for (int i = 0; i < StepAll.Count; i++)
                 {
-                    if (StepAll[i].IsTitration == true && StepAll[i].Enabled == true)
+                    if (StepAll[i].IsAnalyzeStep == true && StepAll[i].Enabled == true)
                     {
                         ValidTitrationStep.Add(StepAll[i]);
 

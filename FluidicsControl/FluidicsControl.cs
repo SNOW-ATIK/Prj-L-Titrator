@@ -184,6 +184,7 @@ namespace L_Titrator
                                 if (HistoryObjCurrent.Init_Success == false)
                                 {
                                     // #. Failed to load recipe
+                                    Log.WriteLog("Error", $"Failed to load Recipe. (RcpNo={RcpNo})");
                                 }
 
                                 SeqAssist.Init(RcpNo);
@@ -358,9 +359,9 @@ namespace L_Titrator
                 case StepProgress.Start:
                     if (Cur_Step.Enabled == true)
                     {
-                        if (Cur_Step.IsTitration == true)
+                        if (Cur_Step.IsAnalyzeStep == true)
                         {
-                            Init_Ttr(Cur_Step);
+                            Init_Analyze(Cur_Step);
                         }
                         else
                         {
@@ -419,22 +420,41 @@ namespace L_Titrator
         // TBD. 
         // Load Info from Recipe File,
         // Set Info into HistoryObj.
-        private static void Init_Ttr(Step curStep)
+        private static void Init_Analyze(Step curStep)
         {
-            DateTime ttrStartTime = DateTime.Now;
-            TitrationRef titrationRef = LT_Recipe.Load_TitrationRef(curStep);
-            if (HistoryObjCurrent.Start_Titration(titrationRef.SampleName, ttrStartTime, (TitrationRef)titrationRef.Clone()) == true)
+            DateTime analyzeStartTime = DateTime.Now;
+            AnalyzeRef analyzeRef = curStep.AnalyzeRefObj;
+            if (HistoryObjCurrent == null)
             {
-                if (HistoryObjCurrent.Get_TitrationObj(titrationRef.SampleName, out HistoryObj.TitrationObj ttrObj) == true)
-                {
-                    TtrAssist.Init(ttrObj);
+                Log.WriteLog("Error", $"#. HistoryObjCurrent is null.");
+            }
+            if (analyzeRef == null)
+            {
+                Log.WriteLog("Error", $"#. AnalyzeRef is null. ({curStep.AnalyzeRefFileName})");
+            }
 
-                    Log.WriteLog("Result", $"=== StartTitration (Step:{curStep.Name}) =========================================");
+            if (HistoryObjCurrent.Start_Analyze(analyzeStartTime, (AnalyzeRef)analyzeRef.Clone()) == true)
+            {
+                switch (analyzeRef.Type)
+                {
+                    case AnalyzeType.pH:
+                    case AnalyzeType.ORP:
+                        if (HistoryObjCurrent.Get_AnalyzeObj(analyzeRef.SampleName, out var analyzeObj) == true)
+                        {
+                            HistoryObj.TitrationObj ttrHistoryObj = (HistoryObj.TitrationObj)analyzeObj;
+                            TtrAssist.Init(ttrHistoryObj);
+
+                            Log.WriteLog("Result", $"=== StartAnalyze (Step:{curStep.Name}, Type:{analyzeRef.Type}) =========================================");
+                        }
+                        break;
+
+                    case AnalyzeType.ISE:
+                        break;
                 }
             }
             else
             {
-                Log.WriteLog("Seq", $@"#. Fail to load TitraionRef file. ({curStep.TitrationRefFileName})");
+                Log.WriteLog("Error", $@"#. Fail to load AnalyzeRef file. ({curStep.AnalyzeRefFileName})");
             }
         }
 
@@ -707,7 +727,7 @@ namespace L_Titrator
                                                 Log.WriteLog("Result", $"> Time Over (Result={dReadAnalogVal}mV, Count={TtrAssist.TtrObj.IterationCount}/{TtrAssist.TtrObj.MaxIterationCount})");
 
                                                 DateTime ttrEndTime = DateTime.Now;
-                                                HistoryObjCurrent.End_Titration(TtrAssist.TtrObj.SampleName, ttrEndTime);
+                                                HistoryObjCurrent.End_Analyze(TtrAssist.TtrObj.SampleName, ttrEndTime);
 
                                                 return true;
                                             }
@@ -718,7 +738,7 @@ namespace L_Titrator
                                             Log.WriteLog("Result", $"> Successfully Done (Result={dReadAnalogVal}mV, Count={TtrAssist.TtrObj.IterationCount}/{TtrAssist.TtrObj.MaxIterationCount})");
 
                                             DateTime ttrEndTime = DateTime.Now;
-                                            HistoryObjCurrent.End_Titration(TtrAssist.TtrObj.SampleName, ttrEndTime);
+                                            HistoryObjCurrent.End_Analyze(TtrAssist.TtrObj.SampleName, ttrEndTime);
 
                                             return true;
                                         }
@@ -862,9 +882,20 @@ namespace L_Titrator
 
         private static bool Check_StepEnd(Step step)
         {
-            if (step.IsTitration == true)
+            if (step.IsAnalyzeStep == true)
             {
-                return Titrate(step);
+                bool analyzeEnd = false;
+                switch (step.AnalyzeRefObj.Type)
+                {
+                    case AnalyzeType.pH:
+                    case AnalyzeType.ORP:
+                        analyzeEnd = Titrate(step);
+                        break;
+
+                    case AnalyzeType.ISE:
+                        break;
+                }
+                return analyzeEnd;
             }
             else
             {

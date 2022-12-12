@@ -125,11 +125,21 @@ namespace L_Titrator
             {
                 if (vldCfg.Enabled.Value == true)
                 {
-                    var ttrList = LT_Recipe.Get_AllTitrationRef(Glb_RcpNo);
-                    if (ttrList != null && ttrList.Count == 1)
+                    var analyzeList = LT_Recipe.Get_AllAnalyzeRef(Glb_RcpNo);
+                    if (analyzeList != null && analyzeList.Count == 1)
                     {
-                        ValidationInfo vldInfo = ttrList[0].ValidationInfo;
-                        isOk = (Glb_Concentration >= vldInfo.Limit_Low && Glb_Concentration <= vldInfo.Limit_High);
+                        AnalyzeRef analyzeRef = analyzeList[0];
+                        switch (analyzeRef.Type)
+                        {
+                            case AnalyzeType.pH:
+                            case AnalyzeType.ORP:
+                                ValidationInfo vldInfo = analyzeRef.TtrRef.ValidationInfo;
+                                isOk = (Glb_Concentration >= vldInfo.Limit_Low && Glb_Concentration <= vldInfo.Limit_High);
+                                break;
+
+                            case AnalyzeType.ISE:
+                                break;
+                        }
                     }
                 }
                 else
@@ -166,14 +176,24 @@ namespace L_Titrator
 
                             if (vldNext.Enabled.Value == true)
                             {
-                                // Check VLD Recipe Exist
-                                var ttrList = LT_Recipe.Get_AllTitrationRef(vldNext.RecipeNo.Value);
-                                if (ttrList != null && ttrList.Count == 1)
+                                // Check VLD Recipe Existvar analyzeList = LT_Recipe.Get_AllAnalyzeRef(Glb_RcpNo);
+                                var analyzeList = LT_Recipe.Get_AllAnalyzeRef(vldNext.RecipeNo.Value);
+                                if (analyzeList != null && analyzeList.Count == 1)
                                 {
-                                    // Start Next Validation Recipe
-                                    Glb_RcpNo = LT_Config.ValidationList[chkIdx].RecipeNo.Value;
-                                    Glb_IterationCount = 0;
-                                    vld_Continue = true;
+                                    AnalyzeRef analyzeRef = analyzeList[0];
+                                    switch (analyzeRef.Type)
+                                    {
+                                        case AnalyzeType.pH:
+                                        case AnalyzeType.ORP:
+                                            // Start Next Validation Recipe
+                                            Glb_RcpNo = LT_Config.ValidationList[chkIdx].RecipeNo.Value;
+                                            Glb_IterationCount = 0;
+                                            vld_Continue = true;
+                                            break;
+
+                                        case AnalyzeType.ISE:
+                                            break;
+                                    }
                                 }
                                 else
                                 {

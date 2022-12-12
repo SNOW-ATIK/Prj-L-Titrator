@@ -85,17 +85,26 @@ namespace L_Titrator.Pages
 
         public void MeasureResult_Init(int rcpNo)
         {
-            List<TitrationRef> titrationRefs = LT_Recipe.Get_AllTitrationRef(rcpNo);
-            titrationRefs.ForEach(titrationRef =>
+            List<AnalyzeRef> analyzeRefs = LT_Recipe.Get_AllAnalyzeRef(rcpNo);
+            analyzeRefs.ForEach(analyzeRef =>
             {
-                MB_Elem_Analog elem = MB_Elem_Analog.GetElem(titrationRef.AnalogInfo.AnalogInputLogicalName);
-                if (elem != null)
+                switch (analyzeRef.Type)
                 {
-                    MeasResultDic[(DrvMB_L_Titrator.LineOrder)elem.LineNo].Init_Info(titrationRef.SampleName, titrationRef.ResultUnit);
-                }
-                else
-                {
-                    MeasResultDic[(DrvMB_L_Titrator.LineOrder)elem.LineNo].Clear();
+                    case AnalyzeType.pH:
+                    case AnalyzeType.ORP:
+                        MB_Elem_Analog elem = MB_Elem_Analog.GetElem(analyzeRef.TtrRef.AnalogInfo.AnalogInputLogicalName);
+                        if (elem != null)
+                        {
+                            MeasResultDic[(DrvMB_L_Titrator.LineOrder)elem.LineNo].Init_Info(analyzeRef.TtrRef.SampleName, analyzeRef.TtrRef.ResultUnit);
+                        }
+                        else
+                        {
+                            MeasResultDic[(DrvMB_L_Titrator.LineOrder)elem.LineNo].Clear();
+                        }
+                        break;
+
+                    case AnalyzeType.ISE:
+                        break;
                 }
             });
         }

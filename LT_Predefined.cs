@@ -17,8 +17,9 @@ namespace L_Titrator
         public const string Path_Config_Device = @"Config\Device";
         public const string Path_Recipe = "Recipe";
         public const string Path_Recipe_HotKey = @"Recipe\HotKey";
-        public const string Path_PreDefinedSeq = @"Recipe\PreFixSequence";
-        public const string Path_Recipe_TitrationRef = @"Recipe\TitrationRef";
+        public const string Path_PreFixSequence = @"Recipe\PreFixSequence";
+        public const string Path_PreFixAnalyzeRef = @"Recipe\PreFixAnalyzeRef";
+        public const string Path_Recipe_AnalyzeRef = @"Recipe\AnalyzeRef";
         public const string Path_History_Alarm = @"History\Alarm";
         public const string Path_History_Data = @"History\Data";
         public const string Path_History = @"History\Backup";

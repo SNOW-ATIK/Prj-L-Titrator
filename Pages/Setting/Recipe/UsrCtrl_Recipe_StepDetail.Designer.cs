@@ -123,7 +123,7 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 400F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.CmpVal_StepName, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 1, 0);
@@ -149,15 +149,17 @@ namespace L_Titrator.Pages
             this.CmpVal_StepName.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpVal_StepName.MinimumSize = new System.Drawing.Size(30, 49);
             this.CmpVal_StepName.Name = "CmpVal_StepName";
+            this.CmpVal_StepName.NameTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CmpVal_StepName.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.CmpVal_StepName.Prm_Name = "Name";
             this.CmpVal_StepName.Prm_Type = ATIK.PrmCmp.PrmType.Integer;
             this.CmpVal_StepName.Prm_Value = "";
-            this.CmpVal_StepName.Size = new System.Drawing.Size(298, 54);
+            this.CmpVal_StepName.Size = new System.Drawing.Size(398, 54);
             this.CmpVal_StepName.SplitterDistance = 25;
             this.CmpVal_StepName.TabIndex = 2;
             this.CmpVal_StepName.UseKeyPadUI = true;
             this.CmpVal_StepName.UseUserKeyPad = true;
+            this.CmpVal_StepName.ValueTextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel7
             // 
@@ -165,16 +167,16 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
             this.tableLayoutPanel7.Controls.Add(this.CmpCol_IsTitration, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.CmpCol_StepEnabled, 0, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(300, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(400, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(244, 56);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(144, 56);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // CmpCol_IsTitration
@@ -187,7 +189,7 @@ namespace L_Titrator.Pages
             this.CmpCol_IsTitration.Color_Value = System.Drawing.Color.LightGray;
             this.CmpCol_IsTitration.Enabled = false;
             this.CmpCol_IsTitration.GenParam = null;
-            this.CmpCol_IsTitration.Location = new System.Drawing.Point(123, 1);
+            this.CmpCol_IsTitration.Location = new System.Drawing.Point(145, 1);
             this.CmpCol_IsTitration.Margin = new System.Windows.Forms.Padding(1);
             this.CmpCol_IsTitration.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpCol_IsTitration.MinimumSize = new System.Drawing.Size(30, 49);
@@ -196,7 +198,7 @@ namespace L_Titrator.Pages
             this.CmpCol_IsTitration.Prm_Name = "Titration";
             this.CmpCol_IsTitration.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
             this.CmpCol_IsTitration.Prm_Value = null;
-            this.CmpCol_IsTitration.Size = new System.Drawing.Size(120, 54);
+            this.CmpCol_IsTitration.Size = new System.Drawing.Size(30, 54);
             this.CmpCol_IsTitration.SplitterDistance = 24;
             this.CmpCol_IsTitration.TabIndex = 1;
             // 
@@ -218,7 +220,7 @@ namespace L_Titrator.Pages
             this.CmpCol_StepEnabled.Prm_Name = "Enabled";
             this.CmpCol_StepEnabled.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
             this.CmpCol_StepEnabled.Prm_Value = null;
-            this.CmpCol_StepEnabled.Size = new System.Drawing.Size(120, 54);
+            this.CmpCol_StepEnabled.Size = new System.Drawing.Size(142, 54);
             this.CmpCol_StepEnabled.SplitterDistance = 24;
             this.CmpCol_StepEnabled.TabIndex = 1;
             // 
@@ -459,16 +461,17 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.Controls.Add(this.usrCtrl_Control, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.usrCtrl_Titration, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 98);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(639, 486);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
@@ -480,7 +483,7 @@ namespace L_Titrator.Pages
             this.usrCtrl_Control.Location = new System.Drawing.Point(1, 1);
             this.usrCtrl_Control.Margin = new System.Windows.Forms.Padding(1);
             this.usrCtrl_Control.Name = "usrCtrl_Control";
-            this.usrCtrl_Control.Size = new System.Drawing.Size(317, 484);
+            this.usrCtrl_Control.Size = new System.Drawing.Size(211, 484);
             this.usrCtrl_Control.TabIndex = 0;
             this.usrCtrl_Control.Visible = false;
             // 
@@ -489,10 +492,10 @@ namespace L_Titrator.Pages
             this.usrCtrl_Titration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrCtrl_Titration.Location = new System.Drawing.Point(320, 1);
+            this.usrCtrl_Titration.Location = new System.Drawing.Point(214, 1);
             this.usrCtrl_Titration.Margin = new System.Windows.Forms.Padding(1);
             this.usrCtrl_Titration.Name = "usrCtrl_Titration";
-            this.usrCtrl_Titration.Size = new System.Drawing.Size(318, 484);
+            this.usrCtrl_Titration.Size = new System.Drawing.Size(211, 484);
             this.usrCtrl_Titration.TabIndex = 1;
             this.usrCtrl_Titration.Visible = false;
             // 

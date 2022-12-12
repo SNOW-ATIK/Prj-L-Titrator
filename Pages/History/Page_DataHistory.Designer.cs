@@ -116,7 +116,9 @@ namespace L_Titrator.Pages
             this.CmpVal_Period_From = new ATIK.PrmCmp_Value();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.CmpCol_Recipe = new ATIK.PrmCmp_Collection();
+            this.tableLayoutPanel17 = new System.Windows.Forms.TableLayoutPanel();
             this.CmpCol_Target = new ATIK.PrmCmp_Collection();
+            this.CmpCol_Type = new ATIK.PrmCmp_Collection();
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_ZoomIn = new System.Windows.Forms.Button();
             this.btn_ZoomOut = new System.Windows.Forms.Button();
@@ -131,7 +133,7 @@ namespace L_Titrator.Pages
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
-            this.cmb_TitrationList = new System.Windows.Forms.ComboBox();
+            this.cmb_AnalyzeList = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.dgv_InjectionInfo = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -157,6 +159,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel10.SuspendLayout();
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
+            this.tableLayoutPanel17.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrendChart)).BeginInit();
@@ -674,16 +677,15 @@ namespace L_Titrator.Pages
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel14.ColumnCount = 1;
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel14.Controls.Add(this.CmpCol_Recipe, 0, 0);
-            this.tableLayoutPanel14.Controls.Add(this.CmpCol_Target, 0, 1);
+            this.tableLayoutPanel14.Controls.Add(this.tableLayoutPanel17, 0, 1);
             this.tableLayoutPanel14.Location = new System.Drawing.Point(0, 182);
             this.tableLayoutPanel14.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 2;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel14.Size = new System.Drawing.Size(250, 108);
             this.tableLayoutPanel14.TabIndex = 10;
             // 
@@ -710,6 +712,24 @@ namespace L_Titrator.Pages
             this.CmpCol_Recipe.TabIndex = 0;
             this.CmpCol_Recipe.SelectedUserItemChangedEvent += new ATIK.PrmCmp_Collection.SelectedUserItemChangedEventHandler(this.CmpCol_Recipe_SelectedUserItemChangedEvent);
             // 
+            // tableLayoutPanel17
+            // 
+            this.tableLayoutPanel17.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel17.ColumnCount = 2;
+            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel17.Controls.Add(this.CmpCol_Target, 1, 0);
+            this.tableLayoutPanel17.Controls.Add(this.CmpCol_Type, 0, 0);
+            this.tableLayoutPanel17.Location = new System.Drawing.Point(0, 54);
+            this.tableLayoutPanel17.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel17.Name = "tableLayoutPanel17";
+            this.tableLayoutPanel17.RowCount = 1;
+            this.tableLayoutPanel17.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel17.Size = new System.Drawing.Size(250, 54);
+            this.tableLayoutPanel17.TabIndex = 1;
+            // 
             // CmpCol_Target
             // 
             this.CmpCol_Target.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -719,7 +739,7 @@ namespace L_Titrator.Pages
             this.CmpCol_Target.Color_Name = System.Drawing.Color.LemonChiffon;
             this.CmpCol_Target.Color_Value = System.Drawing.SystemColors.Window;
             this.CmpCol_Target.GenParam = null;
-            this.CmpCol_Target.Location = new System.Drawing.Point(1, 55);
+            this.CmpCol_Target.Location = new System.Drawing.Point(126, 1);
             this.CmpCol_Target.Margin = new System.Windows.Forms.Padding(1);
             this.CmpCol_Target.MaximumSize = new System.Drawing.Size(1000, 96);
             this.CmpCol_Target.MinimumSize = new System.Drawing.Size(30, 49);
@@ -728,10 +748,33 @@ namespace L_Titrator.Pages
             this.CmpCol_Target.Prm_Name = "Target";
             this.CmpCol_Target.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
             this.CmpCol_Target.Prm_Value = null;
-            this.CmpCol_Target.Size = new System.Drawing.Size(248, 52);
+            this.CmpCol_Target.Size = new System.Drawing.Size(123, 52);
             this.CmpCol_Target.SplitterDistance = 25;
             this.CmpCol_Target.TabIndex = 0;
             this.CmpCol_Target.SelectedUserItemChangedEvent += new ATIK.PrmCmp_Collection.SelectedUserItemChangedEventHandler(this.CmpCol_Target_SelectedUserItemChangedEvent);
+            // 
+            // CmpCol_Type
+            // 
+            this.CmpCol_Type.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmpCol_Type.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CmpCol_Type.Color_Name = System.Drawing.Color.LemonChiffon;
+            this.CmpCol_Type.Color_Value = System.Drawing.SystemColors.Window;
+            this.CmpCol_Type.GenParam = null;
+            this.CmpCol_Type.Location = new System.Drawing.Point(1, 1);
+            this.CmpCol_Type.Margin = new System.Windows.Forms.Padding(1);
+            this.CmpCol_Type.MaximumSize = new System.Drawing.Size(1000, 96);
+            this.CmpCol_Type.MinimumSize = new System.Drawing.Size(30, 49);
+            this.CmpCol_Type.Name = "CmpCol_Type";
+            this.CmpCol_Type.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CmpCol_Type.Prm_Name = "Type";
+            this.CmpCol_Type.Prm_Type = ATIK.PrmCmp.PrmType.Boolean;
+            this.CmpCol_Type.Prm_Value = null;
+            this.CmpCol_Type.Size = new System.Drawing.Size(123, 52);
+            this.CmpCol_Type.SplitterDistance = 25;
+            this.CmpCol_Type.TabIndex = 0;
+            this.CmpCol_Type.SelectedUserItemChangedEvent += new ATIK.PrmCmp_Collection.SelectedUserItemChangedEventHandler(this.CmpCol_Type_SelectedUserItemChangedEvent);
             // 
             // tableLayoutPanel16
             // 
@@ -943,7 +986,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel12.Controls.Add(this.label7, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.cmb_TitrationList, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.cmb_AnalyzeList, 1, 0);
             this.tableLayoutPanel12.Location = new System.Drawing.Point(0, 27);
             this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
@@ -969,20 +1012,20 @@ namespace L_Titrator.Pages
             this.label7.Text = "List";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cmb_TitrationList
+            // cmb_AnalyzeList
             // 
-            this.cmb_TitrationList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.cmb_AnalyzeList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmb_TitrationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_TitrationList.Font = new System.Drawing.Font("Consolas", 10.5F);
-            this.cmb_TitrationList.FormattingEnabled = true;
-            this.cmb_TitrationList.Location = new System.Drawing.Point(92, 1);
-            this.cmb_TitrationList.Margin = new System.Windows.Forms.Padding(1);
-            this.cmb_TitrationList.Name = "cmb_TitrationList";
-            this.cmb_TitrationList.Size = new System.Drawing.Size(211, 25);
-            this.cmb_TitrationList.TabIndex = 8;
-            this.cmb_TitrationList.SelectedIndexChanged += new System.EventHandler(this.cmb_TitrationList_SelectedIndexChanged);
+            this.cmb_AnalyzeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_AnalyzeList.Font = new System.Drawing.Font("Consolas", 10.5F);
+            this.cmb_AnalyzeList.FormattingEnabled = true;
+            this.cmb_AnalyzeList.Location = new System.Drawing.Point(92, 1);
+            this.cmb_AnalyzeList.Margin = new System.Windows.Forms.Padding(1);
+            this.cmb_AnalyzeList.Name = "cmb_AnalyzeList";
+            this.cmb_AnalyzeList.Size = new System.Drawing.Size(211, 25);
+            this.cmb_AnalyzeList.TabIndex = 8;
+            this.cmb_AnalyzeList.SelectedIndexChanged += new System.EventHandler(this.cmb_AnalyzeList_SelectedIndexChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -1157,6 +1200,7 @@ namespace L_Titrator.Pages
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel15.ResumeLayout(false);
             this.tableLayoutPanel14.ResumeLayout(false);
+            this.tableLayoutPanel17.ResumeLayout(false);
             this.tableLayoutPanel16.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TrendChart)).EndInit();
@@ -1204,7 +1248,7 @@ namespace L_Titrator.Pages
         private DevExpress.XtraEditors.Controls.CalendarControl Calendar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cmb_TitrationList;
+        private System.Windows.Forms.ComboBox cmb_AnalyzeList;
         private System.Windows.Forms.CheckBox chk_DayTrend;
         private System.Windows.Forms.CheckBox chk_MonthTrend;
         private System.Windows.Forms.CheckBox chk_PeriodTrend;
@@ -1228,5 +1272,7 @@ namespace L_Titrator.Pages
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Analog;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
+        private ATIK.PrmCmp_Collection CmpCol_Type;
     }
 }

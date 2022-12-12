@@ -149,7 +149,7 @@ namespace L_Titrator.Pages
                 }
                 else
                 {
-                    dgv_OneDayList.Rows.Add(i, "Invalid", "", "", "");
+                    dgv_OneDayList.Rows.Add(i, "Invalid", "", "", "");            
                 }
             }
             dgv_OneDayList.ClearSelection();
@@ -252,28 +252,35 @@ namespace L_Titrator.Pages
             {
                 SelectedHistory = data[0];
 
-                if (SelectedHistory.NoOfTitrations > 0)
+                for (int i = 0; i < SelectedHistory.NoOfAnalyzes; i++)
                 {
-                    for (int i = 0; i < SelectedHistory.NoOfTitrations; i++)
-                    {
-                        string sectionName = $"{HistoryObj.Section.Titration}-{i}";
-                        cmb_TitrationList.Items.Add(sectionName);
-                    }
-                    cmb_TitrationList.SelectedIndex = 0;
+                    string sectionName = $"{HistoryObj.Section.Analyze}-{i}";
+                    cmb_AnalyzeList.Items.Add(sectionName);
                 }
+                cmb_AnalyzeList.SelectedIndex = 0;
             }
         }
 
-        private void cmb_TitrationList_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmb_AnalyzeList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int nOrder = int.Parse(((string)cmb_TitrationList.SelectedItem).Split('-')[1]);
-            if (SelectedHistory.Get_TitrationObj(nOrder, out HistoryObj.TitrationObj ttrObj) == true)
+            int nOrder = int.Parse(((string)cmb_AnalyzeList.SelectedItem).Split('-')[1]);
+            if (SelectedHistory.Get_AnalyzeObj(nOrder, out var analyzeObj) == true)
             {
-                Load_SelectedData_Summary(SelectedHistory.StartTime_Sequence, ttrObj);
-                if (ttrObj.Get_InjectedObjList(out var injObjs) == true)
+                switch (analyzeObj.MyAnalyzeType)
                 {
-                    Add_SelectedData_InjectionList(injObjs);
-                    Draw_SelectedData_TitrationGraph(ttrObj.SampleName, injObjs);
+                    case AnalyzeType.pH:
+                    case AnalyzeType.ORP:
+                        HistoryObj.TitrationObj ttrObj = (HistoryObj.TitrationObj)analyzeObj;
+                        Load_SelectedData_Summary(SelectedHistory.StartTime_Sequence, ttrObj);
+                        if (ttrObj.Get_InjectedObjList(out var injObjs) == true)
+                        {
+                            Add_SelectedData_InjectionList(injObjs);
+                            Draw_SelectedData_TitrationGraph(ttrObj.SampleName, injObjs);
+                        }
+                        break;
+
+                    case AnalyzeType.ISE:
+                        break;
                 }
             }
         }
@@ -350,7 +357,7 @@ namespace L_Titrator.Pages
 
         private void ClearBottom()
         {
-            cmb_TitrationList.Items.Clear();
+            cmb_AnalyzeList.Items.Clear();
             for (int i = 0; i < lsv_SelectedInfoSummary.Items.Count; i++)
             {
                 lsv_SelectedInfoSummary.Items[i].SubItems[1].Text = "";
@@ -412,7 +419,7 @@ namespace L_Titrator.Pages
         private void CmpCol_Recipe_SelectedUserItemChangedEvent(object sender, object changedValue)
         {
             string selectedRcpName = (string)changedValue;
-            List<string> sampleInDay = new List<string>();
+            List<AnalyzeType> typeInDay = new List<AnalyzeType>();
             List<HistoryObj> historySource;
             if (chk_DayTrend.Checked == true)
             {
@@ -430,20 +437,21 @@ namespace L_Titrator.Pages
             {
                 return;
             }
+
             historySource.ForEach(history => 
             {
                 string item = $"{history.RecipeNo}:{history.RecipeName}";
                 if (item == selectedRcpName)
                 {
-                    if (history.NoOfTitrations > 0)
+                    for (int i = 0; i < history.NoOfAnalyzes; i++)
                     {
-                        for (int i = 0; i < history.NoOfTitrations; i++)
+                        if (history.Get_AnalyzeObj(i, out var analyzeObj) == true)
                         {
-                            if (history.Get_TitrationObj(i, out var ttrObj) == true)
+                            if (analyzeObj.MyAnalyzeType != AnalyzeType.None)
                             {
-                                if (sampleInDay.Contains(ttrObj.SampleName) == false)
+                                if (typeInDay.Contains(analyzeObj.MyAnalyzeType) == false)
                                 {
-                                    sampleInDay.Add(ttrObj.SampleName);
+                                    typeInDay.Add(analyzeObj.MyAnalyzeType);
                                 }
                             }
                         }
@@ -451,18 +459,14 @@ namespace L_Titrator.Pages
                 }
             });
 
-            string initValue = sampleInDay.Count == 1 ? sampleInDay[0] : null;
-            CmpCol_Target.Init_WithOutGenPrm("Sample", sampleInDay.ToArray(), initValue);
+            AnalyzeType initValue = typeInDay.Count == 1 ? typeInDay[0] : AnalyzeType.None;
+            CmpCol_Type.Init_WithOutGenPrm("Type", typeInDay.ToArray(), initValue);
 
         }
 
-        private void CmpCol_Target_SelectedUserItemChangedEvent(object sender, object changedValue)
+        private void CmpCol_Type_SelectedUserItemChangedEvent(object sender, object changedValue)
         {
-            string[] rcpInfo = ((string)CmpCol_Recipe.Prm_Value).Split(':');
-            int rcpNo = int.Parse(rcpInfo[0]);
-            string rcpName = rcpInfo[1];
-            string sampleName = (string)changedValue;
-            List<HistoryObj> selectedHistorys = new List<HistoryObj>();
+            AnalyzeType selectedType = (AnalyzeType)changedValue;
             List<HistoryObj> historySource;
             if (chk_DayTrend.Checked == true)
             {
@@ -480,20 +484,93 @@ namespace L_Titrator.Pages
             {
                 return;
             }
+
+            string[] rcpInfo = ((string)CmpCol_Recipe.Prm_Value).Split(':');
+            int rcpNo = int.Parse(rcpInfo[0]);
+            string rcpName = rcpInfo[1];
+            List<string> sampleInDay = new List<string>();
             historySource.ForEach(history =>
             {
                 if (history.RecipeNo == rcpNo && history.RecipeName == rcpName)
                 {
-                    if (history.NoOfTitrations > 0)
+                    for (int i = 0; i < history.NoOfAnalyzes; i++)
                     {
-                        for (int i = 0; i < history.NoOfTitrations; i++)
+                        if (history.Get_AnalyzeObj(i, out var analyzeObj) == true && analyzeObj.MyAnalyzeType == selectedType)
                         {
-                            if (history.Get_TitrationObj(i, out var ttrObj) == true)
+                            string sampleName = "";
+                            switch (analyzeObj.MyAnalyzeType)
                             {
-                                if (ttrObj.SampleName == sampleName)
-                                {
-                                    selectedHistorys.Add(history);
-                                }
+                                case AnalyzeType.pH:
+                                case AnalyzeType.ORP:
+                                    sampleName = ((HistoryObj.TitrationObj)analyzeObj).SampleName;
+                                    break;
+
+                                case AnalyzeType.ISE:
+                                    break;
+                            }
+
+                            if (string.IsNullOrEmpty(sampleName) == false && sampleInDay.Contains(sampleName) == false)
+                            {
+                                sampleInDay.Add(sampleName);
+                            }
+                        }
+                    }
+                }
+            });
+
+            string initValue = sampleInDay.Count == 1 ? sampleInDay[0] : "";
+            CmpCol_Target.Init_WithOutGenPrm("Sample", sampleInDay.ToArray(), initValue);
+        }
+
+        private void CmpCol_Target_SelectedUserItemChangedEvent(object sender, object changedValue)
+        {
+            string[] rcpInfo = ((string)CmpCol_Recipe.Prm_Value).Split(':');
+            int rcpNo = int.Parse(rcpInfo[0]);
+            string rcpName = rcpInfo[1];
+            List<HistoryObj> historySource;
+            if (chk_DayTrend.Checked == true)
+            {
+                historySource = DayHistory;
+            }
+            else if (chk_MonthTrend.Checked == true)
+            {
+                historySource = MonthHistory;
+            }
+            else if (chk_PeriodTrend.Checked == true)
+            {
+                historySource = PeriodHistory;
+            }
+            else
+            {
+                return;
+            }
+
+            string selectedSample = (string)changedValue;
+            AnalyzeType selectedType = (AnalyzeType)CmpCol_Type.Prm_Value;
+            List<HistoryObj> selectedHistorys = new List<HistoryObj>();
+            historySource.ForEach(history =>
+            {
+                if (history.RecipeNo == rcpNo && history.RecipeName == rcpName)
+                {
+                    for (int i = 0; i < history.NoOfAnalyzes; i++)
+                    {
+                        if (history.Get_AnalyzeObj(i, out var analyzeObj) == true && analyzeObj.MyAnalyzeType == selectedType)
+                        {
+                            string sampleName = "";
+                            switch (analyzeObj.MyAnalyzeType)
+                            {
+                                case AnalyzeType.pH:
+                                case AnalyzeType.ORP:
+                                    sampleName = ((HistoryObj.TitrationObj)analyzeObj).SampleName;
+                                    break;
+
+                                case AnalyzeType.ISE:
+                                    break;
+                            }
+
+                            if (string.IsNullOrEmpty(sampleName) == false && selectedSample == sampleName)
+                            {
+                                selectedHistorys.Add(history);
                             }
                         }
                     }
@@ -505,24 +582,31 @@ namespace L_Titrator.Pages
                 return;
             }
 
-            InitChart(sampleName);
+            InitChart(selectedType, selectedSample);
 
             TrendSource.Clear();
             for (int i = 0; i < selectedHistorys.Count; i++)
             {
-                for (int j = 0; j < selectedHistorys[i].NoOfTitrations; j++)
+                for (int j = 0; j < selectedHistorys[i].NoOfAnalyzes; j++)
                 {
-                    if (selectedHistorys[i].Get_TitrationObj(j, out var ttrObj) == true)
+                    if (selectedHistorys[i].Get_AnalyzeObj(j, out var analyzeObj) == true)
                     {
-                        if (ttrObj.SampleName == sampleName)
+                        switch (analyzeObj.MyAnalyzeType)
                         {
-                            if (ttrObj.Get_ProperResult(out var injObj) == true)
-                            {
-                                double value = injObj.InjVol_Accum * ttrObj.ScaleFactor_VolumeToConcentration;
-                                TrendChart.Series[sampleName].Points.AddPoint(selectedHistorys[i].StartTime_Sequence, value);
+                            case AnalyzeType.pH:
+                            case AnalyzeType.ORP:
+                                HistoryObj.TitrationObj ttrObj = (HistoryObj.TitrationObj)analyzeObj;                                
+                                if (ttrObj.Get_ProperResult(out var injObj) == true)
+                                {
+                                    double value = injObj.InjVol_Accum * ttrObj.ScaleFactor_VolumeToConcentration;
+                                    TrendChart.Series[selectedSample].Points.AddPoint(selectedHistorys[i].StartTime_Sequence, value);
 
-                                TrendSource.Add(selectedHistorys[i].StartTime_Sequence, value);
-                            }
+                                    TrendSource.Add(selectedHistorys[i].StartTime_Sequence, value);
+                                }
+                                break;
+
+                            case AnalyzeType.ISE:
+                                break;
                         }
                     }
                 }
@@ -535,7 +619,7 @@ namespace L_Titrator.Pages
                 return;
             }
 
-            var series = TrendChart.Series[sampleName];
+            var series = TrendChart.Series[selectedSample];
             double dMinVal = TrendSource.Values.Min() * 0.9;
             double dMaxVal = TrendSource.Values.Max() * 1.1;
             var diagram = (XYDiagram)TrendChart.Diagram;
@@ -545,6 +629,7 @@ namespace L_Titrator.Pages
         private void Load_DayTrend()
         {
             CmpCol_Recipe.Init_WithOutGenPrm("Recipe", null);
+            CmpCol_Type.Init_WithOutGenPrm("Type", null);
             CmpCol_Target.Init_WithOutGenPrm("Sample", null);
 
             if (DayHistory.Count == 0)
@@ -557,7 +642,7 @@ namespace L_Titrator.Pages
             List<string> rcpInDay = new List<string>();
             DayHistory.ForEach(history =>
             {
-                if (history.NoOfTitrations > 0)
+                if (history.NoOfAnalyzes > 0)
                 {
                     string item = $"{history.RecipeNo}:{history.RecipeName}";
                     if (rcpInDay.Contains(item) == false)
@@ -574,12 +659,14 @@ namespace L_Titrator.Pages
         private void Load_MonthTrend()
         {
             CmpCol_Recipe.Init_WithOutGenPrm("Recipe", null);
+            CmpCol_Type.Init_WithOutGenPrm("Type", null);
             CmpCol_Target.Init_WithOutGenPrm("Sample", null);
 
             int year = CurYearMonthInfo.CurYear;
             int month = CurYearMonthInfo.CurMonth;
 
-            LT_History.LoadMonth(year, month).Values.ToList().ForEach(historys => MonthHistory.AddRange(historys));
+            MonthHistory.Clear();
+            LT_History.LoadMonth(year, month)?.Values.ToList().ForEach(historys => MonthHistory.AddRange(historys));
             if (MonthHistory.Count == 0)
             {
                 return;
@@ -589,7 +676,7 @@ namespace L_Titrator.Pages
             List<string> rcpInMonth = new List<string>();
             MonthHistory.ForEach(history =>
             {
-                if (history.NoOfTitrations > 0)
+                if (history.NoOfAnalyzes > 0)
                 {
                     string item = $"{history.RecipeNo}:{history.RecipeName}";
                     if (rcpInMonth.Contains(item) == false)
@@ -637,6 +724,7 @@ namespace L_Titrator.Pages
                 chk_MonthTrend.Checked = !chk_PeriodTrend.Checked;
 
                 CmpCol_Recipe.Init_WithOutGenPrm("Recipe", null);
+                CmpCol_Type.Init_WithOutGenPrm("Type", null);
                 CmpCol_Target.Init_WithOutGenPrm("Sample", null);
             }
         }
@@ -719,7 +807,7 @@ namespace L_Titrator.Pages
             List<string> rcpInPeriod = new List<string>();
             PeriodHistory.ForEach(history =>
             {
-                if (history.NoOfTitrations > 0)
+                if (history.NoOfAnalyzes > 0)
                 {
                     string item = $"{history.RecipeNo}:{history.RecipeName}";
                     if (rcpInPeriod.Contains(item) == false)
@@ -739,10 +827,20 @@ namespace L_Titrator.Pages
             TrendChart.ClearCache();
         }
 
-        private void InitChart(string sampleName)
+        private void InitChart(AnalyzeType type, string sampleName)
         {
             ClearChart();
 
+            // TBD. Init chart by AnalyzeType
+            switch (type)
+            {
+                case AnalyzeType.pH:
+                case AnalyzeType.ORP:
+                    break;
+
+                case AnalyzeType.ISE:
+                    break;
+            }
             TrendChart.Series.Add(sampleName, DevExpress.XtraCharts.ViewType.Line);
             TrendChart.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
             TrendChart.Series[sampleName].ArgumentScaleType = ScaleType.DateTime;

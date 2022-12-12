@@ -64,7 +64,7 @@ namespace L_Titrator
                 RecipeObj loaded = (RecipeObj)xmlSerializer.Deserialize(sr);
                 if (loaded != null)
                 {
-                    loaded.Init_TitrationRef();
+                    loaded.Load_AnalyzeRef();
                     RecipeDic.Add(loaded.No, loaded);
                 }
                 sr.Close();
@@ -115,14 +115,14 @@ namespace L_Titrator
                 {
                     seq.Steps.ForEach(step =>
                     {
-                        if (step.IsTitration == true)
+                        if (step.IsAnalyzeStep == true)
                         {
-                            string ttrRefFileName = $@"{PreDef.Path_Recipe_TitrationRef}\{step.TitrationRefFileName}";
-                            XmlSerializer xmlTtr = new XmlSerializer(typeof(TitrationRef));
-                            StreamWriter swTtr = new StreamWriter(ttrRefFileName);
-                            xmlTtr.Serialize(swTtr, step.TitrationRef);
-                            swTtr.Close();
-                            swTtr.Dispose();
+                            string ttrRefFileName = $@"{PreDef.Path_Recipe_AnalyzeRef}\{step.AnalyzeRefFileName}";
+                            XmlSerializer xmlAnalyze = new XmlSerializer(typeof(AnalyzeRef));
+                            StreamWriter swAnalyze = new StreamWriter(ttrRefFileName);
+                            xmlAnalyze.Serialize(swAnalyze, step.AnalyzeRefObj);
+                            swAnalyze.Close();
+                            swAnalyze.Dispose();
                         }
                     });
                 });
@@ -222,26 +222,26 @@ namespace L_Titrator
             return RecipeDic.Values.Where(rcp => rcp.Name == rcpName).ToList().Count > 0;
         }
 
-        public static List<TitrationRef> Get_AllTitrationRef(int rcpNo)
+        public static List<AnalyzeRef> Get_AllAnalyzeRef(int rcpNo)
         {
             if (RecipeExist(rcpNo) == false)
             {
                 return null;
             }
 
-            List<TitrationRef> lst = new List<TitrationRef>();
+            List<AnalyzeRef> lst = new List<AnalyzeRef>();
             RecipeDic[rcpNo].Sequences.ToList().ForEach(seq => seq.Steps.ForEach(step =>
             {
-                if (step.IsTitration == true && step.Enabled == true)
+                if (step.IsAnalyzeStep == true && step.Enabled == true)
                 {
                     //if (step.TitrationRef != null)
                     //{
                     //    lst.Add(step.TitrationRef);
                     //}
-                    TitrationRef titrationRef = Load_TitrationRef(step);
-                    if (titrationRef != null)
+                    AnalyzeRef analyzeRef = Load_AnalyzeRef(PreDef.Path_Recipe_AnalyzeRef, step.AnalyzeRefFileName);
+                    if (analyzeRef != null)
                     {
-                        lst.Add(titrationRef);
+                        lst.Add(analyzeRef);
                     }
                 }
             }));
@@ -253,7 +253,7 @@ namespace L_Titrator
         {
             PreDefinedSeqDic.Clear();
 
-            List<string> fileNames = Directory.GetFiles($@"{PreDef.Path_PreDefinedSeq}").ToList();
+            List<string> fileNames = Directory.GetFiles($@"{PreDef.Path_PreFixSequence}").ToList();
             fileNames.ForEach(filename =>
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Sequence));
@@ -263,9 +263,9 @@ namespace L_Titrator
                 {
                     if (loaded.Steps?.Count > 0)
                     {
-                        if (loaded.Steps[0].IsTitration == true)
+                        if (loaded.Steps[0].IsAnalyzeStep == true)
                         {
-                            loaded.Steps[0].TitrationRef = new TitrationRef();
+                            loaded.Steps[0].Load_AnalyzeRef(PreDef.Path_PreFixAnalyzeRef);
                         }
                     }
                     PreDefinedSeqDic.Add(loaded.Name, loaded);
@@ -302,23 +302,27 @@ namespace L_Titrator
 
             copiedSeq = (Sequence)PreDefinedSeqDic[seqName].Clone();
 
+            if (copiedSeq.Steps.Where(step => step.IsAnalyzeStep == true).Count() > 0)
+            {
+                // Analyze Seq.일 경우 PreFix Ref 파일을 Load한 뒤에 파일명을 바꿔주어 실제 사용할 경로에 저장되도록 한다.
+                copiedSeq.Steps[0].Load_AnalyzeRef(PreDef.Path_PreFixAnalyzeRef);
+
+                string fileName = $"{DateTime.Now:yyyyMMddHHmmss}_{copiedSeq.Steps[0].AnalyzeRefObj.Type}.xml";
+                copiedSeq.Steps[0].AnalyzeRefFileName = fileName;
+            }
+
             return true; 
         }
 
-        // Titration Reference
-        public static TitrationRef Load_TitrationRef(Step curStep)
+        public static AnalyzeRef Load_AnalyzeRef(string filePath, string fileName)
         {
-            return Load_TitrationRef($@"{PreDef.Path_Recipe_TitrationRef}\{curStep.TitrationRefFileName}");
-        }
-
-        public static TitrationRef Load_TitrationRef(string fileName)
-        {
-            TitrationRef loaded = null;
-            if (File.Exists(fileName) == true)
+            AnalyzeRef loaded = null;
+            string fileFullName = Path.Combine(filePath, fileName);
+            if (File.Exists(fileFullName) == true)
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(TitrationRef));
-                StreamReader sr = new StreamReader(fileName);
-                loaded = (TitrationRef)xmlSerializer.Deserialize(sr);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(AnalyzeRef));
+                StreamReader sr = new StreamReader(fileFullName);
+                loaded = (AnalyzeRef)xmlSerializer.Deserialize(sr);
                 sr.Close();
                 sr.Dispose();
             }
@@ -358,7 +362,7 @@ namespace L_Titrator
                 for (int j = 0; j < SeqObj.Steps.Count; j++)
                 {
                     Step step = SeqObj.Get_Step(j);
-                    if (step.IsTitration == true)
+                    if (step.IsAnalyzeStep == true)
                     {
                         break;  // Skip Titration condition
                     }

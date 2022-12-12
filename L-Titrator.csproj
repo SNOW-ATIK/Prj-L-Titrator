@@ -86,14 +86,16 @@
     <Compile Include="Forms\Frm_ValveControl.Designer.cs">
       <DependentUpon>Frm_ValveControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="History\LT_History_HistoryObj.cs" />
+    <Compile Include="History\LT_History_HistoryObj_Titration.cs" />
     <Compile Include="LT_Alarm.cs" />
-    <Compile Include="LT_History.cs" />
+    <Compile Include="History\LT_History.cs" />
     <Compile Include="LT_LifeTime.cs" />
-    <Compile Include="LT_Recipe.cs" />
+    <Compile Include="Recipe\LT_Recipe.cs" />
     <Compile Include="LT_Collections.cs" />
     <Compile Include="LT_Config.cs" />
     <Compile Include="LT_Predefined.cs" />
-    <Compile Include="LT_Recipe_XML.cs" />
+    <Compile Include="Recipe\LT_Recipe_XML.cs" />
     <Compile Include="Pages\Device\SubPage_Device_Overview.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +134,12 @@
     </Compile>
     <Compile Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_Control_EventHandler.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_ISE.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_ISE.Designer.cs">
+      <DependentUpon>UsrCtrl_Recipe_StepDetail_ISE.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_Titration.cs">
       <SubType>UserControl</SubType>
@@ -334,6 +342,9 @@
     <EmbeddedResource Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_Control.resx">
       <DependentUpon>UsrCtrl_Recipe_StepDetail_Control.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_ISE.resx">
+      <DependentUpon>UsrCtrl_Recipe_StepDetail_ISE.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Setting\Recipe\UsrCtrl_Recipe_StepDetail_Titration.resx">
       <DependentUpon>UsrCtrl_Recipe_StepDetail_Titration.cs</DependentUpon>
     </EmbeddedResource>
@@ -477,6 +488,7 @@
   <ItemGroup>
     <None Include="Resources\L_TItrator_Fluidics.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>RD /S /Q "$(TargetDir)de"

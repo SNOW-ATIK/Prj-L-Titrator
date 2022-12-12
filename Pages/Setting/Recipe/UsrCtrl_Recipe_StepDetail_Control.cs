@@ -146,7 +146,7 @@ namespace L_Titrator.Pages
                 pnl_Mixer.Controls.OfType<UsrCtrl_Analog>().ToList().ForEach(ctrl => ctrl.Set_Unknown());
             }
 
-            if (RefStep.IsTitration == true)
+            if (RefStep.IsAnalyzeStep == true)
             {
                 tbl_StepEndCheck.Enabled = false;
             }

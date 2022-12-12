@@ -81,16 +81,36 @@ namespace L_Titrator.Pages
             Step stepRef = RefSequence.Get_Step(SelectedStepNo);
             CmpVal_StepName.Prm_Value = stepRef.Name;
             CmpCol_StepEnabled.Prm_Value = stepRef.Enabled;
-            CmpCol_IsTitration.Prm_Value = stepRef.IsTitration;
-            if (stepRef.IsTitration == true)
+            CmpCol_IsTitration.Prm_Value = stepRef.IsAnalyzeStep;
+            if (stepRef.IsAnalyzeStep == true)
             {
                 // Show Titration Page
-                usrCtrl_Titration.Visible = true;
                 usrCtrl_Control.Visible = false;
-                tableLayoutPanel2.ColumnStyles[0].Width = 0;
-                tableLayoutPanel2.ColumnStyles[1].Width = 100;
+                switch (stepRef.AnalyzeRefObj.Type)
+                {
+                    case AnalyzeType.pH:
+                    case AnalyzeType.ORP:
+                        // TBD. usrCtrl_ISE.Visible = false;
+                        usrCtrl_Titration.Visible = true;
 
-                usrCtrl_Titration.Parse(stepRef);
+                        tableLayoutPanel2.ColumnStyles[0].Width = 0;
+                        tableLayoutPanel2.ColumnStyles[1].Width = 100;
+                        tableLayoutPanel2.ColumnStyles[2].Width = 0;
+
+                        usrCtrl_Titration.Parse(stepRef);
+                        break;
+
+                    case AnalyzeType.ISE:
+                        // TBD. usrCtrl_ISE.Visible = true;
+                        usrCtrl_Titration.Visible = false;
+
+                        tableLayoutPanel2.ColumnStyles[0].Width = 0;
+                        tableLayoutPanel2.ColumnStyles[1].Width = 0;
+                        tableLayoutPanel2.ColumnStyles[2].Width = 100;
+
+                        // TBD. usrCtrl_ISE.Parse(stepRef);
+                        break;
+                }
 
                 // Disable Add or Remove buttons
                 btn_Add.Enabled = false;
@@ -108,10 +128,12 @@ namespace L_Titrator.Pages
                 usrCtrl_Control.SetMergedInfo(merged);
 
                 // Show Control Page
-                usrCtrl_Titration.Visible = false;
                 usrCtrl_Control.Visible = true;
+                usrCtrl_Titration.Visible = false;
+                // TBD. usrCtrl_ISE.Visible = false;
                 tableLayoutPanel2.ColumnStyles[0].Width = 100;
                 tableLayoutPanel2.ColumnStyles[1].Width = 0;
+                tableLayoutPanel2.ColumnStyles[2].Width = 0;
 
                 usrCtrl_Control.Parse(stepRef);
 
@@ -166,7 +188,7 @@ namespace L_Titrator.Pages
                     for (int j = 0; j < SeqObj.Steps.Count; j++)
                     {
                         Step step = SeqObj.Get_Step(j);
-                        if (step.IsTitration == true)
+                        if (step.IsAnalyzeStep == true)
                         {
                             break;  // Skip Titration condition
                         }
@@ -479,6 +501,7 @@ namespace L_Titrator.Pages
             if (usrCtrl_Titration.Visible == true)
             {
                 ParamPageUtil.GetAll_IComps(this).ForEach(cmp => cmp.Color_Name = Color.LemonChiffon);
+                usrCtrl_Titration.Update_RefObject_ToCompare();
             }
         }
 

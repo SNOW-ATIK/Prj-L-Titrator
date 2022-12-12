@@ -39,6 +39,14 @@ namespace L_Titrator
         Error
     }
 
+    public enum AnalyzeType
+    { 
+        None,
+        pH,
+        ORP,
+        ISE
+    }
+
     public enum IOType
     { 
         Input,

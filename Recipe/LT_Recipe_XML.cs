@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ATIK.Device.ATIK_MainBoard;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.Diagnostics;
-
-using ATIK.Device.ATIK_MainBoard;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace L_Titrator
 {
@@ -39,7 +36,7 @@ namespace L_Titrator
             return null;
         }
 
-        public void Init_TitrationRef()
+        public void Load_AnalyzeRef()
         {
             if (Sequences == null || Sequences.Count == 0)
             {
@@ -54,9 +51,9 @@ namespace L_Titrator
                 }
                 seq.Steps.ForEach(step =>
                 {
-                    if (step.IsTitration == true)
+                    if (step.IsAnalyzeStep == true)
                     {
-                        step.Load_TitrationRef();
+                        step.Load_AnalyzeRef(PreDef.Path_Recipe_AnalyzeRef);
                         //TitrationRefList.Add(step.TitrationRef);
                     }
                 });
@@ -199,13 +196,13 @@ namespace L_Titrator
                                 bStepEndCheck_Syringe_Enabled = Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled == other.Sequences[i].Steps[j].StepEndCheck.PositionSync.Enabled;
                                 varSame.Add("bStepEndCheck_Syringe_Enabled", bStepEndCheck_Syringe_Enabled);
                             }
-                            bool bIsTitration = Sequences[i].Steps[j].IsTitration == other.Sequences[i].Steps[j].IsTitration;
-                            varSame.Add("IsTitration", bIsTitration);
+                            bool bIsAnalyzeStep = Sequences[i].Steps[j].IsAnalyzeStep == other.Sequences[i].Steps[j].IsAnalyzeStep;
+                            varSame.Add("IsAnalyzeStep", bIsAnalyzeStep);
                             bool bName = Sequences[i].Steps[j].Name == other.Sequences[i].Steps[j].Name;
                             varSame.Add("Name", bName);
                             bool bNo = Sequences[i].Steps[j].No == other.Sequences[i].Steps[j].No;
                             varSame.Add("No", bNo);
-                            bool bTitrationRef = Sequences[i].Steps[j].TitrationRef == other.Sequences[i].Steps[j].TitrationRef;
+                            bool bTitrationRef = Sequences[i].Steps[j].AnalyzeRefObj == other.Sequences[i].Steps[j].AnalyzeRefObj;
                             varSame.Add("TitrationRef", bTitrationRef);
 
                             if (varSame.ContainsValue(false) == true)
@@ -370,8 +367,8 @@ namespace L_Titrator
         [XmlElement("EndCheckInThisStep")]
         public bool EndCheckInThisStep { get; set; }
 
-        [XmlElement("TitrationRefFileName")]
-        public string TitrationRefFileName { get; set; }
+        [XmlElement("AnalyzeRefFileName")]
+        public string AnalyzeRefFileName { get; set; }
 
         [XmlArray("ValveList")]
         [XmlArrayItem("Valve", typeof(Valve))]
@@ -388,7 +385,9 @@ namespace L_Titrator
         [XmlElement("StepEndCheck")]
         public StepEndCheck StepEndCheck;
 
-        public TitrationRef TitrationRef = new TitrationRef();
+        [XmlIgnore]
+        public AnalyzeRef AnalyzeRefObj;
+        //public TitrationRef TitrationRef = new TitrationRef();
 
         public bool Control_Valve
         {
@@ -426,11 +425,11 @@ namespace L_Titrator
             }
         }
 
-        public bool IsTitration
+        public bool IsAnalyzeStep
         {
             get
             {
-                return TitrationRefFileName != null && TitrationRefFileName != "";
+                return string.IsNullOrEmpty(AnalyzeRefFileName) == false;
             }
         }
 
@@ -438,18 +437,18 @@ namespace L_Titrator
         {
         }
 
-        public void Create(int stepNo, string titrationRef)
+        public void Create(int stepNo, string analyzeRef)
         {
             No = stepNo;
             Name = $"Step {stepNo}";
-            TitrationRefFileName = titrationRef;
+            AnalyzeRefFileName = analyzeRef;
 
             Enabled = true;
 
             var mbDrv = ATIK_MainBoard.Get_Driver(DefinedMainBoards.L_Titrator);
             DrvMB_L_Titrator drvLT = (DrvMB_L_Titrator)mbDrv;
 
-            if (string.IsNullOrEmpty(TitrationRefFileName) == true)
+            if (string.IsNullOrEmpty(AnalyzeRefFileName) == true)
             {
                 // Valves (Solenoids)
                 Valves = new List<Valve>();
@@ -486,15 +485,15 @@ namespace L_Titrator
             }
             else
             {
-                TitrationRef = new TitrationRef();
+                //TitrationRef = new TitrationRef();
             }
 
             StepEndCheck = new StepEndCheck();
         }
 
-        public void Load_TitrationRef()
+        public void Load_AnalyzeRef(string filePath)
         {
-            TitrationRef = LT_Recipe.Load_TitrationRef(this);
+            AnalyzeRefObj = LT_Recipe.Load_AnalyzeRef(filePath, AnalyzeRefFileName);
         }
 
         public object Clone()
@@ -504,7 +503,7 @@ namespace L_Titrator
             clone.Name = Name;
             clone.Enabled = Enabled;
             clone.EndCheckInThisStep = EndCheckInThisStep;
-            clone.TitrationRefFileName = TitrationRefFileName;
+            clone.AnalyzeRefFileName = AnalyzeRefFileName;
             clone.Valves = new List<Valve>();
             if (Valves != null && Valves.Count > 0)
             {
@@ -533,9 +532,9 @@ namespace L_Titrator
             {
                 clone.StepEndCheck = (StepEndCheck)StepEndCheck.Clone();
             }
-            if (TitrationRef != null)
+            if (AnalyzeRefObj != null)
             {
-                clone.TitrationRef = (TitrationRef)TitrationRef.Clone();
+                clone.AnalyzeRefObj = (AnalyzeRef)AnalyzeRefObj.Clone();
             }
             return clone;
         }
@@ -555,7 +554,7 @@ namespace L_Titrator
                        Name == other.Name &&
                        Enabled == other.Enabled &&
                        EndCheckInThisStep == other.EndCheckInThisStep &&
-                       TitrationRefFileName == other.TitrationRefFileName &&
+                       AnalyzeRefFileName == other.AnalyzeRefFileName &&
                        Valves.SequenceEqual(other.Valves) &&
                        Syringes.SequenceEqual(other.Syringes) &&
                        Mixers.SequenceEqual(other.Mixers) &&
@@ -563,8 +562,8 @@ namespace L_Titrator
                        Control_Valve == other.Control_Valve &&
                        Control_Syringe == other.Control_Syringe &&
                        Control_Mixer == other.Control_Mixer &&
-                       IsTitration == other.IsTitration &&
-                       TitrationRef == other.TitrationRef);
+                       IsAnalyzeStep == other.IsAnalyzeStep &&
+                       AnalyzeRefObj == other.AnalyzeRefObj);
             return rtn;
         }
 
@@ -575,7 +574,7 @@ namespace L_Titrator
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             hashCode = hashCode * -1521134295 + Enabled.GetHashCode();
             hashCode = hashCode * -1521134295 + EndCheckInThisStep.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TitrationRefFileName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AnalyzeRefFileName);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Valve>>.Default.GetHashCode(Valves);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Syringe>>.Default.GetHashCode(Syringes);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Mixer>>.Default.GetHashCode(Mixers);
@@ -583,7 +582,7 @@ namespace L_Titrator
             hashCode = hashCode * -1521134295 + Control_Valve.GetHashCode();
             hashCode = hashCode * -1521134295 + Control_Syringe.GetHashCode();
             hashCode = hashCode * -1521134295 + Control_Mixer.GetHashCode();
-            hashCode = hashCode * -1521134295 + IsTitration.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsAnalyzeStep.GetHashCode();
             return hashCode;
         }
 
@@ -1229,8 +1228,94 @@ namespace L_Titrator
         }
     }
 
+
     [Serializable]
-    [XmlRoot("TitrationRef")]
+    [XmlRoot("AnalyzeRef")]
+    public class AnalyzeRef : ICloneable, IEquatable<AnalyzeRef>
+    {
+        [XmlElement("SampleName")]
+        public string SampleName { get; set; }
+
+        [XmlElement("Type")]
+        public AnalyzeType Type { get; set; }
+
+        [XmlElement("TitrationRef")]
+        public TitrationRef TtrRef;
+
+        //[XmlElement("ISE_Ref")]
+        //public ISERef IseRef;
+
+        public object Clone()
+        {
+            AnalyzeRef clone = new AnalyzeRef();
+            clone.SampleName = SampleName;
+            clone.Type = Type;
+            switch (Type)
+            {
+                case AnalyzeType.pH:
+                case AnalyzeType.ORP:
+                    clone.TtrRef = (TitrationRef)TtrRef.Clone();
+                    break;
+
+                case AnalyzeType.ISE:
+                    break;
+            }
+
+            return clone;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public bool Equals(AnalyzeRef other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (Type != other.Type)
+            {
+                return false;
+            }
+
+            bool isAnalyzeObjSame = false;
+            switch (Type)
+            {
+                case AnalyzeType.pH:
+                case AnalyzeType.ORP:
+                    isAnalyzeObjSame = (TtrRef == other.TtrRef);
+                    break;
+
+                case AnalyzeType.ISE:
+                    break;
+            }
+            return isAnalyzeObjSame;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1434134619;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SampleName);
+            hashCode = hashCode * -1521134295 + Type.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<TitrationRef>.Default.GetHashCode(TtrRef);
+            return hashCode;
+        }
+
+        public static bool operator ==(AnalyzeRef left, AnalyzeRef right)
+        {
+            return EqualityComparer<AnalyzeRef>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(AnalyzeRef left, AnalyzeRef right)
+        {
+            return !(left == right);
+        }
+    }
+
+    [Serializable]
+    //[XmlRoot("TitrationRef")]
     public class TitrationRef : ICloneable, IEquatable<TitrationRef>
     {
         [XmlElement("SampleName")]

@@ -14,8 +14,8 @@ namespace L_Titrator.Pages
 {
     public partial class UsrCtrl_Recipe_StepDetail_Titration : UserControl, IAuthority
     {
-        private TitrationRef RefTitration;
-        private TitrationRef OrgTitration_ToCompare;
+        private TitrationRef Ref_TtrCfg;               // 수정 대상
+        private TitrationRef Org_TtrCfg_ToCompare;     // 비교 원본 (cloned)
         private Step RefStep;
         private Step OrgStep_ToCompare;
 
@@ -29,38 +29,38 @@ namespace L_Titrator.Pages
             RefStep = stepRef;
             OrgStep_ToCompare = (Step)RefStep.Clone();
 
-            RefTitration = RefStep.TitrationRef;
-            OrgTitration_ToCompare = (TitrationRef)RefTitration.Clone();
+            Ref_TtrCfg = RefStep.AnalyzeRefObj.TtrRef;
+            Org_TtrCfg_ToCompare = OrgStep_ToCompare.AnalyzeRefObj.TtrRef;
 
-            if (RefTitration != null)
+            if (Ref_TtrCfg != null)
             {
-                CmpVal_RefFile.Prm_Value = stepRef.TitrationRefFileName;
-                CmpVal_SampleName.Prm_Value = RefTitration.SampleName;
-                CmpVal_ReagentName.Prm_Value = RefTitration.InjectionInfo.ReagentName;
-                CmpVal_ScaleFactor.Prm_Value = RefTitration.ScaleFactor;
-                CmpVal_DisplayUnit.Prm_Value = RefTitration.ResultUnit;
+                CmpVal_RefFile.Prm_Value = stepRef.AnalyzeRefFileName;
+                CmpVal_SampleName.Prm_Value = Ref_TtrCfg.SampleName;
+                CmpVal_ReagentName.Prm_Value = Ref_TtrCfg.InjectionInfo.ReagentName;
+                CmpVal_ScaleFactor.Prm_Value = Ref_TtrCfg.ScaleFactor;
+                CmpVal_DisplayUnit.Prm_Value = Ref_TtrCfg.ResultUnit;
 
-                CmpVal_MixingTime_Offset.Prm_Value = RefTitration.MixingTime_AfterOffset;
-                CmpVal_MixingTime_General.Prm_Value = RefTitration.MixingTime_General;
+                CmpVal_MixingTime_Offset.Prm_Value = Ref_TtrCfg.MixingTime_AfterOffset;
+                CmpVal_MixingTime_General.Prm_Value = Ref_TtrCfg.MixingTime_General;
 
-                CmpCol_Sensor.Prm_Value = RefTitration.AnalogInfo.AnalogInputLogicalName;
-                CmpVal_Analog_Target.Prm_Value = RefTitration.AnalogInfo.TargetValue;
-                CmpVal_Analog_End.Prm_Value = RefTitration.AnalogInfo.EndValue;
+                CmpCol_Sensor.Prm_Value = Ref_TtrCfg.AnalogInfo.AnalogInputLogicalName;
+                CmpVal_Analog_Target.Prm_Value = Ref_TtrCfg.AnalogInfo.TargetValue;
+                CmpVal_Analog_End.Prm_Value = Ref_TtrCfg.AnalogInfo.EndValue;
 
-                CmpCol_Syringe.Prm_Value = RefTitration.InjectionInfo.ReagentSyringeLogicalName;
-                CmpVal_MaxIteration.Prm_Value = RefTitration.MaxIterationCount;
-                CmpVal_Offset.Prm_Value = RefTitration.InjectionInfo.Offset;
-                CmpVal_Change_LargeToMiddle.Prm_Value = RefTitration.InjectionInfo.IncThreshold_ChangeToMiddle;
-                CmpVal_Change_MiddleToSmall.Prm_Value = RefTitration.InjectionInfo.IncThreshold_ChangeToSmall;
-                CmpVal_Inj_Large.Prm_Value = RefTitration.InjectionInfo.Inc_Large;
-                CmpVal_Inj_Middle.Prm_Value = RefTitration.InjectionInfo.Inc_Middle;
-                CmpVal_Inj_Small.Prm_Value = RefTitration.InjectionInfo.Inc_Small;
-                CmpCol_EnableInterpolation.Prm_Value = RefTitration.EnableInterpolation;
+                CmpCol_Syringe.Prm_Value = Ref_TtrCfg.InjectionInfo.ReagentSyringeLogicalName;
+                CmpVal_MaxIteration.Prm_Value = Ref_TtrCfg.MaxIterationCount;
+                CmpVal_Offset.Prm_Value = Ref_TtrCfg.InjectionInfo.Offset;
+                CmpVal_Change_LargeToMiddle.Prm_Value = Ref_TtrCfg.InjectionInfo.IncThreshold_ChangeToMiddle;
+                CmpVal_Change_MiddleToSmall.Prm_Value = Ref_TtrCfg.InjectionInfo.IncThreshold_ChangeToSmall;
+                CmpVal_Inj_Large.Prm_Value = Ref_TtrCfg.InjectionInfo.Inc_Large;
+                CmpVal_Inj_Middle.Prm_Value = Ref_TtrCfg.InjectionInfo.Inc_Middle;
+                CmpVal_Inj_Small.Prm_Value = Ref_TtrCfg.InjectionInfo.Inc_Small;
+                CmpCol_EnableInterpolation.Prm_Value = Ref_TtrCfg.EnableInterpolation;
 
-                CmpCol_VLD_Enabled.Prm_Value = RefTitration.ValidationInfo.Enabled;
-                CmpVal_VLD_Ref.Prm_Value = RefTitration.ValidationInfo.ReferenceValue;
-                CmpVal_VLD_Low.Prm_Value = RefTitration.ValidationInfo.Limit_Low;
-                CmpVal_VLD_High.Prm_Value = RefTitration.ValidationInfo.Limit_High;
+                CmpCol_VLD_Enabled.Prm_Value = Ref_TtrCfg.ValidationInfo.Enabled;
+                CmpVal_VLD_Ref.Prm_Value = Ref_TtrCfg.ValidationInfo.ReferenceValue;
+                CmpVal_VLD_Low.Prm_Value = Ref_TtrCfg.ValidationInfo.Limit_Low;
+                CmpVal_VLD_High.Prm_Value = Ref_TtrCfg.ValidationInfo.Limit_High;
             }
         }
 
@@ -143,35 +143,42 @@ namespace L_Titrator.Pages
             PrmCmp_Value cmpVal = (PrmCmp_Value)sender;
             string sOld = (string)oldValue;
             string sOrg = string.Empty;
-            string sNew = sOld;
             bool bEnbSpecialKeys = cmpVal.Prm_Name == "Display Unit";
             Frm_StrKeyPad sKeyPad = new Frm_StrKeyPad(cmpVal.Prm_Name, sOld, bEnbSpecialKeys);
             if (sKeyPad.ShowDialog() == DialogResult.OK)
             {
-                sNew = sKeyPad.NewValue;
+                string sNew = sKeyPad.NewValue;
+                
                 switch (cmpVal.Prm_Name)
                 {
                     case "Reference File":
-                        RefStep.TitrationRefFileName = sKeyPad.NewValue;
-                        sOrg = OrgStep_ToCompare.TitrationRefFileName;
+                        string endWith = sNew.Substring(sNew.Length - 4, 4);
+                        if (endWith.ToUpper() != ".XML")
+                        {
+                            sNew += ".xml";
+                        }
+                        RefStep.AnalyzeRefFileName = sNew;
+                        sOrg = OrgStep_ToCompare.AnalyzeRefFileName;
                         break;
 
                     case "Sample":
-                        RefTitration.SampleName = sKeyPad.NewValue;
-                        sOrg = OrgTitration_ToCompare.SampleName;
+                        Ref_TtrCfg.SampleName = sNew;
+                        sOrg = Org_TtrCfg_ToCompare.SampleName;
+
+                        RefStep.AnalyzeRefObj.SampleName = sNew;    // AnalyzeRef와 TitrationRef의 SampleName을 통일하기 위해 강제 할당한다.
                         break;
 
                     case "Reagent":
-                        RefTitration.InjectionInfo.ReagentName = sKeyPad.NewValue;
-                        sOrg = OrgTitration_ToCompare.InjectionInfo.ReagentName;
+                        Ref_TtrCfg.InjectionInfo.ReagentName = sNew;
+                        sOrg = Org_TtrCfg_ToCompare.InjectionInfo.ReagentName;
                         break;
 
                     case "Display Unit":
-                        RefTitration.ResultUnit = sKeyPad.NewValue;
-                        sOrg = OrgTitration_ToCompare.ResultUnit;
+                        Ref_TtrCfg.ResultUnit = sNew;
+                        sOrg = Org_TtrCfg_ToCompare.ResultUnit;
                         break;
                 }
-                cmpVal.Prm_Value = sKeyPad.NewValue;
+                cmpVal.Prm_Value = sNew;
                 cmpVal.Color_Name = sNew == sOrg ? Color.LemonChiffon : Color.DarkOrange;
             }
         }
@@ -188,78 +195,78 @@ namespace L_Titrator.Pages
                 switch (cmpVal.Prm_Name)
                 {
                     case "Scale Factor":
-                        RefTitration.ScaleFactor = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.ScaleFactor;
+                        Ref_TtrCfg.ScaleFactor = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.ScaleFactor;
                         break;
 
                     case "After Offset":
-                        RefTitration.MixingTime_AfterOffset = (int)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.MixingTime_AfterOffset;
+                        Ref_TtrCfg.MixingTime_AfterOffset = (int)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.MixingTime_AfterOffset;
                         break;
 
                     case "General":
-                        RefTitration.MixingTime_General = (int)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.MixingTime_General;
+                        Ref_TtrCfg.MixingTime_General = (int)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.MixingTime_General;
                         break;
 
                     case "Target [mV]":
-                        RefTitration.AnalogInfo.TargetValue = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.AnalogInfo.TargetValue;
+                        Ref_TtrCfg.AnalogInfo.TargetValue = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.AnalogInfo.TargetValue;
                         break;
 
                     case "End [mV]":
-                        RefTitration.AnalogInfo.EndValue = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.AnalogInfo.EndValue;
+                        Ref_TtrCfg.AnalogInfo.EndValue = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.AnalogInfo.EndValue;
                         break;
 
                     case "Max Iteration":
-                        RefTitration.MaxIterationCount = (int)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.MaxIterationCount;
+                        Ref_TtrCfg.MaxIterationCount = (int)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.MaxIterationCount;
                         break;
 
                     case "Offset [mL]":
-                        RefTitration.InjectionInfo.Offset = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.Offset;
+                        Ref_TtrCfg.InjectionInfo.Offset = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.Offset;
                         break;
 
                     case "Large to Middle":
-                        RefTitration.InjectionInfo.IncThreshold_ChangeToMiddle = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.IncThreshold_ChangeToMiddle;
+                        Ref_TtrCfg.InjectionInfo.IncThreshold_ChangeToMiddle = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.IncThreshold_ChangeToMiddle;
                         break;
 
                     case "Middle to Small":
-                        RefTitration.InjectionInfo.IncThreshold_ChangeToSmall = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.IncThreshold_ChangeToSmall;
+                        Ref_TtrCfg.InjectionInfo.IncThreshold_ChangeToSmall = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.IncThreshold_ChangeToSmall;
                         break;
 
                     case "Large":
-                        RefTitration.InjectionInfo.Inc_Large = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.Inc_Large;
+                        Ref_TtrCfg.InjectionInfo.Inc_Large = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.Inc_Large;
                         break;
 
                     case "Middle":
-                        RefTitration.InjectionInfo.Inc_Middle = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.Inc_Middle;
+                        Ref_TtrCfg.InjectionInfo.Inc_Middle = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.Inc_Middle;
                         break;
 
                     case "Small":
-                        RefTitration.InjectionInfo.Inc_Small = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.InjectionInfo.Inc_Small;
+                        Ref_TtrCfg.InjectionInfo.Inc_Small = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.InjectionInfo.Inc_Small;
                         break;
 
                     case "Reference":
-                        RefTitration.ValidationInfo.ReferenceValue = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.ValidationInfo.ReferenceValue;
+                        Ref_TtrCfg.ValidationInfo.ReferenceValue = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.ValidationInfo.ReferenceValue;
                         break;
 
                     case "Low":
-                        RefTitration.ValidationInfo.Limit_Low = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.ValidationInfo.Limit_Low;
+                        Ref_TtrCfg.ValidationInfo.Limit_Low = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.ValidationInfo.Limit_Low;
                         break;
 
                     case "High":
-                        RefTitration.ValidationInfo.Limit_High = (double)nKeyPad.NewValue;
-                        objOrg = OrgTitration_ToCompare.ValidationInfo.Limit_High;
+                        Ref_TtrCfg.ValidationInfo.Limit_High = (double)nKeyPad.NewValue;
+                        objOrg = Org_TtrCfg_ToCompare.ValidationInfo.Limit_High;
                         break;
                 }
                 cmpVal.Prm_Value = nKeyPad.NewValue;
@@ -275,23 +282,23 @@ namespace L_Titrator.Pages
             switch (cmpCol.Prm_Name)
             {
                 case "Sensor":
-                    RefTitration.AnalogInfo.AnalogInputLogicalName = (string)changedValue;
-                    objOrg = OrgTitration_ToCompare.AnalogInfo.AnalogInputLogicalName;
+                    Ref_TtrCfg.AnalogInfo.AnalogInputLogicalName = (string)changedValue;
+                    objOrg = Org_TtrCfg_ToCompare.AnalogInfo.AnalogInputLogicalName;
                     break;
 
                 case "Syringe":
-                    RefTitration.InjectionInfo.ReagentSyringeLogicalName = (string)changedValue;
-                    objOrg = OrgTitration_ToCompare.InjectionInfo.ReagentSyringeLogicalName;
+                    Ref_TtrCfg.InjectionInfo.ReagentSyringeLogicalName = (string)changedValue;
+                    objOrg = Org_TtrCfg_ToCompare.InjectionInfo.ReagentSyringeLogicalName;
                     break;
 
                 case "Enable Interpolation":
-                    RefTitration.EnableInterpolation = (bool)changedValue;
-                    objOrg = OrgTitration_ToCompare.EnableInterpolation;
+                    Ref_TtrCfg.EnableInterpolation = (bool)changedValue;
+                    objOrg = Org_TtrCfg_ToCompare.EnableInterpolation;
                     break;
 
                 case "Enable Validation":
-                    RefTitration.ValidationInfo.Enabled = (bool)changedValue;
-                    objOrg = OrgTitration_ToCompare.ValidationInfo.Enabled;
+                    Ref_TtrCfg.ValidationInfo.Enabled = (bool)changedValue;
+                    objOrg = Org_TtrCfg_ToCompare.ValidationInfo.Enabled;
                     break;
             }
             cmpCol.Color_Name = objNew.Equals(objOrg) ? Color.LemonChiffon : Color.DarkOrange;
@@ -321,6 +328,14 @@ namespace L_Titrator.Pages
                     break;
             }
             return valObj;
+        }
+
+        public void Update_RefObject_ToCompare()
+        {
+            // Page가 보여지고 있는 상태에서 값을 바꾸고 저장한 뒤 다시 값을 바꾸는 경우,
+            // Page를 보여줄때 복사해둔 저장하기 전의 객체와 비교하면서 잘못된 비교 결과를 얻는다.
+            // 따라서 저장한 이후에 저장한 객체를 비교 원본에 다시 복사하여 갱신한다.
+            OrgStep_ToCompare = (Step)RefStep.Clone();
         }
 
         private void UsrCtrl_Recipe_StepDetail_Titration_VisibleChanged(object sender, EventArgs e)
